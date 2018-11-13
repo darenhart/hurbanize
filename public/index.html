@@ -3,16 +3,109 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <meta name="theme-color" content="#987fff">
-    <title>snapwat</title>
+    <title>hurbanize</title>
     <link rel="manifest" href="manifest.json">
     <link rel="stylesheet" href="css/styles.css"/>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700,300,400italic,700italic,300italic,600,600italic,800,800italic"/>
     <link rel="icon" href="images/favicon.png" type="image/png"/>
     <link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon-precomposed.png">
   </head>
   <body>
 
-    <header>
+    <div id="page-home" class="page page-modal">
+      <div class="modal">
+        <div class="logo"></div>
+        <h4>O Hurbanize é para você idealizar a cidade de forma divertida :D</h4>
+        <h4>Escolha um cenário, pinte para setorizar e aplique ilustrações!</h4>
+        <div>
+          <button class="btn btn-primary" id="btn-start-app">Começar</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="page-select-image" class="page">
+      <h2>Escolha um cenário :)</h2>
+      <div class="scrolling-wrapper-flexbox">
+        <div class="card">
+          <img src="images/scenarios/scen1.jpg">
+          <p>Porto Alegre, RS</p>
+          <p>Avenida João Pessoa</p>
+        </div>
+        <div class="card">
+          <img src="images/scenarios/scen1.jpg">
+          <p>Porto Alegre, RS</p>
+          <p>Avenida João Pessoa</p>
+        </div>
+      </div>
+    </div>
+
+    <div id="page-annotate" class="page">
+      <div class="centre" id="annotate-camera-container">
+        <canvas id="canvas-camera"></canvas>
+      </div>
+      <div class="centre">
+        <canvas id="canvas-draw"></canvas>
+        <canvas id="canvas-emoji"></canvas>
+      </div>
+    </div>
+
+    <div id="page-snapshot" class="page">
+      <div class="centre">
+        <img id="image-save"/>
+      </div>
+      <canvas id="canvas-save"></canvas>
+    </div>
+
+    <div id="page-share" class="page">
+      <img id="share-preview" src=""/>
+      <textarea id="share-text" maxlength="140"> #snapwat</textarea>
+      <button id="share-submit">Submit</button>
+    </div>
+
+    <div class="prompt" id="prompt-snapshot">
+      <p>Tap-and-hold or right click the image to save it.</p>
+    </div>
+    <div class="prompt" id="prompt-tweeting">
+      <p>Posting tweet...</p>
+    </div>
+    <div class="prompt" id="prompt-tweet-ok">
+      <p>Successfully tweeted.</p>
+    </div>
+    <div class="prompt" id="prompt-tweet-error">
+      <p>Unable to send tweet. Sorry =(</p>
+    </div>
+    <div class="prompt" id="prompt-webrtc-unsupported">
+      <p>Oh no! Your browser does not appear to have camera support (getUserMedia) =(</p>
+    </div>
+
+
+
+
+    <div id="modal-emoji" class="modal" style="display:none">
+      <!-- Emoji images are dynamically populated by JavaScript -->
+    </div>
+
+    <div id="modal-tools" class="modal" style="display:none">
+      <button id="btn-pencil" class="selected"><img src="images/iconic/pencil.svg" alt="Pencil"/>Pencil</button>
+      <button id="btn-brush"><img src="images/iconic/brush.svg" alt="Brush"/>Brush</button>
+      <button id="btn-emoji"><img id="btn-emoji-img" src="images/emoji/f1.svg" alt="Emoji"/>Emojis</button>
+    </div>
+
+    <div id="modal-options" class="modal" style="display:none">
+      <div id="input-colour-container" class="input-container" class="selected">
+        <input id="input-colour" type="color"/>
+        <div id="input-colour-substitute"></div>
+        <label for="input-colour">Colour</label>
+      </div>
+      <div id="input-size-container" class="input-container">
+        <input id="input-size" type="range" min="1" max="20"/>
+        <label for="input-size">Size: <span id="size-output"></span></label>
+      </div>
+    </div>
+
+
+
+
+    <header style="display:none">
       <div class="toolbar" id="toolbar-annotate">
         <div class="left">
           <button id="btn-tools"><img src="images/iconic/pencil.svg" alt="Tools"/>Tools</button>
@@ -42,96 +135,7 @@
       </div>
     </header>
 
-    <div id="page-home" class="page">
-      <h1>sna<strong>pwa</strong>t</h1>
-      <h2><em>Draw on your photos and add emojis!</em></h2>
-      <div id="select-photo">
-        <div class="file-input">
-          <input type="file" id="input-photo" accept="image/*"/>
-          <label for="input-photo">Choose or take a photo</label>
-        </div>
-      </div>
-      <div id="start-camera">
-        <button id="btn-start-camera">Or switch on your camera</button>
-      </div>
-      <div class="footer">
-        <p class="info">All photos will remain strictly private, unless you choose to share them later. <a href="#" id="link-about">More information</a>.</p>
-        By <a href="https://twitter.com/poshaughnessy">@poshaughnessy</a> from <a href="https://twitter.com/samsunginternet">@samsunginternet</a> &middot; <a href="https://github.com/samsunginternet/snapwat">Source code on Github</a>
-      </div>
-    </div>
 
-    <div id="page-annotate" class="page">
-      <div class="centre" id="annotate-camera-container">
-        <canvas id="canvas-camera"></canvas>
-      </div>
-      <div class="centre">
-        <canvas id="canvas-draw"></canvas>
-        <canvas id="canvas-emoji"></canvas>
-      </div>
-      <video autoplay/>
-    </div>
-
-    <div id="page-snapshot" class="page">
-      <div class="centre">
-        <img id="image-save"/>
-      </div>
-      <canvas id="canvas-save"></canvas>
-    </div>
-
-    <div id="page-share" class="page">
-      <img id="share-preview" src=""/>
-      <textarea id="share-text" maxlength="140"> #snapwat</textarea>
-      <button id="share-submit">Submit</button>
-    </div>
-
-    <div id="page-about" class="page">
-      <h2>About Snapwat</h2>
-      <p>Snapwat is a &ldquo;Progressive Web App&rdquo; demo. The source code is shared at:
-        <a href="https://github.com/samsunginternet/snapwat">github.com/samsunginternet/snapwat</a>.</p>
-      <p>The app functions purely in your own web browser (except for Twitter authentication if you choose to
-        do that). If you do not choose to share your photos, they will remain only on your phone.
-      </p>
-      <p>For questions or feedback, please contact the developer <a href="https://twitter.com/poshaughnessy">Peter O'Shaughnessy</a>.</p>
-      <button id="link-home">Back</button>
-    </div>
-
-    <div class="prompt" id="prompt-snapshot">
-      <p>Tap-and-hold or right click the image to save it.</p>
-    </div>
-    <div class="prompt" id="prompt-tweeting">
-      <p>Posting tweet...</p>
-    </div>
-    <div class="prompt" id="prompt-tweet-ok">
-      <p>Successfully tweeted.</p>
-    </div>
-    <div class="prompt" id="prompt-tweet-error">
-      <p>Unable to send tweet. Sorry =(</p>
-    </div>
-    <div class="prompt" id="prompt-webrtc-unsupported">
-      <p>Oh no! Your browser does not appear to have camera support (getUserMedia) =(</p>
-    </div>
-
-    <div id="modal-tools" class="modal">
-      <button id="btn-pencil" class="selected"><img src="images/iconic/pencil.svg" alt="Pencil"/>Pencil</button>
-      <button id="btn-brush"><img src="images/iconic/brush.svg" alt="Brush"/>Brush</button>
-      <button id="btn-emoji"><img id="btn-emoji-img" src="images/emoji/f1.svg" alt="Emoji"/>Emojis</button>
-    </div>
-
-    <div id="modal-options" class="modal">
-      <div id="input-colour-container" class="input-container" class="selected">
-        <input id="input-colour" type="color"/>
-        <div id="input-colour-substitute"></div>
-        <label for="input-colour">Colour</label>
-      </div>
-      <div id="input-size-container" class="input-container">
-        <input id="input-size" type="range" min="1" max="20"/>
-        <label for="input-size">Size: <span id="size-output"></span></label>
-      </div>
-    </div>
-
-    <div id="modal-emoji" class="modal">
-      <!-- Emoji images are dynamically populated by JavaScript -->
-    </div>
 
     <script src="build/bundle.js"></script>
   </body>

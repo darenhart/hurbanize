@@ -3,9 +3,10 @@ import {PAGES, HEADER_HEIGHT} from '../shared/constants';
 import {setLiveCamera} from '../shared/config';
 import {showPage} from '../shared/helpers';
 import AnnotatePage from './annotate';
-import AboutPage from './about';
+import SelectImagePage from './selectImage';
 
 const PAGE_NAME = PAGES.HOME;
+//const PAGE_NAME = PAGES.SELECTIMAGE;
 
 let inputPhoto = document.getElementById('input-photo');
 let startCameraSection = document.getElementById('start-camera');
@@ -14,7 +15,7 @@ let annotateCameraContainer = document.getElementById('annotate-camera-container
 let cameraCanvas = document.getElementById('canvas-camera');
 let drawCanvas = document.getElementById('canvas-draw');
 let emojiCanvas = document.getElementById('canvas-emoji'); 
-let aboutLink = document.getElementById('link-about');
+let startBtn = document.getElementById('btn-start-app');
 
 function onPhotoInputChange(e) {
 
@@ -72,21 +73,10 @@ function initCanvas() {
 
 function initControls() {
 
-  inputPhoto.addEventListener('change', onPhotoInputChange);
-
-  if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-    // Looks like we have support, so enable WebRTC button
-    startCameraSection.style.display = 'block';
-  }
-
-  startCameraBtn.addEventListener('click', function () {
-    setLiveCamera(true);
-    AnnotatePage.show();
-  });
-
-  aboutLink.addEventListener('click', function () {
-    AboutPage.show();
+  startBtn.addEventListener('click', function () {
+    SelectImagePage.show();
   })
+
 
 }
 

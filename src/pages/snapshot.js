@@ -1,6 +1,5 @@
 import * as hellojs from 'hellojs';
 import {HEADER_HEIGHT} from '../shared/constants';
-import {playCameraSound} from '../shared/audio';
 import AnnotatePage from './annotate';
 import SharePage from './share';
 import {PAGES} from '../shared/constants';
@@ -65,8 +64,6 @@ export default {
   },
 
   show: function() {
-
-    playCameraSound();
 
     initSave();
 

@@ -57,7 +57,7 @@ export function showPrompt(ref) {
 }
 
 export function showPage(pageRef) {
-  updateToolbarVisibility(pageRef);
+  //updateToolbarVisibility(pageRef);
   updatePageVisibility(pageRef);
-  showPrompt(pageRef);
+  //showPrompt(pageRef);
 }

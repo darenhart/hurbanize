@@ -1,11 +1,11 @@
 {
-  "name": "Snapwat",
-  "short_name": "Snapwat",
+  "name": "Hurbanize",
+  "short_name": "Hurbanize",
   "start_url": ".",
   "display": "standalone",
-  "background_color": "#987fff",
-  "theme_color": "#987fff",
-  "description": "A doodling app for the web. A Progressive Web App demo.",
+  "background_color": "#B649D6",
+  "theme_color": "#B649D6",
+  "description": "Hurbanize description. A Progressive Web App.",
   "icons": [
     {
       "src": "images/homescreen/192.png",

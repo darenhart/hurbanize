@@ -5,5 +5,6 @@ export const PAGES = {
   ANNOTATE: 'annotate',
   SNAPSHOT: 'snapshot',
   SHARE: 'share',
-  ABOUT: 'about'
+  ABOUT: 'about',
+  SELECTIMAGE: 'select-image'
 };
