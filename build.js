@@ -39,7 +39,14 @@ rollup.rollup({
       patterns: [
         'public/images/emoji/*.svg'
       ]
+    }),
+    generateFileList({
+      id: '\0scenarios',
+      patterns: [
+        'public/images/scenarios/*'
+      ]
     })
+
   ]
 }).then(bundle => {
   bundle.write({

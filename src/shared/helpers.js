@@ -23,6 +23,7 @@ function hide(elements) {
   }
 }
 
+/*
 function updateToolbarVisibility(pageRef) {
   hide(toolbars);
   let toolbar = document.getElementById(`toolbar-${pageRef}`);
@@ -30,6 +31,7 @@ function updateToolbarVisibility(pageRef) {
     toolbar.style.display = 'flex';
   }
 }
+*/
 
 function updatePageVisibility(pageRef) {
   hide(pages);

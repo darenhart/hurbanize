@@ -24,17 +24,8 @@
 
     <div id="page-select-image" class="page">
       <h2>Escolha um cenário :)</h2>
-      <div class="scrolling-wrapper-flexbox">
-        <div class="card">
-          <img src="images/scenarios/scen1.jpg">
-          <p>Porto Alegre, RS</p>
-          <p>Avenida João Pessoa</p>
-        </div>
-        <div class="card">
-          <img src="images/scenarios/scen1.jpg">
-          <p>Porto Alegre, RS</p>
-          <p>Avenida João Pessoa</p>
-        </div>
+      <div id="scenario-list" class="scrolling-wrapper-flexbox">
+        <!-- Emoji images are dynamically populated by JavaScript -->
       </div>
     </div>
 
@@ -46,6 +37,18 @@
         <canvas id="canvas-draw"></canvas>
         <canvas id="canvas-emoji"></canvas>
       </div>
+
+      <div id="toolbar-annotate">
+        <div class="left">
+          <button id="btn-tools"><img src="images/iconic/pencil.svg" alt="Tools"/>Tools</button>
+          <button id="btn-options"><img src="images/iconic/wrench.svg" alt="Options"/>Options</button>
+          <button id="btn-trash"><img src="images/iconic/trash.svg" alt="Clear"/>Clear</button>
+        </div>
+        <div class="right">
+          <button id="btn-snapshot"><img src="images/iconic/arrow-right.svg" alt="Proceed"/>Next</button>
+        </div>
+      </div>
+
     </div>
 
     <div id="page-snapshot" class="page">
@@ -105,7 +108,8 @@
 
 
 
-    <header style="display:none">
+    <header>
+      <!--
       <div class="toolbar" id="toolbar-annotate">
         <div class="left">
           <button id="btn-tools"><img src="images/iconic/pencil.svg" alt="Tools"/>Tools</button>
@@ -116,13 +120,14 @@
           <button id="btn-snapshot"><img src="images/iconic/arrow-right.svg" alt="Proceed"/>Next</button>
         </div>
       </div>
+    -->
       <div class="toolbar" id="toolbar-snapshot">
         <div class="left">
           <button id="btn-back-snapshot" class="btn-back"><img src="images/iconic/arrow-left.svg" alt="Back"/>Back</button>
         </div>
         <h2>Your Snapwat</h2>
         <div class="right">
-          <button id="btn-share-twitter"><img src="images/twitter-logo.svg" alt="Tweet">Tweet it</button>
+          <button id="btn-share-twitter">Tweet it</button>
         </div>
       </div>
       <div class="toolbar" id="toolbar-share">

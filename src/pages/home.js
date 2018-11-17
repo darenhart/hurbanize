@@ -17,6 +17,7 @@ let drawCanvas = document.getElementById('canvas-draw');
 let emojiCanvas = document.getElementById('canvas-emoji'); 
 let startBtn = document.getElementById('btn-start-app');
 
+/*
 function onPhotoInputChange(e) {
 
   console.log('Min width and height', cameraCanvas.width, cameraCanvas.height);
@@ -65,6 +66,8 @@ function onPhotoInputChange(e) {
   LoadImage(e.target.files[0], onImageLoad, options);
 
 }
+
+*/
 
 function initCanvas() {
   cameraCanvas.width = window.innerWidth;
