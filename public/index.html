@@ -30,22 +30,29 @@
     </div>
 
     <div id="page-annotate" class="page">
-      <div class="centre" id="annotate-camera-container">
+      <div class="p-absolute" id="annotate-camera-container">
         <canvas id="canvas-camera"></canvas>
       </div>
-      <div class="centre">
+      <div class="p-absolute">
         <canvas id="canvas-draw"></canvas>
         <canvas id="canvas-emoji"></canvas>
       </div>
 
       <div id="toolbar-annotate">
-        <div class="left">
-          <button id="btn-tools"><img src="images/iconic/pencil.svg" alt="Tools"/>Tools</button>
-          <button id="btn-options"><img src="images/iconic/wrench.svg" alt="Options"/>Options</button>
-          <button id="btn-trash"><img src="images/iconic/trash.svg" alt="Clear"/>Clear</button>
+        <div>
+          <button class="btn" id="btn-draw-tools">
+            <img src="images/caneta.svg" alt="Caneta"/>
+            caneta
+          </button>
+          <button class="btn" id="btn-figures">
+            <img src="images/figuras.svg" alt="figuras"/>
+            figuras
+          </button>
         </div>
-        <div class="right">
-          <button id="btn-snapshot"><img src="images/iconic/arrow-right.svg" alt="Proceed"/>Next</button>
+        <div>
+          <button class="btn btn-primary" id="btn-snapshot">
+            Compartilhar
+          </button>
         </div>
       </div>
 
@@ -83,11 +90,11 @@
 
 
 
-    <div id="modal-emoji" class="modal" style="display:none">
+    <div id="modal-emoji" class="modal" style="display:none;">
       <!-- Emoji images are dynamically populated by JavaScript -->
     </div>
 
-    <div id="modal-tools" class="modal" style="display:none">
+    <div id="modal-tools" class="modal">
       <button id="btn-pencil" class="selected"><img src="images/iconic/pencil.svg" alt="Pencil"/>Pencil</button>
       <button id="btn-brush"><img src="images/iconic/brush.svg" alt="Brush"/>Brush</button>
       <button id="btn-emoji"><img id="btn-emoji-img" src="images/emoji/f1.svg" alt="Emoji"/>Emojis</button>
@@ -109,7 +116,7 @@
 
 
     <header>
-      <!--
+      
       <div class="toolbar" id="toolbar-annotate">
         <div class="left">
           <button id="btn-tools"><img src="images/iconic/pencil.svg" alt="Tools"/>Tools</button>
@@ -120,7 +127,7 @@
           <button id="btn-snapshot"><img src="images/iconic/arrow-right.svg" alt="Proceed"/>Next</button>
         </div>
       </div>
-    -->
+    
       <div class="toolbar" id="toolbar-snapshot">
         <div class="left">
           <button id="btn-back-snapshot" class="btn-back"><img src="images/iconic/arrow-left.svg" alt="Back"/>Back</button>

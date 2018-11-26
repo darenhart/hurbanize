@@ -29,9 +29,11 @@ export default {
 
     showPage(PAGE_NAME);
 
+    /*
     if (isLiveCamera()) {
       LiveCamera();
     }
+    */
 
     Draw.show();
 

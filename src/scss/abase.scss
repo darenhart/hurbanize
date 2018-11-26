@@ -1,3 +1,14 @@
+$purple: #B649D6;
+$red: #FF2626;
+$pink: #EBBE8B;
+$green: #55C53E;
+$blue: #4390CB;
+$greyDark: #989898;
+$grey: #F1F1F1;
+$whiteDark: #F9F9F9;
+$white: #FFFFFF;
+
+
 html {
   height: 100%;
   overflow: hidden;
@@ -26,10 +37,10 @@ body {
 }
 
 .page-modal {
-  background-color: #989898;
+  background-color: $greyDark;
 
   >div {
-    background-color: #FFF;
+    background-color: $white;
     margin: 2rem 2rem;
     padding-top: 0rem;
     padding-left: 1rem;
@@ -42,11 +53,18 @@ body {
   border-radius: 11px;
   border: 0;
   padding: 1rem 2rem;
-  color: #FFF;
+  color: $white;
+  background-color: $whiteDark;
 }
 
 .btn-primary {
-  background-color: #B649D6;
+  background-color: $purple;
+}
+
+.p-absolute {
+  position: absolute;
+  width: 100%;
+  height: 100%;  
 }
 
 .centre {
@@ -62,57 +80,6 @@ body {
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-}
-
-.scrolling-wrapper-flexbox {
-  display: flex;
-  flex-wrap: nowrap;
-  overflow-x: auto;
-  width: 100%;
-  max-height: 80%;
-  -webkit-overflow-scrolling: touch;
-  &::-webkit-scrollbar {
-    display: none;
-  }
-
-  .card {
-    flex: 0 0 auto;
-    margin: 1rem .5rem;
-    border-radius: .5rem;
-    box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
-    img {
-      max-height: 17rem;
-      border-radius: .5rem;
-    }
-  }
-}
-
-#page-home {
-  .logo {
-    width: 100%;
-    height: 8rem;
-    background: url(../images/hurbanize.svg) no-repeat;
-    background-size: 100%;
-    background-position: center;
-    margin: auto;
-    max-width: 25rem;
-  }
-}
-
-#canvas-camera {
-  z-index: -1;
-  pointer-events: none;
-  object-fit: contain;
-}
-
-#canvas-draw {
-  z-index: 1;
-  position: absolute;
-}
-
-#canvas-emoji {
-  z-index: 2;
-  position: absolute;
 }
 
 #image-save {

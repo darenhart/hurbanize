@@ -97,7 +97,6 @@ function onDrawingMouseDown(coords) {
   ctxDraw.moveTo(x, y);
 
   isDrawing = true;
-
 }
 
 function closeModals() {
@@ -413,8 +412,8 @@ export default {
     }
 
     // Hacky fix for some browsers no longer observing the centred position with position: absolute
-    canvasDraw.setAttribute('style', `left: calc(50% - ${canvasDraw.width / 2}px); top: calc(50% - ${canvasDraw.height / 2}px)`);
-    canvasEmoji.setAttribute('style', `left: calc(50% - ${canvasEmoji.width / 2}px); top: calc(50% - ${canvasEmoji.height / 2}px)`);
+    //canvasDraw.setAttribute('style', `left: calc(50% - ${canvasDraw.width / 2}px); top: calc(50% - ${canvasDraw.height / 2}px)`);
+    //canvasEmoji.setAttribute('style', `left: calc(50% - ${canvasEmoji.width / 2}px); top: calc(50% - ${canvasEmoji.height / 2}px)`);
 
   },
 

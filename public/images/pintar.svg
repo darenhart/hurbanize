@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17.249 26">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #b649d6;
+      }
+    </style>
+  </defs>
+  <g id="pintar" transform="translate(-127 -474)">
+    <rect id="Rectangle_950" data-name="Rectangle 950" class="cls-1" width="9.569" height="5.729" transform="translate(130.84 484.199)"/>
+    <path id="Path_4890" data-name="Path 4890" class="cls-1" d="M0,36.484v-1.2l.63-1.2.63-1.385,2.2-4.407H13.787l2.9,5.792H16.62l.63,1.2v1.2H0Z" transform="translate(127 463.516)"/>
+    <path id="Path_4891" data-name="Path 4891" class="cls-1" d="M9.1,8.247V2.9L14.892,0V8.247Z" transform="translate(123.629 474)"/>
+  </g>
+</svg>
