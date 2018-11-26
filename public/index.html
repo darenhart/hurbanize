@@ -30,26 +30,26 @@
     </div>
 
     <div id="page-annotate" class="page">
-      <div class="p-absolute" id="annotate-camera-container">
-        <canvas id="canvas-camera"></canvas>
-      </div>
-      <div class="p-absolute">
-        <canvas id="canvas-draw"></canvas>
-        <canvas id="canvas-emoji"></canvas>
+      <div id="inner-annotate">
+        <div class="p-absolute" id="annotate-camera-container">
+          <canvas id="canvas-camera"></canvas>
+        </div>
+        <div class="p-absolute">
+          <canvas id="canvas-draw"></canvas>
+          <canvas id="canvas-emoji"></canvas>
+        </div>
       </div>
 
       <div id="toolbar-annotate">
-        <div>
-          <button class="btn" id="btn-draw-tools">
-            <img src="images/caneta.svg" alt="Caneta"/>
-            caneta
-          </button>
-          <button class="btn" id="btn-figures">
-            <img src="images/figuras.svg" alt="figuras"/>
-            figuras
-          </button>
+        <div class="row btn-tools">
+          <div class="col">
+            <button class="btn" id="btn-draw-tools"></button>
+          </div>
+          <div class="col">
+            <button class="btn" id="btn-figures"></button>
+          </div>
         </div>
-        <div>
+        <div class="btn-share">
           <button class="btn btn-primary" id="btn-snapshot">
             Compartilhar
           </button>

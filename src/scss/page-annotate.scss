@@ -1,17 +1,23 @@
-#page-annotate {    
-  #canvas-camera {
-    z-index: -1;
-    pointer-events: none;
-    object-fit: contain;
-  }
+#page-annotate {
 
-  #canvas-draw {
-    z-index: 1;
-    position: absolute;
-  }
+  #inner-annotate {
+    height: $innerAnnotateHeight;
 
-  #canvas-emoji {
-    z-index: 2;
-    position: absolute;
+    #canvas-camera {
+      z-index: -1;
+      pointer-events: none;
+      object-fit: contain;
+    }
+
+    #canvas-draw {
+      z-index: 1;
+      position: absolute;
+    }
+
+    #canvas-emoji {
+      z-index: 2;
+      position: absolute;
+    }
+
   }
 }

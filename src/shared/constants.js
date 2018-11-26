@@ -1,4 +1,5 @@
-export const HEADER_HEIGHT = 72;
+//export const HEADER_HEIGHT = 72;
+export const HEADER_HEIGHT = 0;
 
 export const PAGES = {
   HOME: 'home',

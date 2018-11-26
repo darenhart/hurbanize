@@ -4,6 +4,7 @@ import {showPage} from '../shared/helpers';
 import scenariosImages from '\0scenarios';
 import AnnotatePage from './annotate';
 
+
 const PAGE_NAME = PAGES.SELECTIMAGE;
 
 let scenarioList = document.getElementById('scenario-list');

@@ -5,17 +5,19 @@ import {showPage} from '../shared/helpers';
 import AnnotatePage from './annotate';
 import SelectImagePage from './selectImage';
 
-const PAGE_NAME = PAGES.HOME;
-//const PAGE_NAME = PAGES.SELECTIMAGE;
+//const PAGE_NAME = PAGES.HOME;
+const PAGE_NAME = PAGES.SELECTIMAGE;
 
 let inputPhoto = document.getElementById('input-photo');
 let startCameraSection = document.getElementById('start-camera');
 let startCameraBtn = document.getElementById('btn-start-camera');
-let annotateCameraContainer = document.getElementById('annotate-camera-container');
+//let annotateCameraContainer = document.getElementById('annotate-camera-container');
 let cameraCanvas = document.getElementById('canvas-camera');
 let drawCanvas = document.getElementById('canvas-draw');
 let emojiCanvas = document.getElementById('canvas-emoji'); 
 let startBtn = document.getElementById('btn-start-app');
+
+let innerAnnotate = document.getElementById('inner-annotate');
 
 /*
 function onPhotoInputChange(e) {
@@ -71,7 +73,7 @@ function onPhotoInputChange(e) {
 
 function initCanvas() {
   cameraCanvas.width = window.innerWidth;
-  cameraCanvas.height = window.innerHeight - HEADER_HEIGHT;
+  cameraCanvas.height = window.innerHeight * (70/100);
 }
 
 function initControls() {

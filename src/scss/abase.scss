@@ -8,6 +8,7 @@ $grey: #F1F1F1;
 $whiteDark: #F9F9F9;
 $white: #FFFFFF;
 
+$innerAnnotateHeight: 70%;
 
 html {
   height: 100%;
@@ -63,8 +64,8 @@ body {
 
 .p-absolute {
   position: absolute;
-  width: 100%;
-  height: 100%;  
+//  width: 100%;
+//  height: 100%;  
 }
 
 .centre {

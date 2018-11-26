@@ -1,11 +1,40 @@
 #toolbar-annotate {
+  //height: 100% - $innerAnnotateHeight;
+
   background-color: blue;
-  position: fixed;
+  //position: fixed;
   width: 100%;
-  bottom: 0px;
-  padding: 1rem;
+  //bottom: 0px;
 
-  .btn {
+  .row {
+    display: flex;
+  }
+  .col {
+    width: 50%;
+    padding: .5rem;
+  }
 
+  .btn-tools button {
+    width: 100%;
+    min-height: 4rem;
+    padding: .5rem;
+    background-size: 18%;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  #btn-draw-tools {
+    background-image: url('../images/caneta.svg');
+  }
+
+  #btn-figures {
+    background-image: url('../images/figuras.svg'); 
+  }
+
+  .btn-share {
+    padding: .5rem;
+    button {
+      width: 100%;
+    }
   }
 }
