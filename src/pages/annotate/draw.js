@@ -5,11 +5,21 @@ import {isLiveCamera} from '../../shared/config';
 const DEFAULT_COLOUR = '#000000';
 const DEFAULT_EMOJI_SIZE = 120;
 const DEFAULT_EMOJI_FONT = 'arial';
-const DEFAULT_LINE_WIDTH = 4;
+const DEFAULT_LINE_WIDTH = 10;
 
 const TOOL_PENCIL = 0;
 const TOOL_BRUSH = 1;
 const TOOL_EMOJI = 2;
+
+let colors = {
+  'white': '#FFFFFF',
+  'blue': '#4390CB',
+  'green': '#55C53E',
+  'beige': '#EBBE8B',
+  'grey': '#989898',
+  'red': '#FF2626',
+  'purple': '#B649D6'
+};
 
 let currentColor = DEFAULT_COLOUR;
 
@@ -39,6 +49,7 @@ let toolsDraw = document.getElementById('tools-draw');
 let toolsOptions = document.getElementById('tools-options');
 let toolsDrawBtn = document.getElementById('btn-tools-draw');
 let confirmBtn = document.getElementById('btn-confirm');
+let figuresBtn = document.getElementById('btn-figures');
 
 
 let touchedEmojiIndex = -1;
@@ -351,15 +362,6 @@ function initEmojis() {
 
 function initColors() {
   let html = '';
-  let colors = {
-    'white': '#FFFFFF',
-    'blue': '#4390CB',
-    'green': '#55C53E',
-    'beige': '#EBBE8B',
-    'grey': '#989898',
-    'red': '#FF2626',
-    'purple': '#B649D6'
-  };
   for(let color in colors) {
     html += `
       <div class="col">
@@ -392,7 +394,10 @@ function initControls() {
     });
   }
 
-
+  figuresBtn.addEventListener('click', () => {
+    emojiModal.classList.toggle('show');
+    //toolsModal.classList.toggle('show');
+  });
 
   // Add click handlers to emojis so you can select one
   let availableEmojis = document.querySelectorAll('#modal-emoji img');
@@ -401,10 +406,10 @@ function initControls() {
     emoji.addEventListener('click', onNewEmojiClick);
   }
 
-  emojiMenuButton.addEventListener('click', () => {
-    emojiModal.classList.toggle('show');
-    toolsModal.classList.toggle('show');
-  });
+
+
+
+
 
   pencilButton.addEventListener('click', () => {
     chosenTool = TOOL_PENCIL;

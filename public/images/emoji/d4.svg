@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40.44 80">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #4e270a;
+      }
+
+      .cls-2 {
+        fill: #d07b38;
+      }
+    </style>
+  </defs>
+  <g id="d4" transform="translate(-46 -954)">
+    <path id="Path_4027" data-name="Path 4027" class="cls-1" d="M236.551,256.562l2.8-24.348-3.108-.414-2.487,21.654H209.095L206.608,231.8l-3.108.414,2.8,24.348h30.254Z" transform="translate(-155.428 758.256)"/>
+    <rect id="Rectangle_716" data-name="Rectangle 716" class="cls-1" width="3.108" height="79.986" transform="translate(46 954)"/>
+    <rect id="Rectangle_717" data-name="Rectangle 717" class="cls-1" width="3.108" height="79.986" transform="translate(86.44 1034) rotate(180)"/>
+    <path id="Path_4028" data-name="Path 4028" class="cls-2" d="M237.867,224.2H205.541L201.5,236.737h40.407Z" transform="translate(-155.5 757.981)"/>
+    <path id="Path_4029" data-name="Path 4029" class="cls-2" d="M221.911,197H201.5v13.676h40.407V197Z" transform="translate(-155.5 757)"/>
+    <rect id="Rectangle_718" data-name="Rectangle 718" class="cls-1" width="40.407" height="1.14" transform="translate(46 994.718)"/>
+    <rect id="Rectangle_719" data-name="Rectangle 719" class="cls-1" width="38.335" height="3.108" transform="translate(47.554 1019.584)"/>
+  </g>
+</svg>

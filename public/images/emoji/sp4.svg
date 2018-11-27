@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.674 100">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #161413;
+      }
+
+      .cls-2 {
+        fill: #383232;
+      }
+
+      .cls-3 {
+        fill: #f5e67c;
+      }
+
+      .cls-4 {
+        fill: #fae844;
+      }
+    </style>
+  </defs>
+  <g id="sp4" transform="translate(-57 -1363)">
+    <path id="Path_4141" data-name="Path 4141" class="cls-1" d="M344.533,729.039H330L332.477,706h9.579Z" transform="translate(-270.44 729.75)"/>
+    <g id="Group_1951" data-name="Group 1951" transform="translate(59.477 1454.577)">
+      <ellipse id="Ellipse_178" data-name="Ellipse 178" class="cls-1" cx="7.267" cy="3.964" rx="7.267" ry="3.964" transform="translate(0.083)"/>
+      <path id="Path_4142" data-name="Path 4142" class="cls-2" d="M329.983,734.048v.248c.083,2.147,3.3,3.8,7.267,3.8s7.1-1.734,7.267-3.8v-.33a3.926,3.926,0,0,1-2.56,2.725h0l-.5.248h0c-.083,0-.083.083-.165.083h0c-.083,0-.083,0-.165.083h0c-.083,0-.248.083-.33.083h0c-.083,0-.083,0-.165.083h-.165c-.165,0-.248.083-.413.083H335.6a.619.619,0,0,1-.413-.083h-.248a.3.3,0,0,1-.248-.083h-.33a.3.3,0,0,1-.248-.083h0c-.083,0-.165,0-.165-.083h-.083c-.165,0-.248-.083-.413-.083h0c-.083,0-.083,0-.165-.083h0c-1.9-.661-3.22-1.734-3.386-3.055C329.983,733.965,329.983,733.965,329.983,734.048Z" transform="translate(-329.9 -729.671)"/>
+    </g>
+    <ellipse id="Ellipse_179" data-name="Ellipse 179" class="cls-2" cx="4.789" cy="0.991" rx="4.789" ry="0.991" transform="translate(62.037 1434.759)"/>
+    <path id="Path_4143" data-name="Path 4143" class="cls-1" d="M338.33,694.148a10.35,10.35,0,0,1-2.23-.248V639.4h4.377v54.5A5.912,5.912,0,0,1,338.33,694.148Z" transform="translate(-271.503 741.354)"/>
+    <circle id="Ellipse_180" data-name="Ellipse 180" class="cls-3" cx="9.827" cy="9.827" r="9.827" transform="translate(57 1363)"/>
+    <circle id="Ellipse_181" data-name="Ellipse 181" class="cls-3" cx="9.827" cy="9.827" r="9.827" transform="translate(57 1363)"/>
+    <path id="Path_4144" data-name="Path 4144" class="cls-4" d="M344.255,635.355a9.819,9.819,0,0,0,0-13.955L330.3,635.355A9.969,9.969,0,0,0,344.255,635.355Z" transform="translate(-270.492 744.49)"/>
+  </g>
+</svg>

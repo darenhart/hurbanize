@@ -1,3 +1,26 @@
+.tools-pannel {
+  display: none;
+}
+.tools-pannel.show {
+  display: block;
+}
+#modal-emoji {
+  background-color: $grey;
+  position: fixed;
+  top: 0px;
+  height: 100%;
+  width: 100%;
+  z-index: 3;
+  overflow: scroll;
+
+  img {
+    max-width: 26%;
+    max-height: 16%;
+    margin: .7rem;
+  }
+}
+
+
 #toolbar-annotate {
   //height: 100% - $innerAnnotateHeight;
 
@@ -5,13 +28,6 @@
   //position: fixed;
   width: 100%;
   //bottom: 0px;
-
-  .tools-pannel {
-    display: none;
-  }
-  .tools-pannel.show {
-    display: block;
-  }
 
   .row {
     display: flex;
@@ -65,4 +81,5 @@
       width: 100%;
     }
   }
+
 }

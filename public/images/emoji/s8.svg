@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 13.288 50">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #161413;
+      }
+
+      .cls-2 {
+        fill: #ff4200;
+      }
+
+      .cls-3 {
+        fill: #fff;
+      }
+
+      .cls-4 {
+        fill: #ba350c;
+      }
+    </style>
+  </defs>
+  <g id="s8" transform="translate(-285 -237)">
+    <path id="Path_2816" data-name="Path 2816" class="cls-1" d="M287.436,54.9h-11.67L275,61.629h13.288Z" transform="translate(10 224.775)"/>
+    <rect id="Rectangle_628" data-name="Rectangle 628" width="13.288" height="0.596" transform="translate(285 286.404)"/>
+    <path id="Path_2817" data-name="Path 2817" class="cls-2" d="M284.826,50.689V5.8H279.8V50.6h0c0,.511,1.107.937,2.47.937s2.555-.341,2.555-.852Z" transform="translate(9.289 232.052)"/>
+    <path id="Path_2818" data-name="Path 2818" class="cls-3" d="M282.37,12.637c-1.363,0-2.47-.426-2.47-.937v4.855c0,.511,1.107.937,2.47.937s2.47-.426,2.47-.937V11.7C284.84,12.126,283.733,12.637,282.37,12.637Z" transform="translate(9.274 231.178)"/>
+    <path id="Path_2819" data-name="Path 2819" class="cls-3" d="M282.37,23.937c-1.363,0-2.47-.426-2.47-.937v4.855c0,.511,1.107.937,2.47.937s2.47-.426,2.47-.937V23C284.84,23.511,283.733,23.937,282.37,23.937Z" transform="translate(9.274 229.503)"/>
+    <ellipse id="Ellipse_156" data-name="Ellipse 156" class="cls-4" cx="2.47" cy="0.937" rx="2.47" ry="0.937" transform="translate(289.174 237)"/>
+  </g>
+</svg>

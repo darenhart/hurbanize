@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 70.691 80">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #8b8b8c;
+      }
+
+      .cls-2 {
+        fill: #b8b8b8;
+      }
+
+      .cls-3 {
+        fill: #0c41e8;
+      }
+
+      .cls-4 {
+        fill: #22b8d1;
+      }
+    </style>
+  </defs>
+  <g id="sp8" transform="translate(-143 -1493)">
+    <rect id="Rectangle_727" data-name="Rectangle 727" class="cls-1" width="2.909" height="61.964" transform="translate(156.213 1572.968) rotate(180)"/>
+    <path id="Path_4118" data-name="Path 4118" class="cls-2" d="M83.5,978.767l6.109-16V917.482L83.5,916.9Z" transform="translate(72.688 594.233)"/>
+    <path id="Path_4119" data-name="Path 4119" class="cls-3" d="M140.591,900.43V898.2L69.9,917.3v2.424Z" transform="translate(73.1 594.8)"/>
+    <path id="Path_4120" data-name="Path 4120" class="cls-4" d="M128.858,906.027l11.733-5.527L69.9,919.8l10.958-.388Z" transform="translate(73.1 594.73)"/>
+    <path id="Path_4121" data-name="Path 4121" class="cls-4" d="M89.609,951.6H99.694l-2.133,14.739L83.5,965.855Z" transform="translate(72.688 593.182)"/>
+    <path id="Path_4122" data-name="Path 4122" class="cls-3" d="M97.561,966.785V969.4L83.5,980.264V966.3Z" transform="translate(72.688 592.736)"/>
+    <path id="Path_4123" data-name="Path 4123" class="cls-3" d="M100.133,951.6v2.133L98,968.958v-2.618Z" transform="translate(72.248 593.182)"/>
+  </g>
+</svg>

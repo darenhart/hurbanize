@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36.139 70">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #42210b;
+      }
+
+      .cls-2 {
+        fill: #8a3900;
+      }
+    </style>
+  </defs>
+  <g id="d1" transform="translate(-48 -854)">
+    <rect id="Rectangle_698" data-name="Rectangle 698" class="cls-1" width="2.866" height="25.422" transform="translate(78.397 879.422) rotate(180)"/>
+    <rect id="Rectangle_699" data-name="Rectangle 699" class="cls-1" width="2.866" height="25.422" transform="translate(56.725 879.422) rotate(180)"/>
+    <rect id="Rectangle_700" data-name="Rectangle 700" class="cls-1" width="21.683" height="4.362" transform="translate(75.566 858.407) rotate(180)"/>
+    <rect id="Rectangle_701" data-name="Rectangle 701" class="cls-2" width="32.027" height="0.748" transform="translate(82.252 916.414) rotate(180)"/>
+    <g id="Group_1922" data-name="Group 1922" transform="translate(48.997 854.837)">
+      <path id="Path_4000" data-name="Path 4000" class="cls-2" d="M104.8,121.1h3.614l.748,34.768H104.8Z" transform="translate(-89.597 -121.1)"/>
+      <path id="Path_4001" data-name="Path 4001" class="cls-2" d="M101.118,121.1h3.614l-1.371,34.768H99Z" transform="translate(-91.024 -121.1)"/>
+      <path id="Path_4002" data-name="Path 4002" class="cls-2" d="M97.709,121.1h3.614l-2.991,34.768H92.6Z" transform="translate(-92.6 -121.1)"/>
+      <path id="Path_4003" data-name="Path 4003" class="cls-2" d="M112.514,121.1H108.9l1.371,34.768h4.362Z" transform="translate(-88.587 -121.1)"/>
+      <path id="Path_4004" data-name="Path 4004" class="cls-2" d="M116.514,121.1H112.9l2.991,34.768h5.732Z" transform="translate(-87.603 -121.1)"/>
+    </g>
+    <path id="Path_4005" data-name="Path 4005" class="cls-1" d="M116.8,183.021h3.614L121.785,149H116.8Z" transform="translate(-37.646 740.605)"/>
+    <path id="Path_4006" data-name="Path 4006" class="cls-1" d="M96.411,149v34.394H92.8L91.8,149Z" transform="translate(-43.8 740.605)"/>
+    <rect id="Rectangle_702" data-name="Rectangle 702" class="cls-1" width="35.516" height="5.109" transform="translate(83.746 894.632) rotate(180)"/>
+    <rect id="Rectangle_703" data-name="Rectangle 703" class="cls-1" width="32.027" height="2.866" transform="translate(82.252 919.29) rotate(180)"/>
+    <path id="Path_4007" data-name="Path 4007" class="cls-1" d="M91.8,156.016h0L97.532,120.5l.374.748L92.8,156.016Z" transform="translate(-43.8 733.59)"/>
+    <path id="Path_4008" data-name="Path 4008" class="cls-1" d="M120.909,156.016,115.8,121.248l.5-.748,5.732,35.516Z" transform="translate(-37.892 733.59)"/>
+  </g>
+</svg>

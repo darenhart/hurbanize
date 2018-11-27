@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28.765 70">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #ff4800;
+      }
+
+      .cls-2 {
+        fill: #ad3105;
+      }
+
+      .cls-3 {
+        fill: #471607;
+      }
+
+      .cls-4 {
+        fill: #4e270a;
+      }
+    </style>
+  </defs>
+  <g id="sp2" transform="translate(-164 -1243)">
+    <path id="Path_4104" data-name="Path 4104" class="cls-1" d="M348.186,535.1H323.578L321.5,493.2h28.765Z" transform="translate(-157.5 756.118)"/>
+    <path id="Path_4105" data-name="Path 4105" class="cls-2" d="M335.882,495.951c-4.323,0-14.382-.333-14.382-3.325s10.059-3.325,14.382-3.325,14.382.333,14.382,3.325S340.205,495.951,335.882,495.951Z" transform="translate(-157.5 756.776)"/>
+    <ellipse id="Ellipse_170" data-name="Ellipse 170" class="cls-3" cx="13.302" cy="2.328" rx="13.302" ry="2.328" transform="translate(165.081 1246.492)"/>
+    <ellipse id="Ellipse_171" data-name="Ellipse 171" class="cls-1" cx="12.304" cy="3.242" rx="12.304" ry="3.242" transform="translate(166.078 1287.976)"/>
+    <rect id="Rectangle_722" data-name="Rectangle 722" class="cls-4" width="4.489" height="70" transform="translate(176.221 1243)"/>
+  </g>
+</svg>

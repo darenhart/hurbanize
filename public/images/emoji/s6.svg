@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 46.847 50">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #4e270a;
+      }
+
+      .cls-2 {
+        fill: #cacaca;
+      }
+
+      .cls-3 {
+        fill: #ab0707;
+      }
+    </style>
+  </defs>
+  <g id="s6" transform="translate(-43 -237)">
+    <path id="Path_2820" data-name="Path 2820" class="cls-1" d="M62.268,0H18.5V50h2.933V39.076H62.342V50h2.933V0Zm0,36.07H21.433V20.161l1.76,11.364h37.39l1.76-11.364V36.07ZM57.8,28.519H25.831L21.872,3.666H61.755Z" transform="translate(24.573 237)"/>
+    <path id="Path_2821" data-name="Path 2821" class="cls-2" d="M42.08,31.8H18.4V44.557H65.174V31.8Z" transform="translate(24.6 228.514)"/>
+    <g id="Group_1530" data-name="Group 1530" transform="translate(43 240.666)">
+      <path id="Path_2822" data-name="Path 2822" class="cls-3" d="M79.852,21.07V10L73.4,21.07Z" transform="translate(-33.077 -6.334)"/>
+      <path id="Path_2823" data-name="Path 2823" class="cls-2" d="M70.758,19.736,77.21,8.666V5H72L63.5,19.736Z" transform="translate(-30.435 -5)"/>
+      <path id="Path_2824" data-name="Path 2824" class="cls-3" d="M60.858,19.736,69.362,5H62.1L53.6,19.736Z" transform="translate(-27.794 -5)"/>
+      <path id="Path_2825" data-name="Path 2825" class="cls-2" d="M52.2,5,43.7,19.736h7.258L59.462,5Z" transform="translate(-25.152 -5)"/>
+      <path id="Path_2826" data-name="Path 2826" class="cls-3" d="M41.058,19.736,49.562,5H42.3L33.8,19.736Z" transform="translate(-22.51 -5)"/>
+      <path id="Path_2827" data-name="Path 2827" class="cls-3" d="M41.058,19.736,49.562,5H42.3L33.8,19.736Z" transform="translate(-22.51 -5)"/>
+      <path id="Path_2828" data-name="Path 2828" class="cls-3" d="M23.679,5,18.4,14.164v5.572h4.032L30.937,5Z" transform="translate(-18.4 -5)"/>
+      <path id="Path_2829" data-name="Path 2829" class="cls-2" d="M31.158,19.736,39.662,5H32.4L23.9,19.736Z" transform="translate(-19.868 -5)"/>
+      <path id="Path_2830" data-name="Path 2830" class="cls-2" d="M23.679,5H18.4v9.164Z" transform="translate(-18.4 -5)"/>
+    </g>
+  </g>
+</svg>
