@@ -6,31 +6,59 @@
   width: 100%;
   //bottom: 0px;
 
+  .tools-pannel {
+    display: none;
+  }
+  .tools-pannel.show {
+    display: block;
+  }
+
   .row {
     display: flex;
   }
-  .col {
+  .col-6 {
     width: 50%;
     padding: .5rem;
   }
 
-  .btn-tools button {
-    width: 100%;
-    min-height: 4rem;
+  .col-3 {
+    width: 25%;
     padding: .5rem;
-    background-size: 18%;
-    background-repeat: no-repeat;
-    background-position: center;
   }
 
-  #btn-draw-tools {
+
+  #btn-tools-draw {
     background-image: url('../images/caneta.svg');
   }
 
   #btn-figures {
     background-image: url('../images/figuras.svg'); 
   }
+  #btn-undo {
+    background-image: url('../images/desfazer.svg'); 
+  }
+  #btn-pencil {
+    background-image: url('../images/pintar.svg'); 
+  }
+  #btn-erase {
+    background-image: url('../images/apagar.svg'); 
+  }
+  #btn-confirm {
+    background-image: url('../images/confirmar.svg'); 
+  }
 
+  .btn-color {
+    padding: 0rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    margin: .5rem;
+  }
+
+  #btn-white { 
+    background-color: $white; 
+    border: solid 1px $greyDark;
+  }
+  
   .btn-share {
     padding: .5rem;
     button {

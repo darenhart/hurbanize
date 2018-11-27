@@ -1,6 +1,6 @@
 $purple: #B649D6;
 $red: #FF2626;
-$pink: #EBBE8B;
+$beige: #EBBE8B;
 $green: #55C53E;
 $blue: #4390CB;
 $greyDark: #989898;
@@ -60,6 +60,15 @@ body {
 
 .btn-primary {
   background-color: $purple;
+}
+
+.btn-icon {
+  width: 100%;
+  min-height: 4rem;
+  padding: .5rem;
+  background-size: 18%;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .p-absolute {

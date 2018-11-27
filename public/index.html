@@ -41,18 +41,39 @@
       </div>
 
       <div id="toolbar-annotate">
-        <div class="row btn-tools">
-          <div class="col">
-            <button class="btn" id="btn-draw-tools"></button>
+        <div id="tools-home" class="tools-pannel show">
+          <div class="row btns-top">
+            <div class="col-6">
+              <button class="btn btn-icon" id="btn-tools-draw"></button>
+            </div>
+            <div class="col-6">
+              <button class="btn btn-icon" id="btn-figures"></button>
+            </div>
           </div>
-          <div class="col">
-            <button class="btn" id="btn-figures"></button>
+          <div class="btn-share">
+            <button class="btn btn-primary" id="btn-snapshot">
+              Compartilhar
+            </button>
           </div>
         </div>
-        <div class="btn-share">
-          <button class="btn btn-primary" id="btn-snapshot">
-            Compartilhar
-          </button>
+        <div id="tools-draw" class="tools-pannel">
+          <div class="row">
+            <div class="col-3">
+              <button class="btn btn-icon" id="btn-undo"></button>
+            </div>
+            <div class="col-3">
+              <button class="btn btn-icon" id="btn-pencil"></button>
+            </div>
+            <div class="col-3">
+              <button class="btn btn-icon" id="btn-erase"></button>
+            </div>
+            <div class="col-3">
+              <button class="btn btn-icon" id="btn-confirm"></button>
+            </div>
+          </div>
+          <div class="row" id="colors">
+            <!-- Colors are dynamically populated by JavaScript -->
+          </div>
         </div>
       </div>
 
@@ -95,7 +116,9 @@
     </div>
 
     <div id="modal-tools" class="modal">
+      <!--
       <button id="btn-pencil" class="selected"><img src="images/iconic/pencil.svg" alt="Pencil"/>Pencil</button>
+    -->
       <button id="btn-brush"><img src="images/iconic/brush.svg" alt="Brush"/>Brush</button>
       <button id="btn-emoji"><img id="btn-emoji-img" src="images/emoji/f1.svg" alt="Emoji"/>Emojis</button>
     </div>

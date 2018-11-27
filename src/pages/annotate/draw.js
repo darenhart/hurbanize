@@ -5,11 +5,13 @@ import {isLiveCamera} from '../../shared/config';
 const DEFAULT_COLOUR = '#000000';
 const DEFAULT_EMOJI_SIZE = 120;
 const DEFAULT_EMOJI_FONT = 'arial';
-const DEFAULT_LINE_WIDTH = 2;
+const DEFAULT_LINE_WIDTH = 4;
 
 const TOOL_PENCIL = 0;
 const TOOL_BRUSH = 1;
 const TOOL_EMOJI = 2;
+
+let currentColor = DEFAULT_COLOUR;
 
 let canvasDraw = document.getElementById('canvas-draw');
 let canvasEmoji = document.getElementById('canvas-emoji');
@@ -30,6 +32,14 @@ let colourInput = document.getElementById('input-colour');
 let sizeInput = document.getElementById('input-size');
 let sizeOutput = document.getElementById('size-output');
 let trashButton = document.getElementById('btn-trash');
+
+let colorList = document.getElementById('colors');
+let toolsHome = document.getElementById('tools-home');
+let toolsDraw = document.getElementById('tools-draw');
+let toolsOptions = document.getElementById('tools-options');
+let toolsDrawBtn = document.getElementById('btn-tools-draw');
+let confirmBtn = document.getElementById('btn-confirm');
+
 
 let touchedEmojiIndex = -1;
 let chosenEmoji = null;
@@ -291,8 +301,8 @@ function clearCanvases() {
 
 function onColourClickOrChange() {
   updateCanvasDrawContext();
-  colourInputContainer.classList.add('selected');
-  emojiMenuButton.classList.remove('selected');
+  //colourInputContainer.classList.add('selected');
+  //emojiMenuButton.classList.remove('selected');
 }
 
 function onSizeChange(event) {
@@ -320,8 +330,8 @@ function initCanvases() {
 }
 
 function updateCanvasDrawContext() {
-  ctxDraw.strokeStyle = colourInput.value;
-  ctxDraw.lineWidth = sizeInput.value;
+  ctxDraw.strokeStyle = currentColor;
+  //ctxDraw.lineWidth = sizeInput.value;
   ctxDraw.shadowBlur = chosenTool === TOOL_BRUSH ? 2 : 0;
   ctxDraw.shadowColor = colourInput.value;
 }
@@ -339,13 +349,50 @@ function initEmojis() {
 
 }
 
+function initColors() {
+  let html = '';
+  let colors = {
+    'white': '#FFFFFF',
+    'blue': '#4390CB',
+    'green': '#55C53E',
+    'beige': '#EBBE8B',
+    'grey': '#989898',
+    'red': '#FF2626',
+    'purple': '#B649D6'
+  };
+  for(let color in colors) {
+    html += `
+      <div class="col">
+        <button class="btn btn-color" id="btn-${color}" 
+          style="background-color: ${colors[color]}"></button>
+      </div>`;
+  }
+  colorList.innerHTML = html;
+}
+
 function initControls() {
 
-  toolsMenuButton.addEventListener('click', () => {
-    toolsModal.classList.toggle('show');
+  toolsDrawBtn.addEventListener('click', () => {
+    toolsDraw.classList.toggle('show');
+    toolsHome.classList.remove('show');
     emojiModal.classList.remove('show');
-    optionsModal.classList.remove('show');
   });
+  confirmBtn.addEventListener('click', () => {
+    toolsHome.classList.toggle('show');
+    toolsDraw.classList.remove('show');
+    emojiModal.classList.remove('show');
+  });
+
+  let colorBtns = document.getElementsByClassName('btn-color');
+  for (let i=0; i < colorBtns.length; i++) {
+    colorBtns[i].addEventListener('click', function() {
+      console.log(colorBtns[i].style.backgroundColor);
+      currentColor = colorBtns[i].style.backgroundColor;
+      onColourClickOrChange();
+    });
+  }
+
+
 
   // Add click handlers to emojis so you can select one
   let availableEmojis = document.querySelectorAll('#modal-emoji img');
@@ -397,6 +444,7 @@ export default {
 
   init: function() {
     initCanvases();
+    initColors();
     initEmojis();
     initControls();
   },
