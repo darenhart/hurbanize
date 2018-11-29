@@ -73,7 +73,7 @@ export default {
     saveCtx.drawImage(emojiCanvas, 0, 0, saveCanvas.width, saveCanvas.height);
 
     // Add the URL at the bottom
-    saveCtx.fillText('snapw.at', saveCanvas.width - 72, saveCanvas.height - 10);
+    saveCtx.fillText('', saveCanvas.width - 72, saveCanvas.height - 10);
 
     saveImage.src = saveCanvas.toDataURL('image/png');
     saveCanvas.style.display = 'none';

@@ -12,7 +12,7 @@ let startBtn = document.getElementById('btn-start-app');
 
 function initCanvas() {
   cameraCanvas.width = window.innerWidth;
-  cameraCanvas.height = window.innerHeight * (70/100);
+  cameraCanvas.height = window.innerHeight * (75/100);
 }
 
 function initControls() {

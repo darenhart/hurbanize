@@ -2,14 +2,16 @@ import emojiImages from '\0emoji-images';
 import {HEADER_HEIGHT} from '../../shared/constants';
 import {isLiveCamera} from '../../shared/config';
 
-const DEFAULT_COLOUR = '#000000';
-const DEFAULT_EMOJI_SIZE = 120;
-const DEFAULT_EMOJI_FONT = 'arial';
+//const DEFAULT_COLOUR = '#FF2626';
+//const DEFAULT_EMOJI_SIZE = 60;
+//const DEFAULT_EMOJI_FONT = 'arial';
 const DEFAULT_LINE_WIDTH = 10;
 
 const TOOL_PENCIL = 0;
 const TOOL_BRUSH = 1;
 const TOOL_EMOJI = 2;
+
+let currentColor = '#FF2626';
 
 let colors = {
   'white': '#FFFFFF',
@@ -21,8 +23,6 @@ let colors = {
   'purple': '#B649D6'
 };
 
-let currentColor = DEFAULT_COLOUR;
-
 let canvasDraw = document.getElementById('canvas-draw');
 let canvasEmoji = document.getElementById('canvas-emoji');
 let ctxDraw = canvasDraw.getContext('2d');
@@ -30,13 +30,13 @@ let ctxEmoji = canvasEmoji.getContext('2d');
 
 let chosenTool = TOOL_PENCIL;
 let toolsMenuButton = document.getElementById('btn-tools');
-let toolsModal = document.getElementById('modal-tools');
+//let toolsModal = document.getElementById('modal-tools');
 let pencilButton = document.getElementById('btn-pencil');
-let brushButton = document.getElementById('btn-brush');
+//let brushButton = document.getElementById('btn-brush');
 let emojiMenuButton = document.getElementById('btn-emoji');
 let emojiModal = document.getElementById('modal-emoji');
 let optionsMenuButton = document.getElementById('btn-options');
-let optionsModal = document.getElementById('modal-options');
+//let optionsModal = document.getElementById('modal-options');
 let colourInputContainer = document.getElementById('input-colour-container');
 let colourInput = document.getElementById('input-colour');
 let sizeInput = document.getElementById('input-size');
@@ -121,8 +121,8 @@ function onDrawingMouseDown(coords) {
 }
 
 function closeModals() {
-  optionsModal.classList.remove('show');
-  toolsModal.classList.remove('show');
+  //optionsModal.classList.remove('show');
+  //toolsModal.classList.remove('show');
   emojiModal.classList.remove('show');
 }
 
@@ -152,8 +152,8 @@ function onTouchStartOrMouseDown(e) {
 
       // Add new emoji
       // Increase default SVG size
-      const width = chosenEmoji.width * 2.5;
-      const height = chosenEmoji.height * 2.5;
+      const width = chosenEmoji.width * 0.7;
+      const height = chosenEmoji.height * 0.7;
 
       stampedEmojis.push({
         image: chosenEmoji,
@@ -235,6 +235,11 @@ function onTouchMoveOrMouseMove(e) {
 
   } else if (isDrawing) {
 
+    if (ctxDraw.strokeStyle == '#000000') {
+      ctxDraw.strokeStyle = currentColor;
+      ctxDraw.lineWidth = DEFAULT_LINE_WIDTH;
+    }
+
     ctxDraw.lineTo(coords1.x, coords1.y);
     ctxDraw.stroke();
 
@@ -249,6 +254,7 @@ function onTouchEndOrMouseUp(e) {
   moveTouchDelta = null;
 }
 
+/*
 function highlightSelectedTool(selectedButton) {
   var toolButtons = toolsModal.getElementsByTagName('button');
   for (var i=0; i < toolButtons.length; i++) {
@@ -260,6 +266,7 @@ function highlightSelectedTool(selectedButton) {
     }
   }
 }
+*/
 
 function onNewEmojiClick(event) {
 
@@ -268,7 +275,7 @@ function onNewEmojiClick(event) {
 
   emojiModal.classList.remove('show');
 
-  highlightSelectedTool(emojiMenuButton);
+  //highlightSelectedTool(emojiMenuButton);
 
 }
 
@@ -316,10 +323,12 @@ function onColourClickOrChange() {
   //emojiMenuButton.classList.remove('selected');
 }
 
+/*
 function onSizeChange(event) {
   updateCanvasDrawContext();
   sizeOutput.innerHTML = event.target.value;
 }
+*/
 
 function initCanvases() {
 
@@ -332,19 +341,19 @@ function initCanvases() {
   canvasEmoji.addEventListener('mousemove', onTouchMoveOrMouseMove, false);
   canvasEmoji.addEventListener('mouseup', onTouchEndOrMouseUp, false);
 
-  ctxDraw.strokeStyle = DEFAULT_COLOUR;
+  ctxDraw.strokeStyle = currentColor;
   ctxDraw.lineWidth = DEFAULT_LINE_WIDTH;
   ctxDraw.lineJoin = 'round';
   ctxDraw.lineCap = 'round';
-  ctxDraw.shadowColor = DEFAULT_COLOUR;
-
+  ctxDraw.shadowColor = currentColor;
 }
 
 function updateCanvasDrawContext() {
   ctxDraw.strokeStyle = currentColor;
   //ctxDraw.lineWidth = sizeInput.value;
-  ctxDraw.shadowBlur = chosenTool === TOOL_BRUSH ? 2 : 0;
-  ctxDraw.shadowColor = colourInput.value;
+  //ctxDraw.lineWidth = DEFAULT_LINE_WIDTH;
+  //ctxDraw.shadowBlur = chosenTool === TOOL_BRUSH ? 2 : 0;
+  //ctxDraw.shadowColor = colourInput.value;
 }
 
 function initEmojis() {
@@ -388,7 +397,6 @@ function initControls() {
   let colorBtns = document.getElementsByClassName('btn-color');
   for (let i=0; i < colorBtns.length; i++) {
     colorBtns[i].addEventListener('click', function() {
-      console.log(colorBtns[i].style.backgroundColor);
       currentColor = colorBtns[i].style.backgroundColor;
       onColourClickOrChange();
     });
@@ -406,18 +414,15 @@ function initControls() {
     emoji.addEventListener('click', onNewEmojiClick);
   }
 
-
-
-
-
-
   pencilButton.addEventListener('click', () => {
     chosenTool = TOOL_PENCIL;
     updateCanvasDrawContext();
-    toolsModal.classList.remove('show');
-    highlightSelectedTool(pencilButton);
+    //toolsModal.classList.remove('show');
+    //highlightSelectedTool(pencilButton);
   });
 
+
+  /*
   brushButton.addEventListener('click', () => {
     chosenTool = TOOL_BRUSH;
     updateCanvasDrawContext();
@@ -442,6 +447,7 @@ function initControls() {
     // TODO introduce confirmation prompt!
     clearCanvases();
   })
+  */
 
 }
 
@@ -456,6 +462,7 @@ export default {
 
   show: function() {
 
+    /*
     if (isLiveCamera()) {
       // For live camera view, default to taking up the full space available
       canvasDraw.width = window.innerWidth;
@@ -465,8 +472,9 @@ export default {
     }
 
     // Hacky fix for some browsers no longer observing the centred position with position: absolute
-    //canvasDraw.setAttribute('style', `left: calc(50% - ${canvasDraw.width / 2}px); top: calc(50% - ${canvasDraw.height / 2}px)`);
-    //canvasEmoji.setAttribute('style', `left: calc(50% - ${canvasEmoji.width / 2}px); top: calc(50% - ${canvasEmoji.height / 2}px)`);
+    canvasDraw.setAttribute('style', `left: calc(50% - ${canvasDraw.width / 2}px); top: calc(50% - ${canvasDraw.height / 2}px)`);
+    canvasEmoji.setAttribute('style', `left: calc(50% - ${canvasEmoji.width / 2}px); top: calc(50% - ${canvasEmoji.height / 2}px)`);
+    */
 
   },
 
