@@ -1,5 +1,8 @@
 .tools-pannel {
   display: none;
+  height: 100%;
+  max-width: 700px;
+  margin:auto;
 }
 .tools-pannel.show {
   display: block;
@@ -10,8 +13,10 @@
   top: 0px;
   height: 100%;
   width: 100%;
+  max-width: 100%;
   z-index: 3;
   overflow: scroll;
+  opacity: .9;
 
   img {
     max-width: 26%;
@@ -22,15 +27,20 @@
 
 
 #toolbar-annotate {
-  //height: 100% - $innerAnnotateHeight;
+  height: 100% - $innerAnnotateHeight;
 
-  background-color: blue;
+  background-color: $white;
   //position: fixed;
   width: 100%;
   //bottom: 0px;
 
   .row {
     display: flex;
+    height: 50%;
+  }
+  .col {
+    height: 100%;
+    padding: .5rem;
   }
   .col-6 {
     width: 50%;
@@ -67,16 +77,15 @@
     padding: 0rem;
     width: 1.5rem;
     height: 1.5rem;
-    margin: .5rem;
+    margin: .2rem;
   }
 
   #btn-white { 
-    background-color: $white; 
     border: solid 1px $greyDark;
   }
   
   .btn-share {
-    padding: .5rem;
+    height: 50%;
     button {
       width: 100%;
     }

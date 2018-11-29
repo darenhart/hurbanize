@@ -1,3 +1,4 @@
+import LoadImage from 'blueimp-load-image';
 import {PAGES} from '../shared/constants';
 import {showPage} from '../shared/helpers';
 //import HomePage from './home';
@@ -11,36 +12,60 @@ let scenarioList = document.getElementById('scenario-list');
 let cameraCanvas = document.getElementById('canvas-camera');
 let drawCanvas = document.getElementById('canvas-draw');
 let emojiCanvas = document.getElementById('canvas-emoji'); 
+let annotateCameraContainer = document.getElementById('annotate-camera-container');
 
-function onSelectPhoto(path) {
+function onPhotoInputChange(path) {
 
-  let ctx = cameraCanvas.getContext('2d');
-  let img = new Image();
+  console.log('Min width and height', cameraCanvas.width, cameraCanvas.height);
 
-  img.onload = function () {
-      ctx.drawImage(img, 0, 0);
+  const options = {
+    maxWidth: cameraCanvas.width,
+    maxHeight: cameraCanvas.height,
+    contain: true,
+    orientation: true,
+    canvas: true,
+    pixelRatio: devicePixelRatio
   };
 
-  img.src = path;
+  function onImageLoad(result) {
+    if (result.type === 'error') {
+      console.error('Error loading image', result);
+    } else {
 
-  const newWidth = cameraCanvas.style.width ? parseInt(cameraCanvas.style.width) : cameraCanvas.width;
-  const newHeight = cameraCanvas.style.height ? parseInt(cameraCanvas.style.height) : cameraCanvas.height;
+      console.log('Generated canvas width and height', result.width, result.height);
 
-  // Make drawing canvas the same size
-  drawCanvas.width = newWidth;
-  drawCanvas.height = newHeight;
-  emojiCanvas.width = newWidth;
-  emojiCanvas.height = newHeight;
+      // Replace our default canvas (for video) with the generated one
+      result.id = 'canvas-camera';
+
+      annotateCameraContainer.removeChild(cameraCanvas);
+      annotateCameraContainer.appendChild(result);
+
+      cameraCanvas = result;
+
+      const newWidth = cameraCanvas.style.width ? parseInt(cameraCanvas.style.width) : cameraCanvas.width;
+      const newHeight = cameraCanvas.style.height ? parseInt(cameraCanvas.style.height) : cameraCanvas.height;
+
+      // Make drawing canvas the same size
+      drawCanvas.width = newWidth;
+      drawCanvas.height = newHeight;
+      emojiCanvas.width = newWidth;
+      emojiCanvas.height = newHeight;
+
+    }
+  }
+
+  // A little library which handles rotating the image appropriately depending
+  // on the image's orientation (determined from the exif data) & scaling to fit
+  LoadImage(path, onImageLoad, options);
 
 }
-
 
 function initControls() {
   let cards = document.getElementsByClassName('card');
 
   for (let i=0; i < cards.length; i++) {
     cards[i].addEventListener('click', function() {
-      onSelectPhoto(scenariosImages[i]);
+      onPhotoInputChange(scenariosImages[i]);
       AnnotatePage.show();
     });
   }

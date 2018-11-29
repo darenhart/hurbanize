@@ -3,6 +3,10 @@
   #inner-annotate {
     height: $innerAnnotateHeight;
 
+    >div {
+      height: $innerAnnotateHeight;
+    }
+
     #canvas-camera {
       z-index: -1;
       pointer-events: none;
