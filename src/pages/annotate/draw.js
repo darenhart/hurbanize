@@ -28,10 +28,11 @@ let canvasEmoji = document.getElementById('canvas-emoji');
 let ctxDraw = canvasDraw.getContext('2d');
 let ctxEmoji = canvasEmoji.getContext('2d');
 
-let chosenTool = TOOL_PENCIL;
+let chosenTool = '';//TOOL_PENCIL;
 let toolsMenuButton = document.getElementById('btn-tools');
 //let toolsModal = document.getElementById('modal-tools');
 let pencilButton = document.getElementById('btn-pencil');
+let undoButton = document.getElementById('btn-undo');
 //let brushButton = document.getElementById('btn-brush');
 let emojiMenuButton = document.getElementById('btn-emoji');
 let emojiModal = document.getElementById('modal-emoji');
@@ -59,6 +60,10 @@ let moveTouchDelta = null;
 let isDrawing = false;
 let isRedrawing = false;
 let isResizing = false;
+
+// for undo feature store all drawing 
+let drawingCoords = [];
+let currentLine = 0;
 
 // Store emoji details so we can redraw them when moved/resized
 let stampedEmojis = [];
@@ -116,6 +121,16 @@ function onDrawingMouseDown(coords) {
 
   ctxDraw.beginPath();
   ctxDraw.moveTo(x, y);
+
+  if (chosenTool === TOOL_PENCIL) {
+    currentLine++;
+    drawingCoords[currentLine] = [{
+      x: x,
+      y: y,
+      color: currentColor
+    }];
+
+  }
 
   isDrawing = true;
 }
@@ -233,16 +248,14 @@ function onTouchMoveOrMouseMove(e) {
 
     }
 
-  } else if (isDrawing) {
-
-    if (ctxDraw.strokeStyle == '#000000') {
-      ctxDraw.strokeStyle = currentColor;
-      ctxDraw.lineWidth = DEFAULT_LINE_WIDTH;
-    }
-
+  } else if (isDrawing && chosenTool === TOOL_PENCIL) {
     ctxDraw.lineTo(coords1.x, coords1.y);
     ctxDraw.stroke();
-
+    drawingCoords[currentLine].push({
+      x: coords1.x,
+      y: coords1.y,
+      color: currentColor
+    });
   }
 }
 
@@ -300,6 +313,25 @@ function redrawEmojis() {
   //console.log('finish redraw', performance.now());
 
   isRedrawing = false;
+
+}
+
+function redrawDrawing() {
+  for (let line=0; line < drawingCoords.length; line++) {
+    if (drawingCoords[line]) {
+      for (let coords=0; coords < drawingCoords[line].length; coords++) {
+        let point = drawingCoords[line][coords];
+        if (coords == 0) {
+          ctxDraw.beginPath();
+          ctxDraw.moveTo(point.x, point.y);
+        } else {
+          ctxDraw.strokeStyle = point.color;
+          ctxDraw.lineTo(point.x, point.y);
+          ctxDraw.stroke();
+        }
+      }
+    }
+  }
 
 }
 
@@ -415,10 +447,20 @@ function initControls() {
   }
 
   pencilButton.addEventListener('click', () => {
+    if (ctxDraw.strokeStyle == '#000000') {
+      ctxDraw.strokeStyle = currentColor;
+    }
+    ctxDraw.lineWidth = DEFAULT_LINE_WIDTH;
     chosenTool = TOOL_PENCIL;
     updateCanvasDrawContext();
     //toolsModal.classList.remove('show');
     //highlightSelectedTool(pencilButton);
+  });
+  undoButton.addEventListener('click', () => {
+    drawingCoords.pop();
+    clearDrawing();
+    redrawDrawing();
+
   });
 
 

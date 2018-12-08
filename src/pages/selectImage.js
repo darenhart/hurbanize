@@ -14,6 +14,16 @@ let drawCanvas = document.getElementById('canvas-draw');
 let emojiCanvas = document.getElementById('canvas-emoji'); 
 let annotateCameraContainer = document.getElementById('annotate-camera-container');
 
+let address = [
+  ['Porto Alegre, RS', 'Avenida João Pessoa'],
+  ['Estrela, RS', 'Coronel Floriano'],
+  ['Porto Alegre, RS', 'Avenida João Pessoa'],
+  ['Porto Alegre, RS', 'Avenida João Pessoa'],
+  ['Porto Alegre, RS', 'Avenida João Pessoa'],
+  ['Porto Alegre, RS', 'Avenida João Pessoa'],
+  ['Porto Alegre, RS', 'Avenida João Pessoa'],
+];
+
 function onPhotoInputChange(path) {
 
   console.log('Min width and height', cameraCanvas.width, cameraCanvas.height);
@@ -80,8 +90,8 @@ function initScenarios() {
     html += `
         <div class="card">
           <img src="${path}" alt="scenario"/>
-          <p>Porto Alegre, RS</p>
-          <p>Avenida João Pessoa</p>
+          <p>${address[i][0]}</p>
+          <p>${address[i][1]}</p>
         </div>`;
   }
 
