@@ -39,8 +39,9 @@
     height: 50%;
   }
   .col {
-    height: 100%;
     padding: .5rem;
+    flex-basis: 0;
+    flex-grow: 1;
   }
   .col-6 {
     width: 50%;

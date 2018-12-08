@@ -10,6 +10,7 @@ const DEFAULT_LINE_WIDTH = 10;
 const TOOL_PENCIL = 0;
 const TOOL_BRUSH = 1;
 const TOOL_EMOJI = 2;
+const TOOL_ERASE = 3;
 
 let currentColor = '#FF2626';
 
@@ -33,6 +34,7 @@ let toolsMenuButton = document.getElementById('btn-tools');
 //let toolsModal = document.getElementById('modal-tools');
 let pencilButton = document.getElementById('btn-pencil');
 let undoButton = document.getElementById('btn-undo');
+let eraseButton = document.getElementById('btn-erase');
 //let brushButton = document.getElementById('btn-brush');
 let emojiMenuButton = document.getElementById('btn-emoji');
 let emojiModal = document.getElementById('modal-emoji');
@@ -103,7 +105,7 @@ function drawEmoji(emoji, coords, width, height, isSelected) {
     // Highlight with a border
     const prevStrokeStyle = ctxEmoji.strokeStyle;
     const prevLineWidth = ctxEmoji.lineWidth;
-    ctxEmoji.strokeStyle = '#10f9e6';
+    ctxEmoji.strokeStyle = colors.purple;
     ctxEmoji.lineWidth = 2;
     ctxEmoji.setLineDash([5, 2]);
     ctxEmoji.strokeRect(x-2, y-2, width+4, height+4);
@@ -116,21 +118,18 @@ function drawEmoji(emoji, coords, width, height, isSelected) {
 
 function onDrawingMouseDown(coords) {
 
-  const x = coords.x;
-  const y = coords.y;
-
   ctxDraw.beginPath();
-  ctxDraw.moveTo(x, y);
-
-  if (chosenTool === TOOL_PENCIL) {
-    currentLine++;
-    drawingCoords[currentLine] = [{
-      x: x,
-      y: y,
-      color: currentColor
-    }];
-
-  }
+  ctxDraw.moveTo(coords.x, coords.y);
+  
+  const color = (chosenTool === TOOL_ERASE) ? 'erase' : currentColor;
+  currentLine++;
+  drawingCoords[currentLine] = [{
+    x: coords.x,
+    y: coords.y,
+    color: color
+  }];
+  
+  console.log(drawingCoords);
 
   isDrawing = true;
 }
@@ -184,13 +183,10 @@ function onTouchStartOrMouseDown(e) {
     chosenEmoji = null;
     redrawEmojisOnNextFrame();
 
-  } else {
-
+  } else if (chosenTool === TOOL_PENCIL || chosenTool === TOOL_ERASE) {
     chosenEmoji = null;
     redrawEmojisOnNextFrame();
-
     onDrawingMouseDown(coords);
-
   }
 
 }
@@ -248,13 +244,13 @@ function onTouchMoveOrMouseMove(e) {
 
     }
 
-  } else if (isDrawing && chosenTool === TOOL_PENCIL) {
+  } else if (isDrawing && (chosenTool === TOOL_PENCIL || chosenTool === TOOL_ERASE)) {
     ctxDraw.lineTo(coords1.x, coords1.y);
     ctxDraw.stroke();
+    const color = (chosenTool === TOOL_ERASE) ? 'erase' : currentColor;
     drawingCoords[currentLine].push({
       x: coords1.x,
       y: coords1.y,
-      color: currentColor
     });
   }
 }
@@ -322,10 +318,15 @@ function redrawDrawing() {
       for (let coords=0; coords < drawingCoords[line].length; coords++) {
         let point = drawingCoords[line][coords];
         if (coords == 0) {
+          if (point.color == 'erase') {
+            ctxDraw.globalCompositeOperation="destination-out";
+          } else {
+            ctxDraw.globalCompositeOperation="source-over";
+            ctxDraw.strokeStyle = point.color;
+          }
           ctxDraw.beginPath();
           ctxDraw.moveTo(point.x, point.y);
         } else {
-          ctxDraw.strokeStyle = point.color;
           ctxDraw.lineTo(point.x, point.y);
           ctxDraw.stroke();
         }
@@ -450,6 +451,7 @@ function initControls() {
     if (ctxDraw.strokeStyle == '#000000') {
       ctxDraw.strokeStyle = currentColor;
     }
+    ctxDraw.globalCompositeOperation="source-over";
     ctxDraw.lineWidth = DEFAULT_LINE_WIDTH;
     chosenTool = TOOL_PENCIL;
     updateCanvasDrawContext();
@@ -460,9 +462,12 @@ function initControls() {
     drawingCoords.pop();
     clearDrawing();
     redrawDrawing();
-
+    currentLine--;
   });
-
+  eraseButton.addEventListener('click', () => {
+    ctxDraw.globalCompositeOperation="destination-out";
+    chosenTool = TOOL_ERASE;
+  });
 
   /*
   brushButton.addEventListener('click', () => {
