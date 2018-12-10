@@ -58,12 +58,19 @@ let confirmBtn = document.getElementById('btn-confirm');
 let figuresBtn = document.getElementById('btn-figures');
 let colorBtns = document.getElementsByClassName('btn-color');
 
+let toolsFigure = document.getElementById('tools-figure');
+let figureFrontBtn = document.getElementById('btn-figure-front');
+let figureBackBtn = document.getElementById('btn-figure-back');
+let figureDeleteBtn = document.getElementById('btn-figure-delete');
+
 let touchedEmojiIndex = -1;
+let selectedEmojiIndex = -1;
 let chosenEmoji = null;
 let resizeTouchDelta = null;
 let moveTouchDelta = null;
 let isDrawing = false;
 let isRedrawing = false;
+let isUndoing = false;
 let isResizing = false;
 
 let lastStrokeTime = performance.now();
@@ -157,8 +164,10 @@ function onTouchStartOrMouseDown(e) {
   touchedEmojiIndex = indexOfSelectedEmoji(coords);
 
   if (touchedEmojiIndex > -1) {
+    selectedEmojiIndex = touchedEmojiIndex;
     // Selected an existing emoji - fall through
     redrawEmojisOnNextFrame();
+    toolsFigure.classList.add('show');
     return;
   }
 
@@ -277,6 +286,7 @@ function highlightSelectedColor(selectedColor) {
 }
 
 function onNewEmojiClick(event) {
+  selectedEmojiIndex = -1;
   emojiModal.classList.remove('show');
 
   figuresBtn.classList.add('selected');
@@ -303,6 +313,21 @@ function onNewEmojiClick(event) {
   redrawEmojisOnNextFrame();
 }
 
+function deleteEmoji() {
+  selectedEmojiIndex = -1;
+  stampedEmojis.splice(selectedEmojiIndex, 1);
+  redrawEmojisOnNextFrame();
+}
+function translateEmojiZ(z) {
+  if (stampedEmojis[selectedEmojiIndex + z]) {
+    let tmp = stampedEmojis[selectedEmojiIndex + z];
+    stampedEmojis[selectedEmojiIndex + z] = stampedEmojis[selectedEmojiIndex];
+    stampedEmojis[selectedEmojiIndex] = tmp;
+    selectedEmojiIndex = selectedEmojiIndex + z;
+  }
+  redrawEmojisOnNextFrame();
+}
+
 function redrawEmojisOnNextFrame() {
   if (!isRedrawing) {
     isRedrawing = true;
@@ -318,7 +343,7 @@ function redrawEmojis() {
 
   for (let i=0; i < stampedEmojis.length; i++) {
     let emoji = stampedEmojis[i];
-    drawEmoji(emoji.image, {x: emoji.x, y: emoji.y}, emoji.width, emoji.height, i === touchedEmojiIndex);
+    drawEmoji(emoji.image, {x: emoji.x, y: emoji.y}, emoji.width, emoji.height, i === selectedEmojiIndex);
   }
 
   //console.log('finish redraw', performance.now());
@@ -342,16 +367,16 @@ function redrawDrawing() {
     ctxDraw.beginPath();
     ctxDraw.moveTo(drawingCoords[line][0].x, drawingCoords[line][0].y);
 
-    let startTime = performance.now();
+    //let startTime = performance.now();
     for (let coords=1; coords < drawingCoords[line].length; coords++) {
       ctxDraw.lineTo(drawingCoords[line][coords].x, drawingCoords[line][coords].y);
       ctxDraw.stroke();
     }
-    console.log('redraw line '+ drawingCoords[line].length+' points', performance.now() - startTime);
+    //console.log('redraw line '+ drawingCoords[line].length+' points', performance.now() - startTime);
   }
   ctxDraw.globalCompositeOperation = beforeGCompOpe;
   ctxDraw.strokeStyle = beforeStrokeStyle;
-  
+  isUndoing = false;
 
 }
 
@@ -426,7 +451,7 @@ function initColors() {
   for(let color in colors) {
     html += `
       <div class="col">
-        <button class="btn btn-color" id="btn-${color}" >
+        <button class="btn btn-color ${currentColor == colors[color] ? 'selected': ''}" id="btn-${color}" >
           <div style="background-color: ${colors[color]}"></div>
         </button>
       </div>`;
@@ -437,41 +462,24 @@ function initColors() {
 function initControls() {
 
   toolsDrawBtn.addEventListener('click', () => {
+    selectedEmojiIndex = -1;
+    redrawEmojis();
     figuresBtn.classList.remove('selected');
     toolsDrawBtn.classList.add('selected');
 
     toolsDraw.classList.toggle('show');
     toolsHome.classList.remove('show');
     emojiModal.classList.remove('show');
+    toolsFigure.classList.remove('show');
   });
   confirmBtn.addEventListener('click', () => {
     toolsHome.classList.toggle('show');
     toolsDraw.classList.remove('show');
     emojiModal.classList.remove('show');
+    toolsFigure.classList.remove('show');
   });
 
-  for (let i=0; i < colorBtns.length; i++) {
-    colorBtns[i].addEventListener('click', function() {
-      currentColor = colorBtns[i].childNodes[1].style.backgroundColor;
-      onColourClickOrChange();
-      highlightSelectedColor(colorBtns[i]);
-    });
-  }
-
-  figuresBtn.addEventListener('click', () => {
-    emojiModal.classList.toggle('show');
-    //toolsModal.classList.toggle('show');
-  });
-
-  // Add click handlers to emojis so you can select one
-  let availableEmojis = document.querySelectorAll('#modal-emoji img');
-  for (let i=0; i < availableEmojis.length; i++) {
-    let emoji = availableEmojis[i];
-    emoji.addEventListener('click', onNewEmojiClick);
-  }
-
-  pencilButton.addEventListener('click', () => {
-
+  let selectPencil = () => {
     if (ctxDraw.strokeStyle == '#000000') {
       ctxDraw.strokeStyle = currentColor;
     }
@@ -482,19 +490,57 @@ function initControls() {
     updateCanvasDrawContext();
     //toolsModal.classList.remove('show');
     highlightSelectedTool(pencilButton);
-  });
+  };
+
+  pencilButton.addEventListener('click', selectPencil);
+
+  for (let i=0; i < colorBtns.length; i++) {
+    colorBtns[i].addEventListener('click', () => {
+      currentColor = colorBtns[i].childNodes[1].style.backgroundColor;
+      onColourClickOrChange();
+      highlightSelectedColor(colorBtns[i]);
+      selectPencil();
+    });
+  }
   undoButton.addEventListener('click', () => {
-    undoButton.classList.add('loading');
-    drawingCoords.pop();
-    clearDrawing();
-    redrawDrawing();
-    undoButton.classList.remove('loading');
+    if (!isUndoing) {
+      isUndoing = true;
+      //undoButton.classList.add('loading');
+      drawingCoords.pop();
+      clearDrawing();
+      requestAnimationFrame(redrawDrawing);
+      //undoButton.classList.remove('loading');
+    }
   });
     
   eraseButton.addEventListener('click', () => {
     ctxDraw.globalCompositeOperation = "destination-out";
     chosenTool = TOOL_ERASE;
     highlightSelectedTool(eraseButton);
+  });
+
+  figuresBtn.addEventListener('click', () => {
+    toolsFigure.classList.remove('show');
+    emojiModal.classList.toggle('show');
+  });
+
+  // Add click handlers to emojis so you can select one
+  let availableEmojis = document.querySelectorAll('#modal-emoji img');
+  for (let i=0; i < availableEmojis.length; i++) {
+    let emoji = availableEmojis[i];
+    emoji.addEventListener('click', onNewEmojiClick);
+  }
+
+  figureDeleteBtn.addEventListener('click', () => {
+    toolsFigure.classList.remove('show');
+    deleteEmoji();
+  });
+
+  figureFrontBtn.addEventListener('click', () => {
+    translateEmojiZ(1);
+  });
+  figureBackBtn.addEventListener('click', () => {
+    translateEmojiZ(-1);
   });
 
   /*
@@ -537,6 +583,8 @@ export default {
 
   show: function() {
 
+    toolsFigure.setAttribute('style', 'right:' + (window.innerWidth - canvasDraw.width-20)/2 + 'px');
+
     /*
     if (isLiveCamera()) {
       // For live camera view, default to taking up the full space available
@@ -555,6 +603,7 @@ export default {
 
   snapshot: function() {
     // Remove highlights ready to snapshot the canvas
+    selectedEmojiIndex = -1;
     touchedEmojiIndex = -1;
     redrawEmojis();
   }

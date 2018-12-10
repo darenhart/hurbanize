@@ -25,7 +25,6 @@
   }
 }
 
-
 #toolbar-annotate {
   height: 100% - $innerAnnotateHeight;
   background-color: $white;
@@ -72,27 +71,6 @@
     background-image: url('../images/confirmar.svg'); 
   }
 
-  #tools-figure {
-    position: absolute;
-    top: -11rem;
-    right: 4rem;
-    width: 3.3rem;
-    button {
-      padding: 0px;
-      background-color: transparent;
-      height: 3.3rem;
-    }
-  }
-  #btn-figure-front {
-    background-image: url('../images/frente.svg'); 
-  }
-  #btn-figure-back {
-    background-image: url('../images/atras.svg'); 
-  }
-  #btn-figure-delete {
-    background-image: url('../images/excluir.svg'); 
-  }
-
   #colors {
     margin-top: .5rem;
   }
@@ -100,19 +78,22 @@
   .btn-color {
     background: none;
     padding: 0rem;
+    height: 100%;
+    width: 100%;
     >div {
+      transition: width .3s;      
       border-radius: 3rem;
-      width: 1.5rem;
+      width: 1.4rem;
       padding: 0rem;
-      height: 1.5rem;
-      margin: .2rem;
-      margin-top: .4rem;
+      height: 1.4rem;
+      margin: auto;
+      margin-bottom: 1rem;
     }
 
     &.selected>div {
       margin-top: .2rem;
-      width: 2rem;
-      height: 2rem;
+      width: 2.2rem;
+      height: 2.2rem;
     }
   }
 
@@ -127,4 +108,36 @@
     }
   }
 
+}
+
+#tools-figure {
+  display: none;
+  z-index: 5;
+  position: absolute;
+  bottom: 0rem;
+  right: 3rem;
+  width: 2.5rem;
+  &.show {
+    display: block;
+  }
+  button {
+    padding: 0px;
+    background-color: rgba(0,0,0, .1);
+    height: 2.5rem;
+    margin-bottom: 1rem;
+    &:active {
+      border: none;
+      background-color: rgba(255,255,255, 0.3);
+    }
+
+  }
+  #btn-figure-front {
+    background-image: url('../images/frente.svg'); 
+  }
+  #btn-figure-back {
+    background-image: url('../images/atras.svg'); 
+  }
+  #btn-figure-delete {
+    background-image: url('../images/excluir.svg'); 
+  }
 }

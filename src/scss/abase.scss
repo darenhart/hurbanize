@@ -1,10 +1,12 @@
 $purple: #B649D6;
+$purpleDark: #9639B6;
 $red: #FF2626;
 $beige: #EBBE8B;
 $green: #55C53E;
 $blue: #4390CB;
 $greyDark: #989898;
-$grey: #F1F1F1;
+$grey: #F0F0F0;
+$grey2: #D3D3D3;
 $whiteDark: #F9F9F9;
 $white: #FFFFFF;
 
@@ -64,6 +66,9 @@ body {
 
 .btn-primary {
   background-color: $purple;
+  &:active {
+    background-color: $purpleDark;
+  }
 }
 
 .btn-icon {
@@ -74,16 +79,10 @@ body {
   background-repeat: no-repeat;
   background-position: center;
 
+  &:active {
+    border: solid 4px $grey2;
+  }
 }
-.loading {
-  margin: 2rem;
-  padding: 2rem;
-  float: right;
-  background-color: green;
-  border: solid 4px black;
-}
-
-
 
 .p-absolute {
   position: absolute;
