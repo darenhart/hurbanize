@@ -6,6 +6,7 @@ import {isLiveCamera} from '../../shared/config';
 //const DEFAULT_EMOJI_SIZE = 60;
 //const DEFAULT_EMOJI_FONT = 'arial';
 const DEFAULT_LINE_WIDTH = 10;
+const RENDERING_STROKE_TIME = 40;
 
 const TOOL_PENCIL = 0;
 const TOOL_BRUSH = 1;
@@ -47,13 +48,15 @@ let sizeOutput = document.getElementById('size-output');
 let trashButton = document.getElementById('btn-trash');
 
 let colorList = document.getElementById('colors');
+let toolbarAnnotate = document.getElementById('toolbar-annotate');
 let toolsHome = document.getElementById('tools-home');
 let toolsDraw = document.getElementById('tools-draw');
+let toolsDrawControl = document.getElementById('tools-draw-control');
 let toolsOptions = document.getElementById('tools-options');
 let toolsDrawBtn = document.getElementById('btn-tools-draw');
 let confirmBtn = document.getElementById('btn-confirm');
 let figuresBtn = document.getElementById('btn-figures');
-
+let colorBtns = document.getElementsByClassName('btn-color');
 
 let touchedEmojiIndex = -1;
 let chosenEmoji = null;
@@ -63,9 +66,10 @@ let isDrawing = false;
 let isRedrawing = false;
 let isResizing = false;
 
+let lastStrokeTime = performance.now();
+
 // for undo feature store all drawing 
 let drawingCoords = [];
-let currentLine = 0;
 
 // Store emoji details so we can redraw them when moved/resized
 let stampedEmojis = [];
@@ -122,14 +126,12 @@ function onDrawingMouseDown(coords) {
   ctxDraw.moveTo(coords.x, coords.y);
   
   const color = (chosenTool === TOOL_ERASE) ? 'erase' : currentColor;
-  currentLine++;
-  drawingCoords[currentLine] = [{
+
+  drawingCoords.push([{
     x: coords.x,
     y: coords.y,
     color: color
-  }];
-  
-  console.log(drawingCoords);
+  }]);
 
   isDrawing = true;
 }
@@ -161,28 +163,7 @@ function onTouchStartOrMouseDown(e) {
   }
 
   if (chosenTool === TOOL_EMOJI) {
-
-    if (chosenEmoji) {
-
-      // Add new emoji
-      // Increase default SVG size
-      const width = chosenEmoji.width * 0.7;
-      const height = chosenEmoji.height * 0.7;
-
-      stampedEmojis.push({
-        image: chosenEmoji,
-        x: coords.x,
-        y: coords.y,
-        width: width,
-        height: height
-      });
-
-    }
-
-    // Reset chosen emoji. It only stamps once, to avoid accidental multiple taps.
-    chosenEmoji = null;
-    redrawEmojisOnNextFrame();
-
+    // add emoji removed
   } else if (chosenTool === TOOL_PENCIL || chosenTool === TOOL_ERASE) {
     chosenEmoji = null;
     redrawEmojisOnNextFrame();
@@ -217,8 +198,14 @@ function onTouchMoveOrMouseMove(e) {
 
       if (resizeTouchDelta) {
 
-        emoji.width += newResizeTouchDelta.x - resizeTouchDelta.x;
-        emoji.height += newResizeTouchDelta.y - resizeTouchDelta.y;
+        // keep proportion
+        let newSize = ((newResizeTouchDelta.x - resizeTouchDelta.x) + (newResizeTouchDelta.y - resizeTouchDelta.y))/ 2;
+        emoji.width += newSize* (emoji.width/emoji.height);        
+        emoji.height += newSize;
+        
+        // dont keep proportion
+        //emoji.width += newResizeTouchDelta.x - resizeTouchDelta.x
+        //emoji.height += newResizeTouchDelta.y - resizeTouchDelta.y;
 
         redrawEmojisOnNextFrame();
 
@@ -245,13 +232,16 @@ function onTouchMoveOrMouseMove(e) {
     }
 
   } else if (isDrawing && (chosenTool === TOOL_PENCIL || chosenTool === TOOL_ERASE)) {
-    ctxDraw.lineTo(coords1.x, coords1.y);
-    ctxDraw.stroke();
-    const color = (chosenTool === TOOL_ERASE) ? 'erase' : currentColor;
-    drawingCoords[currentLine].push({
-      x: coords1.x,
-      y: coords1.y,
-    });
+
+    if (performance.now() - lastStrokeTime > RENDERING_STROKE_TIME) {
+      ctxDraw.lineTo(coords1.x, coords1.y);
+      ctxDraw.stroke();
+      drawingCoords[drawingCoords.length - 1].push({
+        x: coords1.x,
+        y: coords1.y,
+      });
+      lastStrokeTime = performance.now();
+    }
   }
 }
 
@@ -263,9 +253,8 @@ function onTouchEndOrMouseUp(e) {
   moveTouchDelta = null;
 }
 
-/*
 function highlightSelectedTool(selectedButton) {
-  var toolButtons = toolsModal.getElementsByTagName('button');
+  var toolButtons = toolsDrawControl.getElementsByTagName('button');
   for (var i=0; i < toolButtons.length; i++) {
     var button = toolButtons[i];
     if (button === selectedButton) {
@@ -275,17 +264,43 @@ function highlightSelectedTool(selectedButton) {
     }
   }
 }
-*/
+
+function highlightSelectedColor(selectedColor) {
+  for (var i=0; i < colorBtns.length; i++) {
+    var button = colorBtns[i];
+    if (button === selectedColor) {
+      button.classList.add('selected');
+    } else {
+      button.classList.remove('selected');
+    }
+  } 
+}
 
 function onNewEmojiClick(event) {
+  emojiModal.classList.remove('show');
+
+  figuresBtn.classList.add('selected');
+  toolsDrawBtn.classList.remove('selected');
 
   chosenTool = TOOL_EMOJI;
   chosenEmoji = event.currentTarget;
 
-  emojiModal.classList.remove('show');
+  if (chosenEmoji) {
 
-  //highlightSelectedTool(emojiMenuButton);
+    const width = chosenEmoji.width * 0.7;
+    const height = chosenEmoji.height * 0.7;
 
+    stampedEmojis.push({
+      image: chosenEmoji,
+      x: canvasEmoji.width/2,
+      y: canvasEmoji.height/2,
+      width: width,
+      height: height
+    });
+
+  }
+
+  redrawEmojisOnNextFrame();
 }
 
 function redrawEmojisOnNextFrame() {
@@ -313,26 +328,30 @@ function redrawEmojis() {
 }
 
 function redrawDrawing() {
+  
+  let beforeGCompOpe = ctxDraw.globalCompositeOperation;
+  let beforeStrokeStyle = ctxDraw.strokeStyle;
   for (let line=0; line < drawingCoords.length; line++) {
-    if (drawingCoords[line]) {
-      for (let coords=0; coords < drawingCoords[line].length; coords++) {
-        let point = drawingCoords[line][coords];
-        if (coords == 0) {
-          if (point.color == 'erase') {
-            ctxDraw.globalCompositeOperation="destination-out";
-          } else {
-            ctxDraw.globalCompositeOperation="source-over";
-            ctxDraw.strokeStyle = point.color;
-          }
-          ctxDraw.beginPath();
-          ctxDraw.moveTo(point.x, point.y);
-        } else {
-          ctxDraw.lineTo(point.x, point.y);
-          ctxDraw.stroke();
-        }
-      }
+
+    if (drawingCoords[line][0].color === 'erase') {
+      ctxDraw.globalCompositeOperation = "destination-out";
+    } else {
+      ctxDraw.globalCompositeOperation = "source-over";
+      ctxDraw.strokeStyle = drawingCoords[line][0].color;
     }
+    ctxDraw.beginPath();
+    ctxDraw.moveTo(drawingCoords[line][0].x, drawingCoords[line][0].y);
+
+    let startTime = performance.now();
+    for (let coords=1; coords < drawingCoords[line].length; coords++) {
+      ctxDraw.lineTo(drawingCoords[line][coords].x, drawingCoords[line][coords].y);
+      ctxDraw.stroke();
+    }
+    console.log('redraw line '+ drawingCoords[line].length+' points', performance.now() - startTime);
   }
+  ctxDraw.globalCompositeOperation = beforeGCompOpe;
+  ctxDraw.strokeStyle = beforeStrokeStyle;
+  
 
 }
 
@@ -407,8 +426,9 @@ function initColors() {
   for(let color in colors) {
     html += `
       <div class="col">
-        <button class="btn btn-color" id="btn-${color}" 
-          style="background-color: ${colors[color]}"></button>
+        <button class="btn btn-color" id="btn-${color}" >
+          <div style="background-color: ${colors[color]}"></div>
+        </button>
       </div>`;
   }
   colorList.innerHTML = html;
@@ -417,6 +437,9 @@ function initColors() {
 function initControls() {
 
   toolsDrawBtn.addEventListener('click', () => {
+    figuresBtn.classList.remove('selected');
+    toolsDrawBtn.classList.add('selected');
+
     toolsDraw.classList.toggle('show');
     toolsHome.classList.remove('show');
     emojiModal.classList.remove('show');
@@ -427,11 +450,11 @@ function initControls() {
     emojiModal.classList.remove('show');
   });
 
-  let colorBtns = document.getElementsByClassName('btn-color');
   for (let i=0; i < colorBtns.length; i++) {
     colorBtns[i].addEventListener('click', function() {
-      currentColor = colorBtns[i].style.backgroundColor;
+      currentColor = colorBtns[i].childNodes[1].style.backgroundColor;
       onColourClickOrChange();
+      highlightSelectedColor(colorBtns[i]);
     });
   }
 
@@ -448,25 +471,30 @@ function initControls() {
   }
 
   pencilButton.addEventListener('click', () => {
+
     if (ctxDraw.strokeStyle == '#000000') {
       ctxDraw.strokeStyle = currentColor;
     }
     ctxDraw.globalCompositeOperation="source-over";
     ctxDraw.lineWidth = DEFAULT_LINE_WIDTH;
+
     chosenTool = TOOL_PENCIL;
     updateCanvasDrawContext();
     //toolsModal.classList.remove('show');
-    //highlightSelectedTool(pencilButton);
+    highlightSelectedTool(pencilButton);
   });
   undoButton.addEventListener('click', () => {
+    undoButton.classList.add('loading');
     drawingCoords.pop();
     clearDrawing();
     redrawDrawing();
-    currentLine--;
+    undoButton.classList.remove('loading');
   });
+    
   eraseButton.addEventListener('click', () => {
-    ctxDraw.globalCompositeOperation="destination-out";
+    ctxDraw.globalCompositeOperation = "destination-out";
     chosenTool = TOOL_ERASE;
+    highlightSelectedTool(eraseButton);
   });
 
   /*

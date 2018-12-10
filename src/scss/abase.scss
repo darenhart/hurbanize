@@ -51,11 +51,15 @@ body {
 }
 
 .btn {
+  outline: none;
   border-radius: 11px;
   border: 0;
   padding: 1rem 2rem;
   color: $white;
   background-color: $whiteDark;
+  &.selected {
+    background-color: $grey;
+  }
 }
 
 .btn-primary {
@@ -69,8 +73,17 @@ body {
   background-size: 30px;
   background-repeat: no-repeat;
   background-position: center;
-  background-color: $grey;
+
 }
+.loading {
+  margin: 2rem;
+  padding: 2rem;
+  float: right;
+  background-color: green;
+  border: solid 4px black;
+}
+
+
 
 .p-absolute {
   position: absolute;
@@ -91,7 +104,6 @@ body {
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-
 }
 
 

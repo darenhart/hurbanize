@@ -28,9 +28,8 @@
 
 #toolbar-annotate {
   height: 100% - $innerAnnotateHeight;
-
   background-color: $white;
-  //position: fixed;
+  position: relative;
   width: 100%;
   //bottom: 0px;
 
@@ -39,7 +38,6 @@
     height: 50%;
   }
   .col {
-    padding: .5rem;
     flex-basis: 0;
     flex-grow: 1;
   }
@@ -74,21 +72,58 @@
     background-image: url('../images/confirmar.svg'); 
   }
 
-  .btn-color {
-    padding: 0rem;
-    width: 1.5rem;
-    height: 1.5rem;
-    margin: .2rem;
+  #tools-figure {
+    position: absolute;
+    top: -11rem;
+    right: 4rem;
+    width: 3.3rem;
+    button {
+      padding: 0px;
+      background-color: transparent;
+      height: 3.3rem;
+    }
+  }
+  #btn-figure-front {
+    background-image: url('../images/frente.svg'); 
+  }
+  #btn-figure-back {
+    background-image: url('../images/atras.svg'); 
+  }
+  #btn-figure-delete {
+    background-image: url('../images/excluir.svg'); 
   }
 
-  #btn-white { 
+  #colors {
+    margin-top: .5rem;
+  }
+
+  .btn-color {
+    background: none;
+    padding: 0rem;
+    >div {
+      border-radius: 3rem;
+      width: 1.5rem;
+      padding: 0rem;
+      height: 1.5rem;
+      margin: .2rem;
+      margin-top: .4rem;
+    }
+
+    &.selected>div {
+      margin-top: .2rem;
+      width: 2rem;
+      height: 2rem;
+    }
+  }
+
+  #btn-white>div { 
     border: solid 1px $greyDark;
   }
   
   .btn-share {
     height: 50%;
     button {
-      width: 100%;
+      width: 97%;
     }
   }
 
