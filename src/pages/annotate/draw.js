@@ -314,9 +314,9 @@ function onNewEmojiClick(event) {
 }
 
 function deleteEmoji() {
-  selectedEmojiIndex = -1;
   stampedEmojis.splice(selectedEmojiIndex, 1);
   redrawEmojisOnNextFrame();
+  selectedEmojiIndex = -1;
 }
 function translateEmojiZ(z) {
   if (stampedEmojis[selectedEmojiIndex + z]) {
