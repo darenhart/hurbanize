@@ -29,7 +29,6 @@ body {
 }
 
 h4 {
-  font-weight: 100;
 }
 .text-purple {
   color: $purple;
@@ -170,11 +169,12 @@ h4 {
   bottom: 25px;
   left: 5%;
   width: 90%;
-  background: #987fff;
+  background: $grey;
+  color: $greyDark;
   border-radius: 8px;
-  padding: 5px 8px;
+  padding: 1rem;
   font-size: 1.1em;
-  transition: opacity 2s ease-in-out;
+  transition: opacity 1.5s ease-in-out;
 }
 
 .prompt p {
