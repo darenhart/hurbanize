@@ -2,7 +2,7 @@ import * as hellojs from 'hellojs';
 import {PAGES} from '../shared/constants';
 import AnnotatePage from './annotate';
 import SnapshotPage from './snapshot';
-import {dataURItoBlob, showPage, showPrompt} from '../shared/helpers';
+import {dataURItoBlob, show,hide, showPrompt} from '../shared/helpers';
 
 const hello = hellojs.default;
 const PAGE_NAME = PAGES.SHARE;

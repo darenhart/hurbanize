@@ -1,6 +1,6 @@
 import {PAGES, HEADER_HEIGHT} from '../shared/constants';
 import {setLiveCamera} from '../shared/config';
-import {showPage} from '../shared/helpers';
+import {show,hide} from '../shared/helpers';
 import AnnotatePage from './annotate';
 import SelectImagePage from './selectImage';
 
@@ -18,7 +18,7 @@ function initCanvas() {
 function initControls() {
 
   startBtn.addEventListener('click', function () {
-    SelectImagePage.show();
+    hide('page-home');
   })
 
 }
@@ -31,7 +31,12 @@ export default {
   },
 
   show: function() {
-    showPage(PAGE_NAME);
+    show('page-home');
+    show('page-select-image');
+    hide('page-annotate');
+    hide('page-snapshot');
+    hide('page-share');
+    SelectImagePage.init();
   }
 
 };

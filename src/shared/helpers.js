@@ -17,13 +17,8 @@ export function dataURItoBlob(dataURI) {
   return new Blob([ab], {type: 'image/png'});
 }
 
-function hide(elements) {
-  for (let i=0; i < elements.length; i++) {
-    elements[i].style.display = 'none';
-  }
-}
-
 /*
+
 function updateToolbarVisibility(pageRef) {
   hide(toolbars);
   let toolbar = document.getElementById(`toolbar-${pageRef}`);
@@ -31,19 +26,33 @@ function updateToolbarVisibility(pageRef) {
     toolbar.style.display = 'flex';
   }
 }
-*/
 
 function updatePageVisibility(pageRef) {
-  hide(pages);
+  //hide(pages);
   let page = document.getElementById(`page-${pageRef}`);
   if (page) {
     page.style.display = 'block';
   }
 }
 
+
+export function showPage(pageRef) {
+  //updateToolbarVisibility(pageRef);
+  updatePageVisibility(pageRef);
+  //showPrompt(pageRef);
+}
+
+*/
+
+function hideAll(elements) {
+  for (let i=0; i < elements.length; i++) {
+    elements[i].style.display = 'none';
+  }
+}
+
 export function showPrompt(ref) {
 
-  hide(prompts);
+  hideAll(prompts);
 
   let prompt = document.getElementById(`prompt-${ref}`);
 
@@ -58,8 +67,10 @@ export function showPrompt(ref) {
 
 }
 
-export function showPage(pageRef) {
-  //updateToolbarVisibility(pageRef);
-  updatePageVisibility(pageRef);
-  //showPrompt(pageRef);
+export function show(id) {
+  document.getElementById(id).style.display = 'block';
 }
+export function hide(id) {
+  document.getElementById(id).style.display = 'none';
+}
+

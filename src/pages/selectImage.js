@@ -1,6 +1,6 @@
 import LoadImage from 'blueimp-load-image';
 import {PAGES} from '../shared/constants';
-import {showPage} from '../shared/helpers';
+import {show,hide} from '../shared/helpers';
 //import HomePage from './home';
 import scenariosImages from '\0scenarios';
 import AnnotatePage from './annotate';
@@ -77,6 +77,7 @@ function initControls() {
     cards[i].addEventListener('click', function() {
       onPhotoInputChange(scenariosImages[i]);
       AnnotatePage.show();
+      hide('page-select-image');
     });
   }
 }
@@ -105,9 +106,5 @@ export default {
     initScenarios();
     initControls();    
   },
-
-  show: function() {
-    showPage(PAGE_NAME);
-  }
 
 };

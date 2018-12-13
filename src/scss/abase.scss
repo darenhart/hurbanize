@@ -28,7 +28,21 @@ body {
   text-align: center;
 }
 
-.page {
+h4 {
+  font-weight: 100;
+}
+.text-purple {
+  color: $purple;
+}
+.text-grey {
+  color: $greyDark;
+}
+
+.form-control {
+  padding: 1rem;
+}
+
+.page, .page-modal {
   display: none;
   z-index: 1;
   position: absolute;
@@ -40,9 +54,10 @@ body {
 }
 
 .page-modal {
-  background-color: $greyDark;
-
-  >div {
+  z-index: 2;
+  .modal {
+    position: relative;
+    z-index: 4;
     background-color: $white;
     margin: 2rem 2rem;
     padding-top: 0rem;
@@ -50,7 +65,16 @@ body {
     padding-right: 1rem;
     padding-bottom: 1rem;  
   }
+  .modal-background {
+    z-index: 3;
+    background-color: $greyDark;
+    opacity: .7;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+  }
 }
+
 
 .btn {
   outline: none;
@@ -68,6 +92,14 @@ body {
   background-color: $purple;
   &:active {
     background-color: $purpleDark;
+  }
+}
+
+.btn-secondary {
+  background: none;
+  color: $greyDark;
+  &:active {
+    background-color: $grey;
   }
 }
 
@@ -155,4 +187,20 @@ body {
 }
 
 @media (display-mode: standalone), (display-mode: fullscreen) {
+}
+
+
+#image-save {
+  width: 100%;
+}
+
+.mt-2 {
+  margin-top: 1rem;
+}
+.mt-1 {
+  margin-top: .4rem;
+}
+
+.mb-0 {
+  margin-bottom: 0rem;
 }

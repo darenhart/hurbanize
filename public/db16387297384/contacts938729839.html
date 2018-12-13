@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Hurbanize</title>
+
+    <!-- 
+      PROD change to /__/firebase/5.7.0/firebase-app.js
+    -->
+    <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase-storage.js"></script>
+    <style type="text/css">
+      .user {
+        background-color: #EEE;
+        padding: 1rem;
+        margin: 1rem;
+        display: inline-block;
+        text-align: center;
+      }
+      .email {
+        padding: .5rem;
+        font-size: 2rem;
+        font-family: monospace;
+      }
+      img {
+        max-height: 30vh;
+      }
+    </style>
+  </head>
+  <body>
+
+    <div id="database-output">
+      
+    </div>
+
+    <script>
+      
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyDucetj0pW58ZidLSZDJIcH8dPWbEAPf0E",
+        databaseURL: "https://pwa-draw-dev-72035729357.firebaseio.com",
+        projectId: "pwa-draw-dev-72035729357",
+        storageBucket: "pwa-draw-dev-72035729357.appspot.com",
+      };
+      firebase.initializeApp(config);
+      var database = firebase.database();
+      var databaseOutput = document.getElementById('database-output');
+      var usersRef = database.ref('/users/');
+
+      function addUser(user) {
+        let email = user.email;
+        let img = user.img;
+        let html = `
+          <div class="user">
+            <div class="email" >
+              ${email}
+            </div>
+            <div class="img" >
+              <img src="${img}">
+            </div>
+          </div>`;
+        databaseOutput.innerHTML = html + databaseOutput.innerHTML;
+      }
+
+      usersRef.on('child_added', function(data) {
+        addUser(data.val());
+      });
+      
+    </script>
+  </body>
+</html>

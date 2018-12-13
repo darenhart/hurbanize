@@ -3,7 +3,7 @@ import {HEADER_HEIGHT} from '../shared/constants';
 import AnnotatePage from './annotate';
 import SharePage from './share';
 import {PAGES} from '../shared/constants';
-import {showPage, showPrompt} from '../shared/helpers';
+import {show, showPrompt} from '../shared/helpers';
 
 const hello = hellojs.default;
 const PAGE_NAME = PAGES.SNAPSHOT;
@@ -28,8 +28,8 @@ function initSave() {
   saveCanvas.style.width = cameraCanvas.style.width;
   saveCanvas.style.height = cameraCanvas.style.height;
 
-  saveImage.width  = drawingCanvas.width;
-  saveImage.height = drawingCanvas.height;
+  //saveImage.width  = drawingCanvas.width;
+  //saveImage.height = drawingCanvas.height;
 
   saveCtx.font = '16px Arial';
   saveCtx.fillStyle = '#fff';
@@ -79,7 +79,7 @@ export default {
     saveCanvas.style.display = 'none';
     saveImage.style.display = 'block';
 
-    showPage(PAGE_NAME);
+    show('page-snapshot');
 
   }
 

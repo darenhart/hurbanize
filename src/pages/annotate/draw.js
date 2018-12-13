@@ -462,6 +462,7 @@ function initColors() {
 function initControls() {
 
   toolsDrawBtn.addEventListener('click', () => {
+    selectPencil();
     selectedEmojiIndex = -1;
     redrawEmojis();
     figuresBtn.classList.remove('selected');

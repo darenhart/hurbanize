@@ -8,14 +8,27 @@
     <link rel="stylesheet" href="css/styles.css"/>
     <link rel="icon" href="images/favicon.png" type="image/png"/>
     <link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon-precomposed.png">
+
+
+    <!-- 
+      PROD change to /__/firebase/5.7.0/firebase-app.js
+    -->
+    <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase-storage.js"></script>
   </head>
   <body>
 
-    <div id="page-home" class="page page-modal">
+    <div id="page-home" class="page-modal">
+      <div class="modal-background"></div>
       <div class="modal">
+        <div class="img-top">
+          <img src="../images/composicao.svg">
+        </div>
+
         <div class="logo"></div>
-        <h4>O Hurbanize é para você idealizar a cidade de forma divertida :D</h4>
-        <h4>Escolha um cenário, pinte para setorizar e aplique ilustrações!</h4>
+        <h4 class="text-purple">O Hurbanize é para você idealizar a cidade de forma divertida :D</h4>
+        <h4 class="text-grey">Escolha um cenário, pinte para setorizar e aplique ilustrações!</h4>
         <div>
           <button class="btn btn-primary" id="btn-start-app">Começar</button>
         </div>
@@ -88,6 +101,31 @@
         <!-- Emoji images are dynamically populated by JavaScript -->
       </div>
 
+    </div>
+
+    <div id="page-email" class="page-modal">
+      <div class="modal-background"></div>
+      <div class="modal">
+        <div class="img-top">
+          <img src="../images/flores.svg">
+        </div>
+        <h4 class="text-purple mb-0">Leve sua idealização adiante,</h4>
+        <h4 class="text-purple mt-1">envie para o seu email ;)</h4>
+        <div class="form-email">
+          <div class="form-label">
+            <label class="text-grey">E-mail</label>
+          </div>
+          <div class="mt-2">
+            <input type="email" name="email" id="input-email" class="form-control" placeholder="Endereço de e-mail">
+          </div>
+          <div class="mt-2">
+            <button class="btn btn-primary" id="btn-send-email">Enviar</button>
+          </div>
+          <div class="mt-2">
+            <button class="btn btn-secondary" id="btn-finish">Finalizar</button>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div id="page-snapshot" class="page">
@@ -181,5 +219,40 @@
 
 
     <script src="build/bundle.js"></script>
+
+
+    <script>
+      
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyDucetj0pW58ZidLSZDJIcH8dPWbEAPf0E",
+        //authDomain: "pwa-draw-dev-72035729357.firebaseapp.com",
+        databaseURL: "https://pwa-draw-dev-72035729357.firebaseio.com",
+        projectId: "pwa-draw-dev-72035729357",
+        storageBucket: "pwa-draw-dev-72035729357.appspot.com",
+        //messagingSenderId: "1097628844134"
+      };
+      firebase.initializeApp(config);
+      var database = firebase.database();
+
+      var sendEmailBtn = document.getElementById('btn-send-email');
+      var sendEmailInput = document.getElementById('input-email');
+      var imageSave = document.getElementById('image-save');
+
+      sendEmailBtn.addEventListener('click', function () {
+        var usersRef = database.ref('users');
+        var newUserRef = usersRef.push();
+        newUserRef.set({
+          'email': sendEmailInput.value,
+          'img': imageSave.src
+        });
+        var path = newUserRef.toString();
+        if (path) {
+          alert('salvo');
+        }
+      });
+      
+    </script>
+
   </body>
 </html>
