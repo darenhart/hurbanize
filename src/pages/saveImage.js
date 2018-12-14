@@ -1,13 +1,17 @@
 import {PAGES, HEADER_HEIGHT} from '../shared/constants';
 import {show,hide,showPrompt} from '../shared/helpers';
 import HomePage from './home';
+import SelectImagePage from './selectImage';
 
 let sendEmailBtn = document.getElementById('btn-send-email');
 let finishBtn = document.getElementById('btn-send-email');
 let sendEmailInput = document.getElementById('input-email');
 let imageSave = document.getElementById('image-save');
+let newUserRef;
+let database;
+let usersRef;
 
-function initFirebase() {
+function initFirebaseUserRef() {
   var config = {
     apiKey: "AIzaSyDucetj0pW58ZidLSZDJIcH8dPWbEAPf0E",
     //authDomain: "pwa-draw-dev-72035729357.firebaseapp.com",
@@ -17,6 +21,8 @@ function initFirebase() {
     //messagingSenderId: "1097628844134"
   };
   firebase.initializeApp(config);
+  database = firebase.database();
+  usersRef = database.ref('users');
 }
 
 function restartApp() {
@@ -28,19 +34,8 @@ function restartApp() {
 
 function initControls() {
 
-  var database = firebase.database();
-  var usersRef = database.ref('users');
-
   sendEmailBtn.addEventListener('click', function () {
-    var newUserRef = usersRef.push();
-    newUserRef.set({
-      'email': sendEmailInput.value,
-      'img': imageSave.src
-    });
-    var path = newUserRef.toString();
-    if (path) {
-      restartApp();
-    }
+    saveEmail();
   });
 
   finishBtn.addEventListener('click', function () {
@@ -49,10 +44,27 @@ function initControls() {
 
 }
 
-export default {
+function saveImage() {
+  newUserRef = usersRef.push();
+  return newUserRef.set({
+    'email': '',
+    'img': imageSave.src,
+    'scenario': SelectImagePage.getSelectedScenario(),
+    'timestamp': new Date().toString(),
+    'checked': '',
+  });
+}
 
+function saveEmail() {
+  newUserRef.update({
+    'email': sendEmailInput.value
+  });
+}
+
+export default {
   init: function() {
-    initFirebase();
+    initFirebaseUserRef();
+    saveImage();
     initControls();
   },
 };

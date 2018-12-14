@@ -6,29 +6,84 @@
 
     <!-- 
       PROD change to /__/firebase/5.7.0/firebase-app.js
+    <script src="/__/firebase/5.7.0/firebase-app.js"></script>
+    <script src="/__/firebase/5.7.0/firebase-database.js"></script>
+    <script src="/__/firebase/5.7.0/firebase-storage.js"></script>
     -->
     <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase-database.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase-storage.js"></script>
+
+
     <style type="text/css">
+      body {
+        background-color: #DDD;
+        font-size: 1.5rem;
+        font-family: monospace;
+      }
+
       .user {
+        cursor: pointer;
         background-color: #EEE;
+        border-radius: .4rem;
         padding: 1rem;
         margin: 1rem;
         display: inline-block;
         text-align: center;
       }
+
+      .checked {
+        background-color: #BEB;
+      }
       .email {
         padding: .5rem;
-        font-size: 2rem;
-        font-family: monospace;
       }
       img {
         max-height: 30vh;
       }
+
+      /* Loading Spinner */
+      #loading-spinner {
+        width: 64px;
+        height: 64px;
+        margin: auto;
+        margin-top: 50vh;
+      }
+      #loading-spinner div {
+        box-sizing: border-box;
+        display: block;
+        position: absolute;
+        width: 51px;
+        height: 51px;
+        margin: 6px;
+        border: 6px solid #fff;
+        border-radius: 50%;
+        animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+        border-color: #fff transparent transparent transparent;
+      }
+      #loading-spinner div:nth-child(1) {
+        animation-delay: -0.45s;
+      }
+      #loading-spinner div:nth-child(2) {
+        animation-delay: -0.3s;
+      }
+      #loading-spinner div:nth-child(3) {
+        animation-delay: -0.15s;
+      }
+      @keyframes lds-ring {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
     </style>
   </head>
   <body>
+
+    <div id="loading-spinner"><div></div><div></div><div></div><div></div></div>
 
     <div id="database-output">
       
@@ -36,6 +91,10 @@
 
     <script>
       
+      function hasClass(element, className) {
+        return (' ' + element.className + ' ').indexOf(' ' + className+ ' ') > -1;
+      }
+
       // Initialize Firebase
       var config = {
         apiKey: "AIzaSyDucetj0pW58ZidLSZDJIcH8dPWbEAPf0E",
@@ -48,25 +107,59 @@
       var databaseOutput = document.getElementById('database-output');
       var usersRef = database.ref('/users/');
 
-      function addUser(user) {
+      function userClickListner(el) {
+          el.addEventListener('click', function () {
+            let checked = hasClass(el, 'checked') ? '' : true;
+            database.ref('users/'+el.id).update({
+              'checked': checked
+            });
+          });
+      }
+
+      function initUserClickListners() {
+        let users = document.getElementsByClassName('user');
+        for (let i = 0; i < users.length; i++) {
+          userClickListner(users[i]);
+        }
+      }
+
+      function showUser(key, user, update) {
         let email = user.email;
         let img = user.img;
+        let scenario = user.scenario;
+        let checked = user.checked ? 'checked' : '';
+        let date = user.timestamp ? user.timestamp.substr(0,25) : '';
+        let current = document.getElementById(key);
         let html = `
-          <div class="user">
+          <div class="user ${checked}" id="${key}">
             <div class="email" >
               ${email}
             </div>
-            <div class="img" >
+            <div class="date" >
+              ${date}
+            </div>
+            <div class="imgs" >
+              <img src="${scenario}">
               <img src="${img}">
             </div>
           </div>`;
-        databaseOutput.innerHTML = html + databaseOutput.innerHTML;
+        if (current) {
+          current.outerHTML = html;
+          userClickListner(document.getElementById(key));
+        } else {
+          databaseOutput.innerHTML = html + databaseOutput.innerHTML;
+          initUserClickListners();
+        }
+        
       }
 
       usersRef.on('child_added', function(data) {
-        addUser(data.val());
+        showUser(data.key, data.val());
+        document.getElementById('loading-spinner').style.display = 'none';
       });
-      
+      usersRef.on('child_changed', function(data) {
+        showUser(data.key, data.val());
+      });
     </script>
   </body>
 </html>

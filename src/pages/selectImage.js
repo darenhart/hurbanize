@@ -14,6 +14,8 @@ let drawCanvas = document.getElementById('canvas-draw');
 let emojiCanvas = document.getElementById('canvas-emoji'); 
 let annotateCameraContainer = document.getElementById('annotate-camera-container');
 
+let selectedScenario = '';
+
 let address = [
   ['Porto Alegre, RS', 'Avenida João Pessoa'],
   ['Estrela, RS', 'Coronel Floriano'],
@@ -75,6 +77,7 @@ function initControls() {
 
   for (let i=0; i < cards.length; i++) {
     cards[i].addEventListener('click', function() {
+      selectedScenario = scenariosImages[i];
       onPhotoInputChange(scenariosImages[i]);
       AnnotatePage.show();
       hide('page-select-image');
@@ -106,5 +109,9 @@ export default {
     initScenarios();
     initControls();    
   },
+
+  getSelectedScenario: function() {
+    return selectedScenario;
+  }
 
 };
