@@ -74,3 +74,6 @@ export function hide(id) {
   document.getElementById(id).style.display = 'none';
 }
 
+export function mobileLog(str) {
+  document.getElementById('mobile-log').innerHTML += str+' ';
+}

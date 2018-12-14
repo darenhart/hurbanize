@@ -18,12 +18,10 @@
     <style type="text/css">
       body {
         background-color: #DDD;
-        font-size: 1.5rem;
         font-family: monospace;
       }
 
       .user {
-        cursor: pointer;
         background-color: #EEE;
         border-radius: .4rem;
         padding: 1rem;
@@ -31,12 +29,20 @@
         display: inline-block;
         text-align: center;
       }
-
+      .checkboxes {
+        float: right;
+        width: 1.6rem;
+        height: 1.6rem;
+      }
       .checked {
         background-color: #BEB;
       }
       .email {
         padding: .5rem;
+        font-size: 1.5rem;
+      }
+      .date {
+        padding: .4rem;
       }
       img {
         max-height: 30vh;
@@ -109,17 +115,16 @@
 
       function userClickListner(el) {
           el.addEventListener('click', function () {
-            let checked = hasClass(el, 'checked') ? '' : true;
-            database.ref('users/'+el.id).update({
-              'checked': checked
+            database.ref('users/'+el.id.replace('checkbox-','')).update({
+              'checked': el.checked
             });
           });
       }
 
       function initUserClickListners() {
-        let users = document.getElementsByClassName('user');
-        for (let i = 0; i < users.length; i++) {
-          userClickListner(users[i]);
+        let checkboxes = document.getElementsByClassName('checkboxes');
+        for (let i = 0; i < checkboxes.length; i++) {
+          userClickListner(checkboxes[i]);
         }
       }
 
@@ -132,6 +137,7 @@
         let current = document.getElementById(key);
         let html = `
           <div class="user ${checked}" id="${key}">
+            <input type="checkbox" class="checkboxes" id="checkbox-${key}" ${checked} />
             <div class="email" >
               ${email}
             </div>
@@ -145,7 +151,7 @@
           </div>`;
         if (current) {
           current.outerHTML = html;
-          userClickListner(document.getElementById(key));
+          userClickListner(document.getElementById('checkbox-'+key));
         } else {
           databaseOutput.innerHTML = html + databaseOutput.innerHTML;
           initUserClickListners();

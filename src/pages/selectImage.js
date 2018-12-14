@@ -28,11 +28,8 @@ let address = [
 
 function onPhotoInputChange(path) {
 
-  console.log('Min width and height', cameraCanvas.width, cameraCanvas.height);
-
   const options = {
     maxWidth: cameraCanvas.width,
-    maxHeight: cameraCanvas.height,
     contain: true,
     orientation: true,
     canvas: true,

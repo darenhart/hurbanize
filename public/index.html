@@ -21,12 +21,19 @@
 
     <!-- 
       PROD change to /__/firebase/5.7.0/firebase-app.js
+    
+    <script src="/__/firebase/5.7.0/firebase-app.js"></script>
+    <script src="/__/firebase/5.7.0/firebase-database.js"></script>
+    <script src="/__/firebase/5.7.0/firebase-storage.js"></script>
     -->
     <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase-database.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase-storage.js"></script>
+
   </head>
   <body>
+
+    <div id="mobile-log"></div>
 
     <div id="page-home" class="page-modal">
       <div class="modal-background"></div>
@@ -60,9 +67,15 @@
           <canvas id="canvas-draw"></canvas>
           <canvas id="canvas-emoji"></canvas>
           <div id="tools-figure">
-            <button class="btn btn-icon" id="btn-figure-front"></button>
-            <button class="btn btn-icon" id="btn-figure-back"></button>
-            <button class="btn btn-icon" id="btn-figure-delete"></button>
+            <div class="count-labels">
+              <div id="count-front"></div>
+              <div id="count-back"></div>
+            </div>
+            <div class="tools-figure-buttons">
+              <button class="btn btn-icon" id="btn-figure-front"></button>
+              <button class="btn btn-icon" id="btn-figure-back"></button>
+              <button class="btn btn-icon" id="btn-figure-delete"></button>
+            </div>
           </div>
         </div>
       </div>

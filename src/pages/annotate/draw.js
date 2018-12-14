@@ -1,6 +1,8 @@
 import emojiImages from '\0emoji-images';
 import {HEADER_HEIGHT} from '../../shared/constants';
 import {isLiveCamera} from '../../shared/config';
+import {show, hide, mobileLog} from '../../shared/helpers';
+
 
 //const DEFAULT_COLOUR = '#FF2626';
 //const DEFAULT_EMOJI_SIZE = 60;
@@ -57,11 +59,14 @@ let toolsDrawBtn = document.getElementById('btn-tools-draw');
 let confirmBtn = document.getElementById('btn-confirm');
 let figuresBtn = document.getElementById('btn-figures');
 let colorBtns = document.getElementsByClassName('btn-color');
+let snapshotBtn = document.getElementById('btn-snapshot');
 
 let toolsFigure = document.getElementById('tools-figure');
 let figureFrontBtn = document.getElementById('btn-figure-front');
 let figureBackBtn = document.getElementById('btn-figure-back');
 let figureDeleteBtn = document.getElementById('btn-figure-delete');
+let figureFrontLabel = document.getElementById('count-front');
+let figureBackLabel = document.getElementById('count-back');
 
 let touchedEmojiIndex = -1;
 let selectedEmojiIndex = -1;
@@ -158,21 +163,27 @@ function onTouchStartOrMouseDown(e) {
   let touch = e.changedTouches && e.changedTouches.length ?
     e.changedTouches[0] : null;
 
-  let coords = touch ? {x: touch.pageX - canvasEmoji.offsetLeft, y: touch.pageY - canvasEmoji.offsetTop - HEADER_HEIGHT} :
-    {x: e.clientX - canvasEmoji.offsetLeft, y: e.clientY - canvasEmoji.offsetTop - HEADER_HEIGHT};
+  let coords = touch ? {
+      x: touch.pageX - canvasEmoji.offsetLeft, y: touch.pageY - canvasEmoji.offsetTop - HEADER_HEIGHT
+    } :
+    {
+      x: e.clientX - canvasEmoji.offsetLeft, y: e.clientY - canvasEmoji.offsetTop - HEADER_HEIGHT
+    };
 
   touchedEmojiIndex = indexOfSelectedEmoji(coords);
 
-  if (touchedEmojiIndex > -1) {
-    selectedEmojiIndex = touchedEmojiIndex;
-    // Selected an existing emoji - fall through
-    redrawEmojisOnNextFrame();
-    toolsFigure.classList.add('show');
-    return;
-  }
-
   if (chosenTool === TOOL_EMOJI) {
-    // add emoji removed
+    if (touchedEmojiIndex > -1) {
+      selectedEmojiIndex = touchedEmojiIndex;
+      toolsFigure.classList.add('show');
+      updateFigureTranslateButtons();
+      redrawEmojisOnNextFrame();
+    } else {
+      selectedEmojiIndex = -1;
+      touchedEmojiIndex = -1;
+      toolsFigure.classList.remove('show');
+      redrawEmojisOnNextFrame();
+    }
   } else if (chosenTool === TOOL_PENCIL || chosenTool === TOOL_ERASE) {
     chosenEmoji = null;
     redrawEmojisOnNextFrame();
@@ -192,25 +203,33 @@ function onTouchMoveOrMouseMove(e) {
   let coords1 = touch1 ? {x: touch1.pageX - canvasEmoji.offsetLeft, y: touch1.pageY - canvasEmoji.offsetTop - HEADER_HEIGHT} :
     {x: e.clientX - canvasEmoji.offsetLeft, y: e.clientY - canvasEmoji.offsetTop - HEADER_HEIGHT};
 
-  if (touchedEmojiIndex >= 0) {
 
-    let emoji = stampedEmojis[touchedEmojiIndex];
+  if (chosenTool === TOOL_EMOJI) {
+
+    let emoji = stampedEmojis[selectedEmojiIndex];
 
     if (touch2) {
 
       // Resize emoji
       isResizing = true;
 
-      let coords2 = {x: touch2.pageX - canvasEmoji.offsetLeft, y: touch2.pageY - canvasEmoji.offsetTop - HEADER_HEIGHT};
-      let newResizeTouchDelta = {x: Math.abs(coords2.x - coords1.x),
-        y: Math.abs(coords2.y - coords1.y)};
+      let coords2 = {
+        x: touch2.pageX - canvasEmoji.offsetLeft, y: touch2.pageY - canvasEmoji.offsetTop - HEADER_HEIGHT
+      };
+      let newResizeTouchDelta = {
+        x: Math.abs(coords2.x - coords1.x),
+        y: Math.abs(coords2.y - coords1.y)
+      };
 
       if (resizeTouchDelta) {
 
         // keep proportion
         let newSize = ((newResizeTouchDelta.x - resizeTouchDelta.x) + (newResizeTouchDelta.y - resizeTouchDelta.y))/ 2;
-        emoji.width += newSize* (emoji.width/emoji.height);        
-        emoji.height += newSize;
+
+        if (newSize > 0 || emoji.height + newSize > 20) {
+          emoji.width += newSize * (emoji.width/emoji.height);       
+          emoji.height += newSize;
+        }
         
         // dont keep proportion
         //emoji.width += newResizeTouchDelta.x - resizeTouchDelta.x
@@ -222,7 +241,7 @@ function onTouchMoveOrMouseMove(e) {
 
       resizeTouchDelta = newResizeTouchDelta;
 
-    } else if (!isResizing) {
+    } else if (!isResizing && touchedEmojiIndex >= 0) {
 
       if (moveTouchDelta) {
 
@@ -250,6 +269,7 @@ function onTouchMoveOrMouseMove(e) {
         y: coords1.y,
       });
       lastStrokeTime = performance.now();
+      snapshotBtn.removeAttribute('disabled')
     }
   }
 }
@@ -260,6 +280,34 @@ function onTouchEndOrMouseUp(e) {
   touchedEmojiIndex = -1;
   resizeTouchDelta = null;
   moveTouchDelta = null;
+}
+
+function updateFigureTranslateButtons() {
+  if (stampedEmojis.length <= 1) {
+    figureBackBtn.style.display = 'none';
+    figureFrontBtn.style.display = 'none';
+    figureBackLabel.style.display = 'none';
+    figureFrontLabel.style.display = 'none';
+  } else {
+    figureBackBtn.style.display = 'block';
+    figureFrontBtn.style.display = 'block';
+    figureBackLabel.style.display = 'block';
+    figureFrontLabel.style.display = 'block';
+  }
+  let numFront = stampedEmojis.length -1 - selectedEmojiIndex;
+  let numBack = selectedEmojiIndex;
+  figureFrontLabel.innerHTML = numFront;
+  figureBackLabel.innerHTML = numBack;
+  if (numFront == 0) {
+    figureFrontBtn.disabled = true;
+  } else {
+    figureFrontBtn.removeAttribute('disabled');
+  }
+  if (numBack == 0) {
+    figureBackBtn.disabled = true;
+  } else {
+    figureBackBtn.removeAttribute('disabled');
+  }
 }
 
 function highlightSelectedTool(selectedButton) {
@@ -309,7 +357,7 @@ function onNewEmojiClick(event) {
     });
 
   }
-
+  snapshotBtn.removeAttribute('disabled')
   redrawEmojisOnNextFrame();
 }
 
@@ -539,10 +587,14 @@ function initControls() {
 
   figureFrontBtn.addEventListener('click', () => {
     translateEmojiZ(1);
+    updateFigureTranslateButtons();
   });
   figureBackBtn.addEventListener('click', () => {
     translateEmojiZ(-1);
+    updateFigureTranslateButtons();
   });
+  
+  snapshotBtn.disabled = true
 
   /*
   brushButton.addEventListener('click', () => {
@@ -584,7 +636,6 @@ export default {
 
   show: function() {
 
-    toolsFigure.setAttribute('style', 'right:' + (window.innerWidth - canvasDraw.width-20)/2 + 'px');
 
     /*
     if (isLiveCamera()) {

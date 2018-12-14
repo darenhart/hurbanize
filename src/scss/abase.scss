@@ -1,4 +1,5 @@
 $purple: #B649D6;
+$purple2: #F6D9F6;
 $purpleDark: #9639B6;
 $red: #FF2626;
 $beige: #EBBE8B;
@@ -11,6 +12,7 @@ $whiteDark: #F9F9F9;
 $white: #FFFFFF;
 
 $innerAnnotateHeight: 75%;
+$maxWidth: 700px;
 
 html {
   height: 100%;
@@ -91,6 +93,9 @@ h4 {
   background-color: $purple;
   &:active {
     background-color: $purpleDark;
+  }
+  &:disabled {
+    background-color: $purple2;
   }
 }
 
@@ -203,4 +208,11 @@ h4 {
 
 .mb-0 {
   margin-bottom: 0rem;
+}
+
+#mobile-log {
+  text-shadow: 1px 1px 2px white;
+  padding: 1rem;
+  position: absolute;
+  z-index: 100;
 }

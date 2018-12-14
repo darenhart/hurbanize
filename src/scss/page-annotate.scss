@@ -1,6 +1,7 @@
 #page-annotate {
 
   #inner-annotate {
+    max-width: $maxWidth;
     height: $innerAnnotateHeight;
 
     >div {

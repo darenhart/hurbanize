@@ -1,7 +1,7 @@
 .tools-pannel {
   display: none;
   height: 100%;
-  max-width: 700px;
+  max-width: $maxWidth;
   margin:auto;
 }
 .tools-pannel.show {
@@ -14,7 +14,7 @@
   height: 100%;
   width: 100%;
   max-width: 100%;
-  z-index: 3;
+  z-index: 11;
   overflow: scroll;
   opacity: .9;
 
@@ -26,6 +26,7 @@
 }
 
 #toolbar-annotate {
+  z-index: 10;
   height: 100% - $innerAnnotateHeight;
   background-color: $white;
   position: relative;
@@ -115,21 +116,29 @@
   z-index: 5;
   position: absolute;
   bottom: 0rem;
-  right: 3rem;
-  width: 2.5rem;
+  right: 1.2rem;
+  text-align: right;
+  
   &.show {
     display: block;
   }
+  .tools-figure-buttons {
+    display: inline-block;
+  }
   button {
+    display: block;
     padding: 0px;
     background-color: rgba(0,0,0, .1);
     height: 2.5rem;
+    width: 2.5rem;
     margin-bottom: 1rem;
     &:active {
       border: none;
       background-color: rgba(255,255,255, 0.3);
     }
-
+    &:disabled {
+      opacity: .4;
+    }
   }
   #btn-figure-front {
     background-image: url('../images/frente.svg'); 
@@ -140,4 +149,21 @@
   #btn-figure-delete {
     background-image: url('../images/excluir.svg'); 
   }
+
+  .count-labels {
+    margin-right: .3rem;
+    float: left;
+    text-align: right;
+    color: white;
+    text-shadow: 1px 1px 2px black;
+  }
+
+  #count-front {
+    margin-top: .8rem;
+  }
+  #count-back {
+    margin-top: 2.3rem;
+  }
+
+
 }
