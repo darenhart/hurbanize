@@ -4,7 +4,7 @@ import HomePage from './home';
 import SelectImagePage from './selectImage';
 
 let sendEmailBtn = document.getElementById('btn-send-email');
-let finishBtn = document.getElementById('btn-send-email');
+let finishBtn = document.getElementById('btn-finish');
 let sendEmailInput = document.getElementById('input-email');
 let imageSave = document.getElementById('image-save');
 let newUserRef;
@@ -24,12 +24,11 @@ function initFirebaseUserRef() {
   database = firebase.database();
   usersRef = database.ref('users');
 }
+initFirebaseUserRef();
 
 function restartApp() {
-  showPrompt('image-saved');
-  hide('page-email');
-  //HomePage.init();
-  //HomePage.show();
+  //showPrompt('image-saved');
+  window.location.reload();
 }
 
 function initControls() {
@@ -39,7 +38,7 @@ function initControls() {
   });
 
   finishBtn.addEventListener('click', function () {
-    hide('page-email');
+    restartApp();
   });
 
 }
@@ -59,11 +58,15 @@ function saveEmail() {
   newUserRef.update({
     'email': sendEmailInput.value
   });
+  hide('page-share');
+  show('page-success');
+  setTimeout(() => {
+    restartApp();
+  }, 3000);
 }
 
 export default {
   init: function() {
-    initFirebaseUserRef();
     saveImage();
     initControls();
   },

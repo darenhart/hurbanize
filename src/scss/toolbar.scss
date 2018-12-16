@@ -114,13 +114,18 @@
     border: solid 1px $greyDark;
   }
   
+  .btn-toolbar {
+    display: block;
+  }
   .btn-share {
-    height: 50%;
-    button {
-      width: 97%;
-    }
+    padding-left: .5rem;
+    padding-right: .5rem;
   }
 
+}
+
+#tools-share {
+  padding: .5rem;
 }
 
 #tools-figure {

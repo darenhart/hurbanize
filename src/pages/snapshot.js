@@ -79,7 +79,7 @@ export default {
     saveCanvas.style.display = 'none';
     saveImage.style.display = 'block';
 
-    show('page-snapshot');
+    //show('page-snapshot');
 
   }
 

@@ -2,7 +2,9 @@ import emojiImages from '\0emoji-images';
 import {HEADER_HEIGHT} from '../../shared/constants';
 import {isLiveCamera} from '../../shared/config';
 import {show, hide, mobileLog} from '../../shared/helpers';
-
+import HomePage from '../home';
+import SnapshotPage from '../snapshot';
+import SaveImagePage from '../saveImage';
 
 //const DEFAULT_COLOUR = '#FF2626';
 //const DEFAULT_EMOJI_SIZE = 60;
@@ -29,8 +31,8 @@ let colors = {
 
 let canvasDraw = document.getElementById('canvas-draw');
 let canvasEmoji = document.getElementById('canvas-emoji');
-let ctxDraw = canvasDraw.getContext('2d');
-let ctxEmoji = canvasEmoji.getContext('2d');
+let ctxDraw;
+let ctxEmoji;
 
 let chosenTool = '';//TOOL_PENCIL;
 let toolsMenuButton = document.getElementById('btn-tools');
@@ -53,6 +55,7 @@ let colorList = document.getElementById('colors');
 let toolbarAnnotate = document.getElementById('toolbar-annotate');
 let toolsHome = document.getElementById('tools-home');
 let toolsDraw = document.getElementById('tools-draw');
+let toolsShare = document.getElementById('tools-share');
 let toolsDrawControl = document.getElementById('tools-draw-control');
 let toolsOptions = document.getElementById('tools-options');
 let toolsDrawBtn = document.getElementById('btn-tools-draw');
@@ -84,6 +87,33 @@ let drawingCoords = [];
 
 // Store emoji details so we can redraw them when moved/resized
 let stampedEmojis = [];
+
+function initVars() {
+  drawingCoords = [];
+  stampedEmojis = [];
+  ctxDraw = canvasDraw.getContext('2d');
+  ctxEmoji = canvasEmoji.getContext('2d');
+}
+
+function initCanvases() {
+
+  clearCanvases();
+
+  // Emoji canvas is on top so will receive the interaction events
+  canvasEmoji.addEventListener('touchstart', onTouchStartOrMouseDown, false);
+  canvasEmoji.addEventListener('touchmove', onTouchMoveOrMouseMove, false);
+  canvasEmoji.addEventListener('touchend', onTouchEndOrMouseUp, false);
+
+  canvasEmoji.addEventListener('mousedown', onTouchStartOrMouseDown, false);
+  canvasEmoji.addEventListener('mousemove', onTouchMoveOrMouseMove, false);
+  canvasEmoji.addEventListener('mouseup', onTouchEndOrMouseUp, false);
+
+  ctxDraw.strokeStyle = currentColor;
+  ctxDraw.lineWidth = DEFAULT_LINE_WIDTH;
+  ctxDraw.lineJoin = 'round';
+  ctxDraw.lineCap = 'round';
+  ctxDraw.shadowColor = currentColor;
+}
 
 /**
  * Returns index of touched emoji in the stampedEmojis, or -1 if none touched.
@@ -452,31 +482,6 @@ function onColourClickOrChange() {
   //emojiMenuButton.classList.remove('selected');
 }
 
-/*
-function onSizeChange(event) {
-  updateCanvasDrawContext();
-  sizeOutput.innerHTML = event.target.value;
-}
-*/
-
-function initCanvases() {
-
-  // Emoji canvas is on top so will receive the interaction events
-  canvasEmoji.addEventListener('touchstart', onTouchStartOrMouseDown, false);
-  canvasEmoji.addEventListener('touchmove', onTouchMoveOrMouseMove, false);
-  canvasEmoji.addEventListener('touchend', onTouchEndOrMouseUp, false);
-
-  canvasEmoji.addEventListener('mousedown', onTouchStartOrMouseDown, false);
-  canvasEmoji.addEventListener('mousemove', onTouchMoveOrMouseMove, false);
-  canvasEmoji.addEventListener('mouseup', onTouchEndOrMouseUp, false);
-
-  ctxDraw.strokeStyle = currentColor;
-  ctxDraw.lineWidth = DEFAULT_LINE_WIDTH;
-  ctxDraw.lineJoin = 'round';
-  ctxDraw.lineCap = 'round';
-  ctxDraw.shadowColor = currentColor;
-}
-
 function updateCanvasDrawContext() {
   ctxDraw.strokeStyle = currentColor;
   //ctxDraw.lineWidth = sizeInput.value;
@@ -511,18 +516,26 @@ function initColors() {
   colorList.innerHTML = html;
 }
 
+function restartApp() {
+  //HomePage.init();
+  //HomePage.show();
+  window.location.reload();
+}
+
 function initControls() {
 
   window.onhashchange = function () {
     let hash = window.location.hash;
-    if (hash == '#draw') {
-      drawAction();
-    }
-    if (hash == '#annotate') {
-      annotateAction();
-    }
-    if (hash == '#figures') {
-      figuresAction();
+    let routes = {
+      '#home': restartApp,
+      '#draw': drawAction,
+      '#annotate': annotateAction,
+      '#figures': figuresAction,
+      '#share': shareAction,
+      '#share-confirm': shareConfirmAction,
+    };
+    if (routes[hash]) {
+      routes[hash]();
     }
   };
 
@@ -543,6 +556,7 @@ function initControls() {
     toolsHome.classList.add('show');
     toolsDraw.classList.remove('show');
     emojiModal.classList.remove('show');
+    hide('page-share');
     //toolsFigure.classList.remove('show');
   };
   let figuresAction = () => {
@@ -561,6 +575,29 @@ function initControls() {
     updateCanvasDrawContext();
     //toolsModal.classList.remove('show');
     highlightSelectedTool(pencilButton);
+  };
+
+  let shareAction = () => {
+    selectedEmojiIndex = -1;
+    touchedEmojiIndex = -1;
+    redrawEmojis();
+    toolsShare.classList.add('show');
+    toolsHome.classList.remove('show');
+    emojiModal.classList.remove('show');
+    toolsFigure.classList.remove('show');
+    hide('page-share');
+  };
+
+  let shareConfirmAction = () => {
+    // Remove highlights ready to snapshot the canvas
+    selectedEmojiIndex = -1;
+    touchedEmojiIndex = -1;
+    redrawEmojis();
+    SnapshotPage.show();
+    //hide('page-annotate');
+    toolsShare.classList.remove('show');
+    show('page-share');
+    SaveImagePage.init();
   };
 
   pencilButton.addEventListener('click', selectPencil);
@@ -610,41 +647,15 @@ function initControls() {
     translateEmojiZ(-1);
     updateFigureTranslateButtons();
   });
-  
+
   snapshotBtn.disabled = true
-
-  /*
-  brushButton.addEventListener('click', () => {
-    chosenTool = TOOL_BRUSH;
-    updateCanvasDrawContext();
-    toolsModal.classList.remove('show');
-    highlightSelectedTool(brushButton);
-  });
-
-  optionsMenuButton.addEventListener('click', () => {
-    optionsModal.classList.toggle('show');
-    toolsModal.classList.remove('show');
-    emojiModal.classList.remove('show');
-  });
-
-  colourInput.addEventListener('input', onColourClickOrChange);
-  colourInput.addEventListener('click', onColourClickOrChange);
-
-  sizeInput.addEventListener('change', onSizeChange);
-  sizeInput.value = DEFAULT_LINE_WIDTH;
-  sizeOutput.innerHTML = DEFAULT_LINE_WIDTH;
-
-  trashButton.addEventListener('click', () => {
-    // TODO introduce confirmation prompt!
-    clearCanvases();
-  })
-  */
-
 }
 
 export default {
 
   init: function() {
+
+    initVars();
     initCanvases();
     initColors();
     initEmojis();
@@ -668,13 +679,6 @@ export default {
     canvasEmoji.setAttribute('style', `left: calc(50% - ${canvasEmoji.width / 2}px); top: calc(50% - ${canvasEmoji.height / 2}px)`);
     */
 
-  },
-
-  snapshot: function() {
-    // Remove highlights ready to snapshot the canvas
-    selectedEmojiIndex = -1;
-    touchedEmojiIndex = -1;
-    redrawEmojis();
   }
 
 };

@@ -92,8 +92,10 @@ function initScenarios() {
     html += `
         <div class="card">
           <img src="${path}" alt="scenario"/>
-          <p>${address[i][0]}</p>
-          <p>${address[i][1]}</p>
+          <div class="card-desc">
+            <p class="text-purple">${address[i][0]}</p>
+            <p class="text-grey">${address[i][1]}</p>
+          </div>
         </div>`;
   }
 

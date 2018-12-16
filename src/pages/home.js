@@ -37,8 +37,8 @@ export default {
     hide('page-annotate');
     hide('page-snapshot');
     hide('page-share');
-    hide('page-email');
     SelectImagePage.init();
+    AnnotatePage.init();
   }
 
 };

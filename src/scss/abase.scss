@@ -39,6 +39,9 @@ h4 {
 .text-grey {
   color: $greyDark;
 }
+.text-green {
+  color: $green;
+}
 
 .form-control {
   padding: 1rem;
@@ -70,7 +73,7 @@ h4 {
   .modal-background {
     z-index: 3;
     background-color: $greyDark;
-    opacity: .7;
+    opacity: .9;
     position: absolute;
     height: 100%;
     width: 100%;
@@ -80,6 +83,7 @@ h4 {
 
 .btn {
   outline: none;
+  text-decoration: none;
   border-radius: 11px;
   border: 0;
   padding: 1rem 2rem;
@@ -120,6 +124,14 @@ h4 {
   &:active {
     background-color: $grey;
   }
+}
+
+.btn-back {
+  background-image: url('../images/voltar.svg');
+  background-color: transparent;
+  width: 2rem;
+  height: 2rem;
+  position: absolute;
 }
 
 .p-absolute {
