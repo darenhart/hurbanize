@@ -78,6 +78,7 @@ function initControls() {
       onPhotoInputChange(scenariosImages[i]);
       AnnotatePage.show();
       hide('page-select-image');
+      window.location.hash = 'annotate';
     });
   }
 }

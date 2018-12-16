@@ -56,7 +56,6 @@ let toolsDraw = document.getElementById('tools-draw');
 let toolsDrawControl = document.getElementById('tools-draw-control');
 let toolsOptions = document.getElementById('tools-options');
 let toolsDrawBtn = document.getElementById('btn-tools-draw');
-let confirmBtn = document.getElementById('btn-confirm');
 let figuresBtn = document.getElementById('btn-figures');
 let colorBtns = document.getElementsByClassName('btn-color');
 let snapshotBtn = document.getElementById('btn-snapshot');
@@ -179,10 +178,6 @@ function onTouchStartOrMouseDown(e) {
       updateFigureTranslateButtons();
       redrawEmojisOnNextFrame();
     } else {
-      selectedEmojiIndex = -1;
-      touchedEmojiIndex = -1;
-      toolsFigure.classList.remove('show');
-      redrawEmojisOnNextFrame();
     }
   } else if (chosenTool === TOOL_PENCIL || chosenTool === TOOL_ERASE) {
     chosenEmoji = null;
@@ -241,6 +236,11 @@ function onTouchMoveOrMouseMove(e) {
 
       resizeTouchDelta = newResizeTouchDelta;
 
+    } else if (selectedEmojiIndex == -1) {
+      selectedEmojiIndex = -1;
+      touchedEmojiIndex = -1;
+      toolsFigure.classList.remove('show');
+      redrawEmojisOnNextFrame();
     } else if (!isResizing && touchedEmojiIndex >= 0) {
 
       if (moveTouchDelta) {
@@ -336,9 +336,10 @@ function highlightSelectedColor(selectedColor) {
 function onNewEmojiClick(event) {
   selectedEmojiIndex = -1;
   emojiModal.classList.remove('show');
+  window.location.hash = '#annotate';
 
-  figuresBtn.classList.add('selected');
-  toolsDrawBtn.classList.remove('selected');
+  //figuresBtn.classList.add('selected');
+  //toolsDrawBtn.classList.remove('selected');
 
   chosenTool = TOOL_EMOJI;
   chosenEmoji = event.currentTarget;
@@ -357,6 +358,9 @@ function onNewEmojiClick(event) {
     });
 
   }
+  selectedEmojiIndex = stampedEmojis.length -1;
+  toolsFigure.classList.add('show');
+  updateFigureTranslateButtons();
   snapshotBtn.removeAttribute('disabled')
   redrawEmojisOnNextFrame();
 }
@@ -509,24 +513,42 @@ function initColors() {
 
 function initControls() {
 
-  toolsDrawBtn.addEventListener('click', () => {
+  window.onhashchange = function () {
+    let hash = window.location.hash;
+    if (hash == '#draw') {
+      drawAction();
+    }
+    if (hash == '#annotate') {
+      annotateAction();
+    }
+    if (hash == '#figures') {
+      figuresAction();
+    }
+  };
+
+  let drawAction = () => {
     selectPencil();
     selectedEmojiIndex = -1;
     redrawEmojis();
-    figuresBtn.classList.remove('selected');
-    toolsDrawBtn.classList.add('selected');
+    //figuresBtn.classList.remove('selected');
+    //toolsDrawBtn.classList.add('selected');
 
-    toolsDraw.classList.toggle('show');
+    toolsDraw.classList.add('show');
     toolsHome.classList.remove('show');
     emojiModal.classList.remove('show');
     toolsFigure.classList.remove('show');
-  });
-  confirmBtn.addEventListener('click', () => {
-    toolsHome.classList.toggle('show');
+  };
+  let annotateAction = () => {
+    chosenTool = TOOL_EMOJI;
+    toolsHome.classList.add('show');
     toolsDraw.classList.remove('show');
     emojiModal.classList.remove('show');
-    toolsFigure.classList.remove('show');
-  });
+    //toolsFigure.classList.remove('show');
+  };
+  let figuresAction = () => {
+    //toolsFigure.classList.remove('show');
+    emojiModal.classList.add('show');
+  };
 
   let selectPencil = () => {
     if (ctxDraw.strokeStyle == '#000000') {
@@ -566,11 +588,6 @@ function initControls() {
     ctxDraw.globalCompositeOperation = "destination-out";
     chosenTool = TOOL_ERASE;
     highlightSelectedTool(eraseButton);
-  });
-
-  figuresBtn.addEventListener('click', () => {
-    toolsFigure.classList.remove('show');
-    emojiModal.classList.toggle('show');
   });
 
   // Add click handlers to emojis so you can select one

@@ -26,6 +26,7 @@ function initControls() {
 export default {
 
   init: function() {
+    window.location.hash = '';
     initCanvas();
     initControls();
   },

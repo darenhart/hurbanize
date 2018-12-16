@@ -8,7 +8,7 @@
   display: block;
 }
 #modal-emoji {
-  background-color: $grey;
+  background-color: $greyDark2;
   position: fixed;
   top: 0px;
   height: 100%;
@@ -61,15 +61,27 @@
   }
   #btn-undo {
     background-image: url('../images/desfazer.svg'); 
+    &:active, &.selected {
+      background-image: url('../images/a_desfazer.svg'); 
+    }
   }
   #btn-pencil {
     background-image: url('../images/pintar.svg'); 
+    &:active, &.selected {
+      background-image: url('../images/a_pintar.svg'); 
+    }
   }
   #btn-erase {
     background-image: url('../images/apagar.svg'); 
+    &:active, &.selected {
+      background-image: url('../images/a_apagar.svg'); 
+    }
   }
   #btn-confirm {
     background-image: url('../images/confirmar.svg'); 
+    &:active, &.selected {
+      background-image: url('../images/a_confirmar.svg'); 
+    }
   }
 
   #colors {

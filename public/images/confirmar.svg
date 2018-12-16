@@ -1,12 +1,19 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 27.582 21">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16.02 20.1">
   <defs>
     <style>
       .cls-1 {
+        fill: none;
+      }
+
+      .cls-2 {
         fill: #989898;
+        fill-rule: evenodd;
       }
     </style>
   </defs>
-  <g id="confirmar" transform="translate(-299 -476.728)">
-    <path id="Path_4890" data-name="Path 4890" class="cls-1" d="M8.776,16.612,2.194,10.03,0,12.224,8.776,21,27.582,2.194,25.388,0Z" transform="translate(299 476.728)"/>
+  <g id="Group_2418" data-name="Group 2418" transform="translate(3298 4222)">
+    <rect id="Rectangle_1000" data-name="Rectangle 1000" class="cls-1" width="16.01" height="20.1" transform="translate(-3298 -4222)"/>
+    <path id="Path_4918" data-name="Path 4918" class="cls-2" d="M15.22,1.78,7.99,11.29,4.02,8.23l-.61.79,4.76,3.67,7.84-10.3Z" transform="translate(-3298 -4222)"/>
+    <path id="Path_4919" data-name="Path 4919" class="cls-2" d="M14.49,7.69A7,7,0,1,1,8.01,3.32a6.9,6.9,0,0,1,3.01.69l.62-.81A7.994,7.994,0,0,0,0,10.31a8.01,8.01,0,0,0,16.02,0,7.907,7.907,0,0,0-.83-3.53Z" transform="translate(-3298 -4222)"/>
   </g>
 </svg>

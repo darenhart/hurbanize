@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16.01 20.1">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+      }
+
+      .cls-2 {
+        fill: #989898;
+        fill-rule: evenodd;
+      }
+    </style>
+  </defs>
+  <g id="Group_2431" data-name="Group 2431" transform="translate(3228 4262)">
+    <rect id="Rectangle_997" data-name="Rectangle 997" class="cls-1" width="16.01" height="20.1" transform="translate(-3211.99 -4241.9) rotate(180)"/>
+    <g id="Group_2412" data-name="Group 2412" transform="translate(-3230.05 -4243.939) rotate(-90)">
+      <path id="Path_4910" data-name="Path 4910" class="cls-2" d="M4.49,12.01,8.01,8.49l3.54,3.55.71-.71L8.01,7.08,3.78,11.3Z"/>
+      <path id="Path_4911" data-name="Path 4911" class="cls-2" d="M8.01,2.05a8,8,0,1,0,8,8,8,8,0,0,0-8-8ZM8,17.05a7,7,0,1,1,7-7,7,7,0,0,1-7,7Z"/>
+    </g>
+  </g>
+</svg>
