@@ -189,6 +189,15 @@ function closeModals() {
   emojiModal.classList.remove('show');
 }
 
+function getCoordsTouchOrMouse(touch) {
+  return touch ? {
+      x: touch.pageX - canvasEmoji.offsetLeft, y: touch.pageY - canvasEmoji.offsetTop - HEADER_HEIGHT
+    } :
+    {
+      x: e.clientX - canvasEmoji.offsetLeft, y: e.clientY - canvasEmoji.offsetTop - HEADER_HEIGHT
+    };
+}
+
 function onTouchStartOrMouseDown(e) {
 
   e.preventDefault();
@@ -198,20 +207,14 @@ function onTouchStartOrMouseDown(e) {
   let touch = e.changedTouches && e.changedTouches.length ?
     e.changedTouches[0] : null;
 
-  let coords = touch ? {
-      x: touch.pageX - canvasEmoji.offsetLeft, y: touch.pageY - canvasEmoji.offsetTop - HEADER_HEIGHT
-    } :
-    {
-      x: e.clientX - canvasEmoji.offsetLeft, y: e.clientY - canvasEmoji.offsetTop - HEADER_HEIGHT
-    };
+  let coords = getCoordsTouchOrMouse(touch);
 
   touchedEmojiIndex = indexOfSelectedEmoji(coords);
 
   if (chosenTool === TOOL_EMOJI) {
     if (touchedEmojiIndex > -1) {
       selectedEmojiIndex = touchedEmojiIndex;
-      toolsFigure.classList.add('show');
-      updateFigureTranslateButtons();
+      updateFigureToolsButtons();
       redrawEmojisOnNextFrame();
     } else {
     }
@@ -231,9 +234,7 @@ function onTouchMoveOrMouseMove(e) {
   let touch1 = touches.length ? touches[0] : null;
   let touch2 = touches.length > 1 ? touches[1] : null;
 
-  let coords1 = touch1 ? {x: touch1.pageX - canvasEmoji.offsetLeft, y: touch1.pageY - canvasEmoji.offsetTop - HEADER_HEIGHT} :
-    {x: e.clientX - canvasEmoji.offsetLeft, y: e.clientY - canvasEmoji.offsetTop - HEADER_HEIGHT};
-
+  let coords1 = getCoordsTouchOrMouse(touch1);
 
   if (chosenTool === TOOL_EMOJI) {
 
@@ -273,6 +274,10 @@ function onTouchMoveOrMouseMove(e) {
       resizeTouchDelta = newResizeTouchDelta;
 
     } else if (selectedEmojiIndex == -1) {
+      //selectedEmojiIndex = -1;
+      //touchedEmojiIndex = -1;
+      //toolsFigure.classList.remove('show');
+      //redrawEmojisOnNextFrame();
     } else if (!isResizing && touchedEmojiIndex >= 0) {
 
       if (moveTouchDelta) {
@@ -318,17 +323,26 @@ function onTouchEndOrMouseUp(e) {
   moveTouchDelta = null;
 }
 
-function updateFigureTranslateButtons() {
-  if (stampedEmojis.length > 1 && selectedEmojiIndex > -1) {
-    figureBackBtn.style.display = 'block';
-    figureFrontBtn.style.display = 'block';
-    figureBackLabel.style.display = 'block';
-    figureFrontLabel.style.display = 'block';
+function updateFigureToolsButtons() {
+  figureBackBtn.style.display = 'none';
+  figureFrontBtn.style.display = 'none';
+  figureBackLabel.style.display = 'none';
+  figureFrontLabel.style.display = 'none';
+  figureDeleteBtn.style.display = 'none';
+
+  if (selectedEmojiIndex > -1 && stampedEmojis.length >= 1) {
+    figureDeleteBtn.style.display = 'block';
+    if (stampedEmojis.length > 1) {
+      figureBackBtn.style.display = 'block';
+      figureFrontBtn.style.display = 'block';
+      figureBackLabel.style.display = 'block';
+      figureFrontLabel.style.display = 'block';
+    }
+  }
+  if (historyEmojis.length) {
+    figureUndoBtn.style.display = 'block'; 
   } else {
-    figureBackBtn.style.display = 'none';
-    figureFrontBtn.style.display = 'none';
-    figureBackLabel.style.display = 'none';
-    figureFrontLabel.style.display = 'none';
+    figureUndoBtn.style.display = 'none'; 
   }
   let numFront = stampedEmojis.length -1 - selectedEmojiIndex;
   let numBack = selectedEmojiIndex;
@@ -395,8 +409,7 @@ function onNewEmojiClick(event) {
   historyEmojis.push(JSON.parse(JSON.stringify(stampedEmojis)));
 
   selectedEmojiIndex = stampedEmojis.length -1;
-  toolsFigure.classList.add('show');
-  updateFigureTranslateButtons();
+  updateFigureToolsButtons();
   shareBtn.classList.remove('disabled')
   redrawEmojisOnNextFrame();
 }
@@ -564,11 +577,13 @@ function initControls() {
     toolsDraw.classList.remove('show');
     emojiModal.classList.remove('show');
     hide('page-share');
-    //toolsFigure.classList.remove('show');
+    toolsFigure.classList.add('show');
+    updateFigureToolsButtons();
   };
   let figuresAction = () => {
-    //toolsFigure.classList.remove('show');
     emojiModal.classList.add('show');
+    toolsFigure.classList.add('show');
+    updateFigureToolsButtons();
   };
 
   let selectPencil = () => {
@@ -640,27 +655,28 @@ function initControls() {
   }
 
   figureDeleteBtn.addEventListener('click', () => {
-    toolsFigure.classList.remove('show');
     deleteEmoji();
+    historyEmojis.push(JSON.parse(JSON.stringify(stampedEmojis)));
+    updateFigureToolsButtons();
   });
   figureUndoBtn.addEventListener('click', () => {
     historyEmojis.pop();
     let lastState = historyEmojis[historyEmojis.length - 1];
     stampedEmojis = lastState ? JSON.parse(JSON.stringify(lastState)) : [];
     selectedEmojiIndex = -1;
-    updateFigureTranslateButtons();
+    updateFigureToolsButtons();
     redrawEmojis();
   });
 
   figureFrontBtn.addEventListener('click', () => {
     translateEmojiZ(1);
     historyEmojis.push(JSON.parse(JSON.stringify(stampedEmojis)));
-    updateFigureTranslateButtons();
+    updateFigureToolsButtons();
   });
   figureBackBtn.addEventListener('click', () => {
     translateEmojiZ(-1);
     historyEmojis.push(JSON.parse(JSON.stringify(stampedEmojis)));
-    updateFigureTranslateButtons();
+    updateFigureToolsButtons();
   });
 
   shareBtn.classList.add('disabled');
