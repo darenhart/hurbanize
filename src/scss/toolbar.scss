@@ -17,6 +17,17 @@
   z-index: 11;
   overflow: scroll;
   opacity: .9;
+  
+  #emoji-list {
+    height: 100%;
+  }
+  
+  .emoji-menu {
+    position: fixed;
+    margin-left: .5rem;
+    margin-top: .5rem;
+    height: 2.5rem;
+  }
 
   img {
     max-width: 26%;
@@ -161,6 +172,9 @@
   }
   #btn-figure-delete {
     background-image: url('../images/excluir.svg'); 
+  }
+  #btn-figure-undo {
+    background-image: url('../images/desfazer-figura.svg'); 
   }
 
   .count-labels {

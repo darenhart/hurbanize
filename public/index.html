@@ -54,7 +54,7 @@
     <div id="page-select-image" class="page">
       <h2 class="text-purple">Escolha um cenário :)</h2>
       <div id="scenario-list" class="scrolling-wrapper-flexbox">
-        <!-- Emoji images are dynamically populated by JavaScript -->
+        <!-- images are dynamically populated by JavaScript -->
       </div>
     </div>
 
@@ -76,6 +76,7 @@
               <button class="btn btn-icon" id="btn-figure-front"></button>
               <button class="btn btn-icon" id="btn-figure-back"></button>
               <button class="btn btn-icon" id="btn-figure-delete"></button>
+              <button class="btn btn-icon" id="btn-figure-undo"></button>
             </div>
           </div>
         </div>
@@ -137,7 +138,12 @@
       </div>
 
       <div id="modal-emoji" class="tools-pannel">
-        <!-- Emoji images are dynamically populated by JavaScript -->
+        <div class="emoji-menu">
+          <a href="#annotate" class="btn btn-icon btn-back"></a>
+        </div>
+        <div id="emoji-list">
+          <!-- Emoji images are dynamically populated by JavaScript -->
+        </div>
       </div>
 
     </div>
@@ -145,7 +151,6 @@
     <div id="page-share" class="page-modal">
       <div class="modal-background"></div>
       <div class="modal">
-        <a href="#annotate" class="btn btn-icon btn-back"></a>
         <div class="img-top">
           <img src="../images/flores.svg">
         </div>

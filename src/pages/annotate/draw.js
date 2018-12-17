@@ -43,6 +43,7 @@ let eraseButton = document.getElementById('btn-erase');
 //let brushButton = document.getElementById('btn-brush');
 let emojiMenuButton = document.getElementById('btn-emoji');
 let emojiModal = document.getElementById('modal-emoji');
+let emojiList = document.getElementById('emoji-list');
 let optionsMenuButton = document.getElementById('btn-options');
 //let optionsModal = document.getElementById('modal-options');
 let colourInputContainer = document.getElementById('input-colour-container');
@@ -67,6 +68,7 @@ let toolsFigure = document.getElementById('tools-figure');
 let figureFrontBtn = document.getElementById('btn-figure-front');
 let figureBackBtn = document.getElementById('btn-figure-back');
 let figureDeleteBtn = document.getElementById('btn-figure-delete');
+let figureUndoBtn = document.getElementById('btn-figure-undo');
 let figureFrontLabel = document.getElementById('count-front');
 let figureBackLabel = document.getElementById('count-back');
 
@@ -87,6 +89,9 @@ let drawingCoords = [];
 
 // Store emoji details so we can redraw them when moved/resized
 let stampedEmojis = [];
+
+// Store emojis history for undo feature
+let historyEmojis = [];
 
 function initVars() {
   drawingCoords = [];
@@ -143,8 +148,9 @@ function drawEmoji(emoji, coords, width, height, isSelected) {
   // Centre the image around tap/click coords
   const x = coords.x - width / 2;
   const y = coords.y - height / 2;
+  const emojiEl = document.getElementById(emoji);
 
-  ctxEmoji.drawImage(emoji, x, y, width, height);
+  ctxEmoji.drawImage(emojiEl, x, y, width, height);
 
   if (isSelected) {
     // Highlight with a border
@@ -267,10 +273,6 @@ function onTouchMoveOrMouseMove(e) {
       resizeTouchDelta = newResizeTouchDelta;
 
     } else if (selectedEmojiIndex == -1) {
-      selectedEmojiIndex = -1;
-      touchedEmojiIndex = -1;
-      toolsFigure.classList.remove('show');
-      redrawEmojisOnNextFrame();
     } else if (!isResizing && touchedEmojiIndex >= 0) {
 
       if (moveTouchDelta) {
@@ -305,6 +307,10 @@ function onTouchMoveOrMouseMove(e) {
 }
 
 function onTouchEndOrMouseUp(e) {
+  if (JSON.stringify(historyEmojis[historyEmojis.length - 1]) != JSON.stringify(stampedEmojis)) {
+    historyEmojis.push(JSON.parse(JSON.stringify(stampedEmojis)));
+  }
+
   isDrawing = false;
   isResizing = false;
   touchedEmojiIndex = -1;
@@ -313,16 +319,16 @@ function onTouchEndOrMouseUp(e) {
 }
 
 function updateFigureTranslateButtons() {
-  if (stampedEmojis.length <= 1) {
-    figureBackBtn.style.display = 'none';
-    figureFrontBtn.style.display = 'none';
-    figureBackLabel.style.display = 'none';
-    figureFrontLabel.style.display = 'none';
-  } else {
+  if (stampedEmojis.length > 1 && selectedEmojiIndex > -1) {
     figureBackBtn.style.display = 'block';
     figureFrontBtn.style.display = 'block';
     figureBackLabel.style.display = 'block';
     figureFrontLabel.style.display = 'block';
+  } else {
+    figureBackBtn.style.display = 'none';
+    figureFrontBtn.style.display = 'none';
+    figureBackLabel.style.display = 'none';
+    figureFrontLabel.style.display = 'none';
   }
   let numFront = stampedEmojis.length -1 - selectedEmojiIndex;
   let numBack = selectedEmojiIndex;
@@ -368,10 +374,8 @@ function onNewEmojiClick(event) {
   emojiModal.classList.remove('show');
   window.location.hash = '#annotate';
 
-  //figuresBtn.classList.add('selected');
-  //toolsDrawBtn.classList.remove('selected');
-
   chosenTool = TOOL_EMOJI;
+  
   chosenEmoji = event.currentTarget;
 
   if (chosenEmoji) {
@@ -380,7 +384,7 @@ function onNewEmojiClick(event) {
     const height = chosenEmoji.height * 0.7;
 
     stampedEmojis.push({
-      image: chosenEmoji,
+      image: chosenEmoji.id,
       x: canvasEmoji.width/2,
       y: canvasEmoji.height/2,
       width: width,
@@ -388,6 +392,8 @@ function onNewEmojiClick(event) {
     });
 
   }
+  historyEmojis.push(JSON.parse(JSON.stringify(stampedEmojis)));
+
   selectedEmojiIndex = stampedEmojis.length -1;
   toolsFigure.classList.add('show');
   updateFigureTranslateButtons();
@@ -496,10 +502,11 @@ function initEmojis() {
 
   for (let i=0; i < emojiImages.length; i++) {
     const path = emojiImages[i];
-    html += `<img src="${path}" alt="Emoji"/>`;
+    const filename = path.replace(/^.*[\\\/]/, '');
+    html += `<img src="${path}" alt="Emoji" id="${filename}"/>`;
   }
 
-  emojiModal.innerHTML = html;
+  emojiList.innerHTML = html;
 
 }
 
@@ -636,13 +643,23 @@ function initControls() {
     toolsFigure.classList.remove('show');
     deleteEmoji();
   });
+  figureUndoBtn.addEventListener('click', () => {
+    historyEmojis.pop();
+    let lastState = historyEmojis[historyEmojis.length - 1];
+    stampedEmojis = lastState ? JSON.parse(JSON.stringify(lastState)) : [];
+    selectedEmojiIndex = -1;
+    updateFigureTranslateButtons();
+    redrawEmojis();
+  });
 
   figureFrontBtn.addEventListener('click', () => {
     translateEmojiZ(1);
+    historyEmojis.push(JSON.parse(JSON.stringify(stampedEmojis)));
     updateFigureTranslateButtons();
   });
   figureBackBtn.addEventListener('click', () => {
     translateEmojiZ(-1);
+    historyEmojis.push(JSON.parse(JSON.stringify(stampedEmojis)));
     updateFigureTranslateButtons();
   });
 
