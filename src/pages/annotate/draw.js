@@ -61,7 +61,7 @@ let toolsOptions = document.getElementById('tools-options');
 let toolsDrawBtn = document.getElementById('btn-tools-draw');
 let figuresBtn = document.getElementById('btn-figures');
 let colorBtns = document.getElementsByClassName('btn-color');
-let snapshotBtn = document.getElementById('btn-snapshot');
+let shareBtn = document.getElementById('btn-share');
 
 let toolsFigure = document.getElementById('tools-figure');
 let figureFrontBtn = document.getElementById('btn-figure-front');
@@ -299,7 +299,7 @@ function onTouchMoveOrMouseMove(e) {
         y: coords1.y,
       });
       lastStrokeTime = performance.now();
-      snapshotBtn.removeAttribute('disabled')
+      shareBtn.classList.remove('disabled')
     }
   }
 }
@@ -391,7 +391,7 @@ function onNewEmojiClick(event) {
   selectedEmojiIndex = stampedEmojis.length -1;
   toolsFigure.classList.add('show');
   updateFigureTranslateButtons();
-  snapshotBtn.removeAttribute('disabled')
+  shareBtn.classList.remove('disabled')
   redrawEmojisOnNextFrame();
 }
 
@@ -578,6 +578,7 @@ function initControls() {
   };
 
   let shareAction = () => {
+    chosenTool = '';
     selectedEmojiIndex = -1;
     touchedEmojiIndex = -1;
     redrawEmojis();
@@ -589,9 +590,6 @@ function initControls() {
   };
 
   let shareConfirmAction = () => {
-    // Remove highlights ready to snapshot the canvas
-    selectedEmojiIndex = -1;
-    touchedEmojiIndex = -1;
     redrawEmojis();
     SnapshotPage.show();
     //hide('page-annotate');
@@ -648,7 +646,7 @@ function initControls() {
     updateFigureTranslateButtons();
   });
 
-  snapshotBtn.disabled = true
+  shareBtn.classList.add('disabled');
 }
 
 export default {

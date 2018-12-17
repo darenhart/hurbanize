@@ -1,7 +1,6 @@
 import * as hellojs from 'hellojs';
 import {HEADER_HEIGHT} from '../shared/constants';
 import AnnotatePage from './annotate';
-import SharePage from './share';
 import {PAGES} from '../shared/constants';
 import {show, showPrompt} from '../shared/helpers';
 
@@ -38,29 +37,11 @@ function initSave() {
 
 function initControls() {
 
-  tweetButton.addEventListener('click', () => {
-
-    hello('twitter').login()
-      .then(res => {
-        console.log('Logged into Twitter', res);
-        SharePage.show({username: res.authResponse.screen_name});
-
-      }, err => {
-        console.error('Error logging in to Twitter', err);
-      });
-  });
-
-
-  backBtn.addEventListener('click', () => {
-    AnnotatePage.show();
-  });
-
 }
 
 export default {
 
   init: function() {
-    initControls();
   },
 
   show: function() {
@@ -73,7 +54,7 @@ export default {
     saveCtx.drawImage(emojiCanvas, 0, 0, saveCanvas.width, saveCanvas.height);
 
     // Add the URL at the bottom
-    saveCtx.fillText('', saveCanvas.width - 72, saveCanvas.height - 10);
+    saveCtx.fillText('hurbanize', saveCanvas.width - 72, saveCanvas.height - 10);
 
     saveImage.src = saveCanvas.toDataURL('image/png');
     saveCanvas.style.display = 'none';
