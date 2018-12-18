@@ -201,7 +201,7 @@ function closeModals() {
   emojiModal.classList.remove('show');
 }
 
-function getCoordsTouchOrMouse(touch) {
+function getCoordsTouchOrMouse(touch, e) {
   return touch ? {
       x: touch.pageX - canvasEmoji.offsetLeft, y: touch.pageY - canvasEmoji.offsetTop - HEADER_HEIGHT
     } :
@@ -221,7 +221,7 @@ function onTouchStartOrMouseDown(e) {
   let touch = e.changedTouches && e.changedTouches.length ?
     e.changedTouches[0] : null;
 
-  let coords = getCoordsTouchOrMouse(touch);
+  let coords = getCoordsTouchOrMouse(touch, e);
 
   touchedEmojiIndex = indexOfSelectedEmoji(coords);
 
@@ -250,7 +250,7 @@ function onTouchMoveOrMouseMove(e) {
   let touch1 = touches.length ? touches[0] : null;
   let touch2 = touches.length > 1 ? touches[1] : null;
 
-  let coords1 = getCoordsTouchOrMouse(touch1);
+  let coords1 = getCoordsTouchOrMouse(touch1, e);
 
   if (chosenTool === TOOL_EMOJI) {
 
