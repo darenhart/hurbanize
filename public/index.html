@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="css/styles.css"/>
     <link rel="icon" href="images/favicon.png" type="image/png"/>
     <link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon-precomposed.png">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-130995196-1"></script>
@@ -43,23 +44,23 @@
         </div>
 
         <div class="logo"></div>
-        <h4 class="text-purple">O Hurbanize é para você idealizar a cidade de forma divertida :D</h4>
-        <h4 class="text-grey">Escolha um cenário, pinte para setorizar e aplique ilustrações!</h4>
-        <div>
-          <button class="btn btn-primary" id="btn-start-app">Começar</button>
+        <h3 class="text-purple">O Hurbanize é para você idealizar a cidade de forma divertida :D</h3>
+        <h3 class="text-grey">Escolha um cenário, pinte para setorizar e aplique ilustrações!</h3>
+        <div class="px-2">
+          <button class="btn btn-primary w-100" id="btn-start-app">Começar</button>
         </div>
       </div>
     </div>
 
     <div id="page-select-image" class="page">
-      <h2 class="text-purple">Escolha um cenário :)</h2>
+      <h2 class="text-purple my-4">Escolha um cenário :)</h2>
       <div id="scenario-list" class="scrolling-wrapper-flexbox">
         <!-- images are dynamically populated by JavaScript -->
       </div>
     </div>
 
     <div id="page-annotate" class="page">
-      <a href="#home" class="btn btn-icon" id="btn-close"></a>
+      <a href="#home" class="btn btn-icon btn-back"></a>
       <div id="inner-annotate">
         <div class="centre" id="annotate-camera-container">
           <canvas id="canvas-camera"></canvas>
@@ -92,7 +93,7 @@
               <a href="#figures" class="btn btn-icon" id="btn-figures"></a>
             </div>
           </div>
-          <div class="py-1">
+          <div class="px-1">
             <div class="col">
               <a href="#share" class="btn btn-primary btn-toolbar" id="btn-share">
                 Compartilhar
@@ -115,7 +116,7 @@
               <a href="#annotate" class="btn btn-icon" id="btn-confirm"></a>
             </div>
           </div>
-          <div class="row" id="colors">
+          <div class="row row-40" id="colors">
             <!-- Colors are dynamically populated by JavaScript -->
           </div>
         </div>
@@ -141,6 +142,7 @@
         <div class="emoji-menu">
           <a href="#annotate" class="btn btn-icon btn-back"></a>
         </div>
+        <hr>
         <div id="emoji-list">
           <!-- Emoji images are dynamically populated by JavaScript -->
         </div>
@@ -154,20 +156,20 @@
         <div class="img-top">
           <img src="../images/flores.svg">
         </div>
-        <h4 class="text-purple mb-0">Leve sua idealização adiante,</h4>
-        <h4 class="text-purple mt-1">envie para o seu email ;)</h4>
+        <h3 class="text-purple mb-0">Leve sua idealização adiante,</h3>
+        <h3 class="text-purple mt-0">envie para o seu email ;)</h3>
         <div class="form-email">
           <div class="form-label">
-            <label class="text-grey">E-mail</label>
+            <label class="text-grey small">E-mail</label>
+          </div>
+          <div class="mt-1">
+            <input type="email" name="email" id="input-email" class="form-control w-100" placeholder="Endereço de e-mail">
           </div>
           <div class="mt-2">
-            <input type="email" name="email" id="input-email" class="form-control" placeholder="Endereço de e-mail">
+            <button class="btn btn-primary w-100" id="btn-send-email">Enviar</button>
           </div>
           <div class="mt-2">
-            <button class="btn btn-primary" id="btn-send-email">Enviar</button>
-          </div>
-          <div class="mt-2">
-            <button class="btn btn-secondary" id="btn-finish">Finalizar</button>
+            <button class="btn btn-secondary w-100" id="btn-finish">Finalizar</button>
           </div>
         </div>
       </div>
@@ -179,8 +181,8 @@
         <div class="img-top">
           <img src="../images/flores.svg">
         </div>
-        <h4 class="text-green mb-0">SUCESSO!</h4>
-        <h4 class="text-purple mt-1">Sua idealização será encaminhada em até 24 horas</h4>
+        <h3 class="text-green mb-0">SUCESSO!</h4>
+        <h3 class="text-purple success-text">Sua idealização será encaminhada em até 24 horas</h4>
       </div>
     </div>
 

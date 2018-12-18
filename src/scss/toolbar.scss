@@ -15,18 +15,31 @@
   width: 100%;
   max-width: 100%;
   z-index: 11;
-  overflow: scroll;
   opacity: .9;
-  
+  overflow: hidden;
+
   #emoji-list {
-    height: 100%;
+    overflow: scroll;
+    height: 91%;
+    width: 100%;
+    box-sizing: content-box;
   }
   
+  hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid $grey2;
+    padding: 0; 
+    width: 94%;
+    margin: auto;
+  }
+
   .emoji-menu {
-    position: fixed;
-    margin-left: .5rem;
-    margin-top: .5rem;
-    height: 2.5rem;
+    box-sizing: border-box;
+    opacity: .9;
+    height: 9%;
+    width: 100%;
   }
 
   img {
@@ -46,7 +59,10 @@
 
   .row {
     display: flex;
-    height: 50%;
+    height: 56%;
+  }
+  .row-40 {
+    height: 40%;
   }
   .col {
     flex-basis: 0;

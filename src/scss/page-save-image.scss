@@ -7,16 +7,24 @@
     }
 
     .modal {
-        padding-top: 1rem;
+        padding-top: 2rem;
+        margin-top: 4rem;
     }
 
     .form-email {
         text-align: left;
-        button {
-            width: 100%;
-        }
-        input {
-            width: 80%;
-        }
     }
+}
+
+#page-success {
+    .modal {
+        margin-top: 9rem;
+    }
+
+    .success-text {
+        max-width: 13rem;
+        margin: auto;
+        margin-top: 1rem;
+    }
+
 }

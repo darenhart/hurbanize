@@ -1,16 +1,5 @@
 #page-annotate {
 
-  #btn-close {
-    position: absolute;
-    background-image: url('../images/voltar_figuras.svg');
-    background-color: rgba(0,0,0, .05);
-    height: 2.5rem;
-    width: 2.5rem;
-    margin-top: .3rem;
-    margin-left: .3rem;
-    z-index: 5;
-  }
-
   #inner-annotate {
     max-width: $maxWidth;
     height: $innerAnnotateHeight;

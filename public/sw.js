@@ -1,4 +1,4 @@
-var CACHE_NAME = 'cache-v2.2';
+var CACHE_NAME = 'cache-v2.3';
 
 // The advice is to not cache too much on install.
 // This is the minimal amount needed to display the initial page.
@@ -13,7 +13,7 @@ var PRECACHE_URLS = [
   '/images/hurbanize.svg',
   '/images/pintar.svg',
   '/images/apagar.svg',
-  //'https://fonts.googleapis.com/css?family=Open+Sans:400,700,300,400italic,700italic,300italic,600,600italic,800,800italic'
+  'https://fonts.googleapis.com/css?family=Roboto:300,400,500'
 ];
 
 self.addEventListener('install', function(event) {
