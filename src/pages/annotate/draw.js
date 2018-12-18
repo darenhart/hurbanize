@@ -81,6 +81,7 @@ let isDrawing = false;
 let isRedrawing = false;
 let isUndoing = false;
 let isResizing = false;
+let isTouching = [];
 
 let lastStrokeTime = performance.now();
 
@@ -141,6 +142,16 @@ function indexOfSelectedEmoji(coords) {
 
   return -1;
 
+}
+
+function addEmojiHistory() {
+  for (let i=0; i < stampedEmojis.length; i++) {
+    stampedEmojis[i]['selected'] = false;
+  }
+  if (stampedEmojis[selectedEmojiIndex]) {
+    stampedEmojis[selectedEmojiIndex]['selected'] = true;
+  }
+  historyEmojis.push(JSON.parse(JSON.stringify(stampedEmojis)));
 }
 
 function drawEmoji(emoji, coords, width, height, isSelected) {
@@ -204,6 +215,8 @@ function onTouchStartOrMouseDown(e) {
 
   closeModals();
 
+  isTouching.push(true);
+  
   let touch = e.changedTouches && e.changedTouches.length ?
     e.changedTouches[0] : null;
 
@@ -213,7 +226,9 @@ function onTouchStartOrMouseDown(e) {
 
   if (chosenTool === TOOL_EMOJI) {
     if (touchedEmojiIndex > -1) {
-      selectedEmojiIndex = touchedEmojiIndex;
+      if (isTouching.length <= 1) {
+        selectedEmojiIndex = touchedEmojiIndex;
+      }
       updateFigureToolsButtons();
       redrawEmojisOnNextFrame();
     } else {
@@ -312,10 +327,11 @@ function onTouchMoveOrMouseMove(e) {
 }
 
 function onTouchEndOrMouseUp(e) {
-  if (JSON.stringify(historyEmojis[historyEmojis.length - 1]) != JSON.stringify(stampedEmojis)) {
-    historyEmojis.push(JSON.parse(JSON.stringify(stampedEmojis)));
+  if (historyEmojis.length && JSON.stringify(historyEmojis[historyEmojis.length - 1]) != JSON.stringify(stampedEmojis)) {
+    addEmojiHistory();
   }
 
+  isTouching.pop();
   isDrawing = false;
   isResizing = false;
   touchedEmojiIndex = -1;
@@ -406,9 +422,9 @@ function onNewEmojiClick(event) {
     });
 
   }
-  historyEmojis.push(JSON.parse(JSON.stringify(stampedEmojis)));
 
   selectedEmojiIndex = stampedEmojis.length -1;
+  addEmojiHistory();
   updateFigureToolsButtons();
   shareBtn.classList.remove('disabled')
   redrawEmojisOnNextFrame();
@@ -656,26 +672,31 @@ function initControls() {
 
   figureDeleteBtn.addEventListener('click', () => {
     deleteEmoji();
-    historyEmojis.push(JSON.parse(JSON.stringify(stampedEmojis)));
+    addEmojiHistory();
     updateFigureToolsButtons();
   });
   figureUndoBtn.addEventListener('click', () => {
     historyEmojis.pop();
     let lastState = historyEmojis[historyEmojis.length - 1];
     stampedEmojis = lastState ? JSON.parse(JSON.stringify(lastState)) : [];
-    selectedEmojiIndex = -1;
+    for (let i=0; i < stampedEmojis.length; i++) {
+      if (stampedEmojis[i]['selected']) {
+        selectedEmojiIndex = i;
+      }
+    }
+
     updateFigureToolsButtons();
     redrawEmojis();
   });
 
   figureFrontBtn.addEventListener('click', () => {
     translateEmojiZ(1);
-    historyEmojis.push(JSON.parse(JSON.stringify(stampedEmojis)));
+    addEmojiHistory();
     updateFigureToolsButtons();
   });
   figureBackBtn.addEventListener('click', () => {
     translateEmojiZ(-1);
-    historyEmojis.push(JSON.parse(JSON.stringify(stampedEmojis)));
+    addEmojiHistory();
     updateFigureToolsButtons();
   });
 

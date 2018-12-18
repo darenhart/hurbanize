@@ -20,6 +20,7 @@ gulp watch
 ## deploy
 update public/sw.js -- CACHE_NAME var
 change firebase source
+remove mobile-log - style="display: none;"
 add google analytics
 firebase login
 firebase deploy
