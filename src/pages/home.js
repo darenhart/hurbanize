@@ -15,10 +15,30 @@ function initCanvas() {
   cameraCanvas.height = window.innerHeight * (75/100);
 }
 
+function detectInactivity() {
+  var idleTime = 0;
+  var maxIdleTime = 3; // minutes
+
+  //Increment the idle time counter every minute.
+  var idleInterval = setInterval(timerIncrement, 60000); // 1 minute 60000
+
+  //Zero the idle timer on mouse movement.
+  document.addEventListener('touchmove', () => {idleTime = 0}, false);
+  document.addEventListener('mousemove', () => {idleTime = 0}, false);
+
+  function timerIncrement() {
+    idleTime = idleTime + 1;
+    if (idleTime >= maxIdleTime) {
+        window.location.reload();
+    }
+  }
+}
+
 function initControls() {
 
   startBtn.addEventListener('click', function () {
     hide('page-home');
+    detectInactivity();
   })
 
 }

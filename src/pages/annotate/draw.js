@@ -63,6 +63,7 @@ let toolsDrawBtn = document.getElementById('btn-tools-draw');
 let figuresBtn = document.getElementById('btn-figures');
 let colorBtns = document.getElementsByClassName('btn-color');
 let shareBtn = document.getElementById('btn-share');
+let shareConfirmBtn = document.getElementById('btn-share-confirm');
 
 let toolsFigure = document.getElementById('tools-figure');
 let figureFrontBtn = document.getElementById('btn-figure-front');
@@ -528,10 +529,22 @@ function updateCanvasDrawContext() {
 function initEmojis() {
 
   let html = '';
+  let categories = [
+    'Sinalização',
+    'Vegetação',
+    'Barreiras',
+    'Descanso',
+    'Serviço público',
+    'Pessoas'
+  ];
+  let countCategories = 0;
 
   for (let i=0; i < emojiImages.length; i++) {
     const path = emojiImages[i];
     const filename = path.replace(/^.*[\\\/]/, '');
+    if (filename.match(/1.svg/)) {
+      html += `<div class="emoji-category">${categories[countCategories++]}</div>`;
+    }
     html += `<img src="${path}" alt="Emoji" id="${filename}"/>`;
   }
 
@@ -628,12 +641,20 @@ function initControls() {
   };
 
   let shareConfirmAction = () => {
-    redrawEmojis();
-    SnapshotPage.show();
-    //hide('page-annotate');
-    toolsShare.classList.remove('show');
-    show('page-share');
-    SaveImagePage.init();
+    shareConfirmBtn.classList.add('loading');
+    let oldShareConfirm = shareConfirmBtn.innerHTML;
+    shareConfirmBtn.innerHTML = 'Compartilhando';
+    setTimeout(() => {
+      redrawEmojis();
+      SnapshotPage.show();
+      //hide('page-annotate');
+      toolsShare.classList.remove('show');
+      show('page-share');
+      SaveImagePage.init();
+      shareConfirmBtn.classList.remove('loading');
+      shareConfirmBtn.innerHTML = oldShareConfirm;
+    }, 500);
+    
   };
 
   pencilButton.addEventListener('click', selectPencil);
