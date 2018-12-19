@@ -97,11 +97,13 @@ button, a {
   cursor: pointer;
   outline: none;
   text-decoration: none;
+  text-align: center;
   border-radius: 11px;
   border: 0;
   padding: 1rem 2rem;
   color: $white;
   background-color: $whiteDark;
+  display: block;
   &.selected {
     background-color: $grey;
   }
