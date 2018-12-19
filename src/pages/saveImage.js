@@ -3,8 +3,7 @@ import {show,hide,showPrompt} from '../shared/helpers';
 import HomePage from './home';
 import SelectImagePage from './selectImage';
 
-let sendEmailBtn = document.getElementById('btn-send-email');
-let finishBtn = document.getElementById('btn-finish');
+let formEmail = document.getElementById('form-email');
 let sendEmailInput = document.getElementById('input-email');
 let imageSave = document.getElementById('image-save');
 let newUserRef;
@@ -33,12 +32,9 @@ function restartApp() {
 
 function initControls() {
 
-  sendEmailBtn.addEventListener('click', function () {
+  formEmail.addEventListener("submit", function(e){
+    e.preventDefault();
     saveEmail();
-  });
-
-  finishBtn.addEventListener('click', function () {
-    restartApp();
   });
 
 }
