@@ -39,28 +39,30 @@
     <div id="page-home" class="page-modal">
       <div class="modal-background"></div>
       <div class="modal">
-        <div class="img-top">
-          <img src="../images/composicao.svg">
-        </div>
+        <div class="modal-inner">
+          <div class="img-top">
+            <img src="../images/composicao.svg">
+          </div>
 
-        <div class="logo"></div>
-        <h3 class="text-purple">O Hurbanize é para você idealizar a cidade de forma divertida :D</h3>
-        <h3 class="text-grey">Escolha um cenário, pinte para setorizar e aplique ilustrações!</h3>
-        <div class="px-2">
-          <button class="btn btn-primary w-100" id="btn-start-app">Começar</button>
+          <div class="logo"></div>
+          <h3 class="text-purple">O Hurbanize é para você idealizar a cidade de forma divertida :D</h3>
+          <h3 class="text-grey">Escolha um cenário, pinte para setorizar e aplique ilustrações!</h3>
+          <div class="px-2">
+            <button class="btn btn-primary w-100" id="btn-start-app">Começar</button>
+          </div>
         </div>
       </div>
     </div>
 
     <div id="page-select-image" class="page">
-      <h2 class="text-purple my-4">Escolha um cenário :)</h2>
+      <h2 class="text-purple my-3">Escolha um cenário :)</h2>
       <div id="scenario-list" class="scrolling-wrapper-flexbox">
         <!-- images are dynamically populated by JavaScript -->
       </div>
     </div>
 
     <div id="page-annotate" class="page">
-      <a href="#home" class="btn btn-icon btn-back"></a>
+      <a href="#home" class="btn btn-icon btn-close"></a>
       <div id="inner-annotate">
         <div class="centre" id="annotate-camera-container">
           <canvas id="canvas-camera"></canvas>
@@ -153,36 +155,40 @@
     <div id="page-share" class="page-modal">
       <div class="modal-background"></div>
       <div class="modal">
-        <div class="img-top">
-          <img src="../images/flores.svg">
+        <div class="modal-inner">
+          <div class="img-top">
+            <img src="../images/flores.svg">
+          </div>
+          <h3 class="text-purple mb-0">Leve sua idealização adiante,</h3>
+          <h3 class="text-purple mt-0">receba no seu email ;)</h3>
+          <form class="form-email" id="form-email">
+            <div class="form-label">
+              <label class="text-grey small">E-mail</label>
+            </div>
+            <div class="mt-1">
+              <input type="email" name="email" id="input-email" class="form-control w-100" placeholder="Endereço de e-mail">
+            </div>
+            <div class="mt-2">
+              <input class="btn btn-primary w-100" id="btn-send-email" type="submit" value="Enviar">
+            </div>
+            <div class="mt-2">
+              <a class="btn btn-secondary w-100" href="#home">Finalizar</a>
+            </div>
+          </form>
         </div>
-        <h3 class="text-purple mb-0">Leve sua idealização adiante,</h3>
-        <h3 class="text-purple mt-0">envie para o seu email ;)</h3>
-        <form class="form-email" id="form-email">
-          <div class="form-label">
-            <label class="text-grey small">E-mail</label>
-          </div>
-          <div class="mt-1">
-            <input type="email" name="email" id="input-email" class="form-control w-100" placeholder="Endereço de e-mail">
-          </div>
-          <div class="mt-2">
-            <input class="btn btn-primary w-100" id="btn-send-email" type="submit" value="Enviar">
-          </div>
-          <div class="mt-2">
-            <a class="btn btn-secondary w-100" href="#home">Finalizar</a>
-          </div>
-        </form>
       </div>
     </div>
 
     <div id="page-success" class="page-modal">
       <div class="modal-background"></div>
       <div class="modal">
-        <div class="img-top">
-          <img src="../images/flores.svg">
+        <div class="modal-inner">
+          <div class="img-top">
+            <img src="../images/flores.svg">
+          </div>
+          <h3 class="text-green mb-0">SUCESSO!</h4>
+          <h3 class="text-purple success-text">Sua idealização será encaminhada em até 24 horas</h4>
         </div>
-        <h3 class="text-green mb-0">SUCESSO!</h4>
-        <h3 class="text-purple success-text">Sua idealização será encaminhada em até 24 horas</h4>
       </div>
     </div>
 

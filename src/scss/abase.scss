@@ -36,7 +36,7 @@ h1,h2,h3,h4,h5 {
   font-weight: 200;
 }
 button, a {
-  font-weight: 500;
+  font-weight: 400;
 }
 
 .text-purple {
@@ -66,19 +66,29 @@ button, a {
   height: 100%;
   left: 0;
   overflow: hidden;
+  &.show {
+    display: block;
+  }
 }
 
 .page-modal {
   z-index: 2;
+  &.show {
+    display: table;
+  }
   .modal {
+    display: table-cell;
+    vertical-align: middle;
     position: relative;
     z-index: 4;
-    background-color: $white;
-    margin: 1rem 1rem;
-    padding-top: 0rem;
-    padding-left: 1.2rem;
-    padding-right: 1.2rem;
-    padding-bottom: 2rem;  
+    .modal-inner {
+      background-color: $white;
+      margin: 1rem 1rem;
+      padding-top: 0rem;
+      padding-left: 1.2rem;
+      padding-right: 1.2rem;
+      padding-bottom: 2rem;  
+    }
   }
   .modal-background {
     z-index: 3;
@@ -96,6 +106,7 @@ button, a {
   box-sizing: border-box;
   cursor: pointer;
   outline: none;
+  -webkit-tap-highlight-color: transparent;
   text-decoration: none;
   text-align: center;
   border-radius: 11px;
@@ -143,7 +154,7 @@ button, a {
   }
 }
 
-.btn-back {
+.btn-back, .btn-close {
   position: absolute;
   background-image: url('../images/voltar_figuras.svg');
   background-size: 25px;
@@ -154,6 +165,9 @@ button, a {
   width: 1.8rem;
   height: 1.8rem;
   border-radius: 2rem;
+}
+.btn-close {
+  background-image: url('../images/fechar.svg');
 }
 #modal-emoji .btn-back {
   background-color: transparent;
@@ -199,10 +213,6 @@ button, a {
 
 #image-save {
   display: none;
-}
-
-#page-home {
-  display: block;
 }
 
 .prompt {
@@ -263,6 +273,10 @@ button, a {
 .my-4 {
   margin-top: 2.6rem;
   margin-bottom: 2.6rem;
+}
+.my-3 {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
 }
 .mx-5 {
   margin-left: 3rem;

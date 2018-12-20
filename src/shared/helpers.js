@@ -68,10 +68,10 @@ export function showPrompt(ref) {
 }
 
 export function show(id) {
-  document.getElementById(id).style.display = 'block';
+  document.getElementById(id).classList.add('show');
 }
 export function hide(id) {
-  document.getElementById(id).style.display = 'none';
+  document.getElementById(id).classList.remove('show');
 }
 
 export function mobileLog(str) {

@@ -18,9 +18,6 @@ let selectedScenario = '';
 
 let address = [
   ['Porto Alegre, RS', 'Avenida João Pessoa'],
-  ['Estrela, RS', 'Coronel Floriano'],
-  ['Porto Alegre, RS', 'Avenida João Pessoa'],
-  ['Porto Alegre, RS', 'Avenida João Pessoa'],
   ['Porto Alegre, RS', 'Avenida João Pessoa'],
   ['Porto Alegre, RS', 'Avenida João Pessoa'],
   ['Porto Alegre, RS', 'Avenida João Pessoa'],

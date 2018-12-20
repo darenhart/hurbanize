@@ -12,12 +12,11 @@ let usersRef;
 
 function initFirebaseUserRef() {
   var config = {
-    apiKey: "AIzaSyDucetj0pW58ZidLSZDJIcH8dPWbEAPf0E",
-    //authDomain: "pwa-draw-dev-72035729357.firebaseapp.com",
-    databaseURL: "https://pwa-draw-dev-72035729357.firebaseio.com",
-    projectId: "pwa-draw-dev-72035729357",
-    storageBucket: "pwa-draw-dev-72035729357.appspot.com",
-    //messagingSenderId: "1097628844134"
+    apiKey: "AIzaSyBbyExXHZCfbWT6O_4nq9ahMlG8bsMpnwc",
+    authDomain: "hurbanize-expo.firebaseapp.com",
+    databaseURL: "https://hurbanize-expo.firebaseio.com",
+    projectId: "hurbanize-expo",
+    storageBucket: "hurbanize-expo.appspot.com",
   };
   firebase.initializeApp(config);
   database = firebase.database();
@@ -58,7 +57,7 @@ function saveEmail() {
   show('page-success');
   setTimeout(() => {
     restartApp();
-  }, 3000);
+  }, 7000);
 }
 
 export default {

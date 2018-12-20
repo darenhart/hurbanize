@@ -6,9 +6,8 @@
         }
     }
 
-    .modal {
+    .modal-inner {
         padding-top: 2rem;
-        margin-top: 4rem;
     }
 
     .form-email {
@@ -17,10 +16,6 @@
 }
 
 #page-success {
-    .modal {
-        margin-top: 9rem;
-    }
-
     .success-text {
         max-width: 13rem;
         margin: auto;

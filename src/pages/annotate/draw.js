@@ -653,7 +653,7 @@ function initControls() {
       SaveImagePage.init();
       shareConfirmBtn.classList.remove('loading');
       shareConfirmBtn.innerHTML = oldShareConfirm;
-    }, 500);
+    }, 300);
     
   };
 

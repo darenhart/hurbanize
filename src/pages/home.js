@@ -17,7 +17,7 @@ function initCanvas() {
 
 function detectInactivity() {
   var idleTime = 0;
-  var maxIdleTime = 3; // minutes
+  var maxIdleTime = 5; // minutes
 
   //Increment the idle time counter every minute.
   var idleInterval = setInterval(timerIncrement, 60000); // 1 minute 60000

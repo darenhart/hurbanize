@@ -19,6 +19,7 @@
   overflow: hidden;
 
   #emoji-list {
+    text-align: left;
     overflow: scroll;
     height: 91%;
     width: 100%;
@@ -46,12 +47,12 @@
     color: $white;
     text-align: left;
     margin: 1rem;
-    font-weight: 500;
+    font-weight: 400;
   }
 
   img {
     max-width: 26%;
-    max-height: 16%;
+    max-height: 13%;
     margin: .7rem;
   }
 }
@@ -88,10 +89,16 @@
 
   #btn-tools-draw {
     background-image: url('../images/caneta.svg');
+    &:active, &.selected {
+      background-image: url('../images/a_caneta.svg'); 
+    }
   }
 
   #btn-figures {
     background-image: url('../images/figuras.svg'); 
+    &:active, &.selected {
+      background-image: url('../images/a_figuras.svg'); 
+    }
   }
   #btn-undo {
     background-image: url('../images/desfazer.svg'); 
@@ -118,11 +125,11 @@
     }
   }
   #btn-share-confirm {
-    margin-bottom: 4px;
+    margin-bottom: 0.5rem;
     &.loading {
       background-color: $white;
       color: $green;
-      border: solid 2px;
+      border: solid 1px;
       margin-bottom: 0px;
     }
   }
@@ -171,8 +178,8 @@
   display: none;
   z-index: 5;
   position: absolute;
-  bottom: 0rem;
-  right: 1.2rem;
+  right: .7rem;
+  bottom: 7rem;
   text-align: right;
   
   &.show {
@@ -182,6 +189,7 @@
     display: inline-block;
   }
   button {
+    background-size: 24px;
     display: block;
     padding: 0px;
     background-color: rgba(0,0,0, .1);
@@ -218,10 +226,10 @@
   }
 
   #count-front {
-    margin-top: .8rem;
+    margin-top: .5rem;
   }
   #count-back {
-    margin-top: 2.3rem;
+    margin-top: 1.8rem;
   }
 
 
