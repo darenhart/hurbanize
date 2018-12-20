@@ -57,7 +57,7 @@ function saveEmail() {
   show('page-success');
   setTimeout(() => {
     restartApp();
-  }, 7000);
+  }, 10000);
 }
 
 export default {

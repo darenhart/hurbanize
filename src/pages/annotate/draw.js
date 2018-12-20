@@ -64,6 +64,7 @@ let figuresBtn = document.getElementById('btn-figures');
 let colorBtns = document.getElementsByClassName('btn-color');
 let shareBtn = document.getElementById('btn-share');
 let shareConfirmBtn = document.getElementById('btn-share-confirm');
+let shareConfirmBackBtn = document.getElementById('btn-share-confirm-back');
 
 let toolsFigure = document.getElementById('tools-figure');
 let figureFrontBtn = document.getElementById('btn-figure-front');
@@ -644,6 +645,7 @@ function initControls() {
     shareConfirmBtn.classList.add('loading');
     let oldShareConfirm = shareConfirmBtn.innerHTML;
     shareConfirmBtn.innerHTML = 'Compartilhando';
+    shareConfirmBackBtn.style.display = 'none';
     setTimeout(() => {
       redrawEmojis();
       SnapshotPage.show();
@@ -653,6 +655,7 @@ function initControls() {
       SaveImagePage.init();
       shareConfirmBtn.classList.remove('loading');
       shareConfirmBtn.innerHTML = oldShareConfirm;
+      shareConfirmBackBtn.style.display = 'block';
     }, 300);
     
   };

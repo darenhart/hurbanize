@@ -51,7 +51,7 @@ self.addEventListener('fetch', function(event) {
 
       caches.open(CACHE_NAME)
         .then(function(cache) {
-          if (event.request != 'POST') {
+          if (event.request.method != 'POST') {
             cache.put(event.request, responseToCache);
           }
         });
