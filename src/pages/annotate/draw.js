@@ -9,8 +9,8 @@ import SaveImagePage from '../saveImage';
 //const DEFAULT_COLOUR = '#FF2626';
 //const DEFAULT_EMOJI_SIZE = 60;
 //const DEFAULT_EMOJI_FONT = 'arial';
-const DEFAULT_LINE_WIDTH = 10;
-const RENDERING_STROKE_TIME = 40;
+const DEFAULT_LINE_WIDTH = 12.5;
+const RENDERING_STROKE_TIME = 13;
 
 const TOOL_PENCIL = 0;
 const TOOL_BRUSH = 1;
@@ -118,9 +118,6 @@ function initCanvases() {
 
   ctxDraw.strokeStyle = currentColor;
   ctxDraw.lineWidth = DEFAULT_LINE_WIDTH;
-  ctxDraw.lineJoin = 'round';
-  ctxDraw.lineCap = 'round';
-  ctxDraw.shadowColor = currentColor;
 }
 
 /**
@@ -620,6 +617,9 @@ function initControls() {
     if (ctxDraw.strokeStyle == '#000000') {
       ctxDraw.strokeStyle = currentColor;
     }
+    ctxDraw.lineJoin = 'bevel'; // round, bevel, miter
+    //ctxDraw.lineCap = 'round'; // butt, round, square
+
     ctxDraw.globalCompositeOperation="source-over";
     ctxDraw.lineWidth = DEFAULT_LINE_WIDTH;
 
