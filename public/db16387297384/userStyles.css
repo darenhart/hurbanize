@@ -1,0 +1,48 @@
+body {
+  background-color: #DDD;
+  font-family: monospace;
+}
+
+button {
+  background-color: #CCC;
+  border: solid 1px #AAA;
+  border-radius: 2px;
+}
+
+.user {
+  background-color: #EEE;
+  border-radius: .4rem;
+  padding: 1rem;
+  margin: 1rem;
+  display: inline-block;
+  text-align: center;
+}
+.checkboxes {
+  float: right;
+  width: 1.6rem;
+  height: 1.6rem;
+}
+.delete {
+  float: left;
+}
+.checked {
+  background-color: #BEB;
+}
+.email {
+  padding: .5rem;
+  font-size: 1.5rem;
+}
+.date {
+  padding: .4rem;
+}
+img {
+  max-height: 30vh;
+}
+
+/* Loading Spinner */
+#loading-spinner {
+  width: 64px;
+  height: 64px;
+  margin: auto;
+  margin-top: 50vh;
+}

@@ -6,167 +6,28 @@
 
     <!-- 
       PROD change to /__/firebase/5.7.0/firebase-app.js
-    <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase-database.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase-storage.js"></script>
-    -->
     <script src="/__/firebase/5.7.0/firebase-app.js"></script>
     <script src="/__/firebase/5.7.0/firebase-database.js"></script>
     <script src="/__/firebase/5.7.0/firebase-storage.js"></script>
+    -->
+    <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase-storage.js"></script>
 
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
-    <style type="text/css">
-      body {
-        background-color: #DDD;
-        font-family: monospace;
-      }
+    <link rel="stylesheet" href="userStyles.css"/>
 
-      .user {
-        background-color: #EEE;
-        border-radius: .4rem;
-        padding: 1rem;
-        margin: 1rem;
-        display: inline-block;
-        text-align: center;
-      }
-      .checkboxes {
-        float: right;
-        width: 1.6rem;
-        height: 1.6rem;
-      }
-      .checked {
-        background-color: #BEB;
-      }
-      .email {
-        padding: .5rem;
-        font-size: 1.5rem;
-      }
-      .date {
-        padding: .4rem;
-      }
-      img {
-        max-height: 30vh;
-      }
-
-      /* Loading Spinner */
-      #loading-spinner {
-        width: 64px;
-        height: 64px;
-        margin: auto;
-        margin-top: 50vh;
-      }
-      #loading-spinner div {
-        box-sizing: border-box;
-        display: block;
-        position: absolute;
-        width: 51px;
-        height: 51px;
-        margin: 6px;
-        border: 6px solid #fff;
-        border-radius: 50%;
-        animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-        border-color: #fff transparent transparent transparent;
-      }
-      #loading-spinner div:nth-child(1) {
-        animation-delay: -0.45s;
-      }
-      #loading-spinner div:nth-child(2) {
-        animation-delay: -0.3s;
-      }
-      #loading-spinner div:nth-child(3) {
-        animation-delay: -0.15s;
-      }
-      @keyframes lds-ring {
-        0% {
-          transform: rotate(0deg);
-        }
-        100% {
-          transform: rotate(360deg);
-        }
-      }
-
-    </style>
   </head>
   <body>
 
-    <div id="loading-spinner"><div></div><div></div><div></div><div></div></div>
+    <div id="loading-spinner">Carregando...</div>
 
     <div id="database-output">
       
     </div>
 
-    <script>
-      
-      function hasClass(element, className) {
-        return (' ' + element.className + ' ').indexOf(' ' + className+ ' ') > -1;
-      }
+    <script src="userList.js"></script>
 
-      // Initialize Firebase
-      var config = {
-        apiKey: "AIzaSyBbyExXHZCfbWT6O_4nq9ahMlG8bsMpnwc",
-        authDomain: "hurbanize-expo.firebaseapp.com",
-        databaseURL: "https://hurbanize-expo.firebaseio.com",
-        projectId: "hurbanize-expo",
-        storageBucket: "hurbanize-expo.appspot.com",
-      };
-      firebase.initializeApp(config);
-      var database = firebase.database();
-      var databaseOutput = document.getElementById('database-output');
-      var usersRef = database.ref('/users/');
-
-      function userClickListner(el) {
-          el.addEventListener('click', function () {
-            database.ref('users/'+el.id.replace('checkbox-','')).update({
-              'checked': el.checked
-            });
-          });
-      }
-
-      function initUserClickListners() {
-        let checkboxes = document.getElementsByClassName('checkboxes');
-        for (let i = 0; i < checkboxes.length; i++) {
-          userClickListner(checkboxes[i]);
-        }
-      }
-
-      function showUser(key, user, update) {
-        let email = user.email;
-        let img = user.img;
-        let scenario = user.scenario;
-        let checked = user.checked ? 'checked' : '';
-        let date = user.timestamp ? user.timestamp.substr(0,25) : '';
-        let current = document.getElementById(key);
-        let html = `
-          <div class="user ${checked}" id="${key}">
-            <input type="checkbox" class="checkboxes" id="checkbox-${key}" ${checked} />
-            <div class="email" >
-              ${email}
-            </div>
-            <div class="date" >
-              ${date}
-            </div>
-            <div class="imgs" >
-              <img src="${scenario}">
-              <img src="${img}">
-            </div>
-          </div>`;
-        if (current) {
-          current.outerHTML = html;
-          userClickListner(document.getElementById('checkbox-'+key));
-        } else {
-          databaseOutput.innerHTML = html + databaseOutput.innerHTML;
-          initUserClickListners();
-        }
-        
-      }
-
-      usersRef.on('child_added', function(data) {
-        showUser(data.key, data.val());
-        document.getElementById('loading-spinner').style.display = 'none';
-      });
-      usersRef.on('child_changed', function(data) {
-        showUser(data.key, data.val());
-      });
-    </script>
   </body>
 </html>
