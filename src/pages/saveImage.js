@@ -45,7 +45,6 @@ function initControls() {
   formEmail.addEventListener("submit", function(e){
     e.preventDefault();
     sendEmailInput.addEventListener('input', function() {
-      console.log('asddas');
       validateEmailInput();
     });
 

@@ -6,6 +6,7 @@ import {show, showPrompt} from '../shared/helpers';
 
 const hello = hellojs.default;
 const PAGE_NAME = PAGES.SNAPSHOT;
+const MAX_IMAGE_HEIGHT = 500;
 
 let backBtn = document.getElementById('btn-back-snapshot');
 let tweetButton = document.getElementById('btn-share-twitter');
@@ -18,19 +19,27 @@ let cameraCanvas;
 
 function initSave() {
 
+  var maxWidth;
+
   // May have been swapped out after initial app load
   cameraCanvas = document.getElementById('canvas-camera');
 
-  saveCanvas.width  = cameraCanvas.width;
-  saveCanvas.height = cameraCanvas.height;
+  if (MAX_IMAGE_HEIGHT > cameraCanvas.height) {
+    maxWidth  = cameraCanvas.width;
+  } else {
+    maxWidth = (MAX_IMAGE_HEIGHT / cameraCanvas.height) * cameraCanvas.width;
+  }
 
-  saveCanvas.style.width = cameraCanvas.style.width;
-  saveCanvas.style.height = cameraCanvas.style.height;
+  saveImage.width  = maxWidth;
+  saveImage.height = MAX_IMAGE_HEIGHT;
 
-  //saveImage.width  = drawingCanvas.width;
-  //saveImage.height = drawingCanvas.height;
+  saveCanvas.width  = maxWidth;
+  saveCanvas.height = MAX_IMAGE_HEIGHT;
 
-  saveCtx.font = '16px Arial';
+  saveCanvas.style.width = maxWidth;
+  saveCanvas.style.height = MAX_IMAGE_HEIGHT;
+
+  saveCtx.font = '13px sans-serif';
   saveCtx.fillStyle = '#fff';
 
 }
@@ -54,7 +63,7 @@ export default {
     saveCtx.drawImage(emojiCanvas, 0, 0, saveCanvas.width, saveCanvas.height);
 
     // Add the URL at the bottom
-    saveCtx.fillText('hurbanize', saveCanvas.width - 72, saveCanvas.height - 10);
+    saveCtx.fillText('hurbanize', saveCanvas.width - 79, saveCanvas.height - 10);
 
     saveImage.src = saveCanvas.toDataURL('image/png');
     saveCanvas.style.display = 'none';
