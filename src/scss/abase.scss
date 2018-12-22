@@ -55,6 +55,10 @@ button, a {
 .form-control {
   padding: 1rem;
   box-sizing: border-box;
+  border: solid 1px $grey2;
+  &.invalid {
+    border-color: $red;
+  }
 }
 
 .page, .page-modal {
@@ -274,8 +278,8 @@ button, a {
   margin-bottom: 2.6rem;
 }
 .my-3 {
-  margin-top: 2rem;
-  margin-bottom: 2rem;
+  margin-top: 2.5rem;
+  margin-bottom: 1.7rem;
 }
 .mx-5 {
   margin-left: 3rem;

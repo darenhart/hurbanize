@@ -29,11 +29,29 @@ function restartApp() {
   window.location.reload();
 }
 
+function validateEmailInput() {
+  var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  if (sendEmailInput.value && re.test(sendEmailInput.value)) {
+    sendEmailInput.classList.remove('invalid');
+    return true;
+  } else {
+    sendEmailInput.classList.add('invalid');
+    return false;
+  }
+}
+
 function initControls() {
 
   formEmail.addEventListener("submit", function(e){
     e.preventDefault();
-    saveEmail();
+    sendEmailInput.addEventListener('input', function() {
+      console.log('asddas');
+      validateEmailInput();
+    });
+
+    if (validateEmailInput()) {
+      saveEmail();
+    }
   });
 
 }
