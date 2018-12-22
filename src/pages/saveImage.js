@@ -20,7 +20,8 @@ function initFirebaseUserRef() {
   };
   firebase.initializeApp(config);
   database = firebase.database();
-  usersRef = database.ref('users');
+  var today = new Date().toISOString().slice(0,10);
+  usersRef = database.ref('users-'+today);
 }
 initFirebaseUserRef();
 

@@ -1,12 +1,3 @@
-function hasClass(element, className) {
-  return (' ' + element.className + ' ').indexOf(' ' + className+ ' ') > -1;
-}
-function removeElement(elementId) {
-  // Removes an element from the document
-  var element = document.getElementById(elementId);
-  element.parentNode.removeChild(element);
-}
-
 // Initialize Firebase
 var config = {
   apiKey: "AIzaSyBbyExXHZCfbWT6O_4nq9ahMlG8bsMpnwc",
@@ -16,13 +7,40 @@ var config = {
   storageBucket: "hurbanize-expo.appspot.com",
 };
 firebase.initializeApp(config);
+
 var database = firebase.database();
 var databaseOutput = document.getElementById('database-output');
-var usersRef = database.ref('/users/');
+var filterDayInput = document.getElementById('filter-day');
+var loading = document.getElementById('loading-spinner');
+var noResult = document.getElementById('no-result');
+
+var filterDay
+var day
+var usersRef
+var userRefStr;
+
+function hasClass(element, className) {
+  return (' ' + element.className + ' ').indexOf(' ' + className+ ' ') > -1;
+}
+function removeElement(elementId) {
+  // Removes an element from the document
+  var element = document.getElementById(elementId);
+  element.parentNode.removeChild(element);
+}
+location.parseHash = function(){
+   var hash = (this.hash ||'').replace(/^#/,'').split('&'),
+       parsed = {};
+
+   for(var i =0,el;i<hash.length; i++ ){
+        el=hash[i].split('=')
+        parsed[el[0]] = el[1];
+   }
+   return parsed;
+};
 
 function userCheckListner(el) {
   el.addEventListener('click', function () {
-    database.ref('users/'+el.id.replace('checkbox-','')).update({
+    database.ref(userRefStr+el.id.replace('checkbox-','')).update({
       'checked': el.checked
     });
   });
@@ -37,10 +55,8 @@ function userDelListner(el) {
       buttons: true,
       dangerMode: true,
     }).then((willDelete) => {
-      console.log(willDelete);
       if (willDelete) {
-        console.log('Deletado '+ 'users/'+id);
-        database.ref('users/'+id).remove();
+        database.ref(userRefStr+id).remove();
         removeElement(id);
       }
     });
@@ -91,10 +107,52 @@ function showUser(key, user, update) {
   
 }
 
-usersRef.on('child_added', function(data) {
-  showUser(data.key, data.val());
-  document.getElementById('loading-spinner').style.display = 'none';
-});
-usersRef.on('child_changed', function(data) {
-  showUser(data.key, data.val());
-});
+function init() {
+
+  
+  var today = new Date().toISOString().slice(0,10);
+  filterDay = location.parseHash().day;
+  day = filterDay ? filterDay : today;
+  filterDayInput.value = day;
+  userRefStr = '/users-'+ day +'/';
+  usersRef = database.ref(userRefStr);
+
+  loading.style.display = 'block';
+  noResult.style.display = 'none';
+  databaseOutput.innerHTML = '';
+  filterDayInput.disabled = true;
+  
+  filterDayInput.addEventListener('change', function () {
+    window.location.hash = 'day='+filterDayInput.value;
+    init();
+  });
+
+  window.onhashchange = function () {
+    init();
+  };
+
+  usersRef.off();
+
+  usersRef.on('value', function(snapshot) {
+    filterDayInput.removeAttribute('disabled');
+    loading.style.display = 'none';
+    var users = snapshot.val();
+    if (users) {
+      for (let i = 0; i < users.length; i++) {
+        showUser(users[i].key, users[i]);
+      }
+    } else {
+      noResult.style.display = 'block';
+    }
+  });
+
+  usersRef.on('child_added', function(data) {
+    showUser(data.key, data.val());
+  });
+  usersRef.on('child_changed', function(data) {
+    showUser(data.key, data.val());
+  });
+
+}
+
+init();

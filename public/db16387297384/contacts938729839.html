@@ -6,13 +6,13 @@
 
     <!-- 
       PROD change to /__/firebase/5.7.0/firebase-app.js
-    <script src="/__/firebase/5.7.0/firebase-app.js"></script>
-    <script src="/__/firebase/5.7.0/firebase-database.js"></script>
-    <script src="/__/firebase/5.7.0/firebase-storage.js"></script>
-    -->
     <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase-database.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase-storage.js"></script>
+    -->
+    <script src="/__/firebase/5.7.0/firebase-app.js"></script>
+    <script src="/__/firebase/5.7.0/firebase-database.js"></script>
+    <script src="/__/firebase/5.7.0/firebase-storage.js"></script>
 
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
@@ -21,7 +21,13 @@
   </head>
   <body>
 
+    <div id="filters">
+      <label>Dia:</label>
+      <input id="filter-day" type="date"/>
+    </div>
+
     <div id="loading-spinner">Carregando...</div>
+    <div id="no-result"><p>Nenhum resultado</p></div>
 
     <div id="database-output">
       
