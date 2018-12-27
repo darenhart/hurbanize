@@ -63,7 +63,7 @@ export default {
     saveCtx.drawImage(emojiCanvas, 0, 0, saveCanvas.width, saveCanvas.height);
 
     // Add the URL at the bottom
-    saveCtx.fillText('hurbanize', saveCanvas.width - 79, saveCanvas.height - 10);
+    saveCtx.fillText('hurbanize.com', saveCanvas.width - 95, saveCanvas.height - 10);
 
     saveImage.src = saveCanvas.toDataURL('image/png');
     saveCanvas.style.display = 'none';

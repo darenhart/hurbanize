@@ -89,7 +89,6 @@ function initControls() {
 function initScenarios() {
 
   let html = '';
-
   for (let i=0; i < scenariosImages.length; i++) {
     const path = scenariosImages[i];
     html += `

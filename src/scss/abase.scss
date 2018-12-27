@@ -173,9 +173,12 @@ button, a {
   background-image: url('../images/fechar.svg');
 }
 .btn-close-modal {
+  position: absolute;
+  width: 1.8rem;
+  height: 1.8rem;
   margin-top: -1rem;
-  margin-left: 0rem;
   background-image: url('../images/fechar_cinza.svg');
+  background-size: 25px;
 }
 #modal-emoji .btn-back {
   background-color: transparent;
