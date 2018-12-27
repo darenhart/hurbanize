@@ -17,7 +17,7 @@ var noResult = document.getElementById('no-result');
 var filterDay
 var day
 var usersRef
-var userRefStr;
+var usersRefStr;
 
 function hasClass(element, className) {
   return (' ' + element.className + ' ').indexOf(' ' + className+ ' ') > -1;
@@ -40,7 +40,7 @@ location.parseHash = function(){
 
 function userCheckListner(el) {
   el.addEventListener('click', function () {
-    database.ref(userRefStr+el.id.replace('checkbox-','')).update({
+    database.ref(usersRefStr+el.id.replace('checkbox-','')).update({
       'checked': el.checked
     });
   });
@@ -56,7 +56,7 @@ function userDelListner(el) {
       dangerMode: true,
     }).then((willDelete) => {
       if (willDelete) {
-        database.ref(userRefStr+id).remove();
+        database.ref(usersRefStr+id).remove();
         removeElement(id);
       }
     });
@@ -108,14 +108,13 @@ function showUser(key, user, update) {
 }
 
 function init() {
-
   
   var today = new Date().toISOString().slice(0,10);
   filterDay = location.parseHash().day;
   day = filterDay ? filterDay : today;
   filterDayInput.value = day;
-  userRefStr = '/users-'+ day +'/';
-  usersRef = database.ref(userRefStr);
+  usersRefStr = '/users-'+ day +'/';
+  usersRef = database.ref(usersRefStr);
 
   loading.style.display = 'block';
   noResult.style.display = 'none';

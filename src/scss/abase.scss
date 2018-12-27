@@ -172,6 +172,11 @@ button, a {
 .btn-close {
   background-image: url('../images/fechar.svg');
 }
+.btn-close-modal {
+  margin-top: -1rem;
+  margin-left: 0rem;
+  background-image: url('../images/fechar_cinza.svg');
+}
 #modal-emoji .btn-back {
   background-color: transparent;
 }

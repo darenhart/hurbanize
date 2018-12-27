@@ -17,10 +17,16 @@ let annotateCameraContainer = document.getElementById('annotate-camera-container
 let selectedScenario = '';
 
 let address = [
-  ['Porto Alegre, RS', 'Avenida João Pessoa'],
-  ['Porto Alegre, RS', 'Avenida João Pessoa'],
-  ['Porto Alegre, RS', 'Avenida João Pessoa'],
-  ['Porto Alegre, RS', 'Avenida João Pessoa'],
+  ['Porto Alegre', 'Praça Raul Pilla'],
+  ['São Paulo', 'R. Nestor Pestana'],
+  ['Porto Alegre', 'R. Sarmento Leite'],
+  ['São Paulo', 'R. Com. Assad Abdalla'],
+  ['Porto Alegre', 'Escadaria 24 de Maio'],
+  ['São Paulo', 'São Bento'],
+  ['Porto Alegre', 'Cais Mauá'],
+  ['São Paulo', 'R. XV de Novembro'],
+  ['Porto Alegre', 'Av. Borges de Medeiros'],
+  ['São Paulo', 'R. Sen. Queirós'],
 ];
 
 function onPhotoInputChange(path) {
