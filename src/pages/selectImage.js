@@ -22,7 +22,7 @@ let address = [
   ['Porto Alegre', 'R. Sarmento Leite'],
   ['São Paulo', 'R. Com. Assad Abdalla'],
   ['Porto Alegre', 'Escadaria 24 de Maio'],
-  ['São Paulo', 'São Bento'],
+  ['São Paulo', 'R. São Bento'],
   ['Porto Alegre', 'Cais Mauá'],
   ['São Paulo', 'R. XV de Novembro'],
   ['Porto Alegre', 'Av. Borges de Medeiros'],

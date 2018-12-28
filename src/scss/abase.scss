@@ -304,3 +304,106 @@ button, a {
   position: absolute;
   z-index: 100;
 }
+
+/* https://leaverou.github.io/bubbly/ */
+.bubble {
+  font-size: 14px;
+  line-height: 17px;
+  position: absolute;
+  background: $purple;
+  border-radius: .4em;
+  text-align: left;
+  box-shadow: 0px 4px 14px rgba(0,0,0,.2);
+  height: 0px;
+  width: 0px;
+  margin: 0px;
+  opacity: 0;
+  transition: margin ease .3s, opacity ease .4s;
+  &.show {
+    color: $white;
+    padding: .5rem .8rem;
+    height: auto;
+    width: auto;
+    opacity: 1;
+    &:after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 0;
+      border: 12px solid transparent;
+    }
+  }
+  &>* {
+    overflow: hidden;
+  }
+
+  p {
+    margin: 0rem;
+  }
+}
+
+.bubble-bottom.show:after {
+  border-top-color: $purple;
+  border-bottom: 0;
+  margin-bottom: -11px;
+  bottom: 0;
+  left: 50%;
+}
+.bubble-right.show:after {
+  right: 0;
+  top: 50%;
+  border-left-color: $purple;
+  border-right: 0;
+  margin-top: -31px;
+  margin-right: -31px;
+}
+
+#bubble-confirm-draw {
+  &.show {
+    padding: .8rem 1rem;
+    margin-top: -3rem;
+  }
+  margin-left: -6.9rem;
+  &:after {
+    margin-left: 48px;
+  }
+}
+
+#bubble-figure-back, #bubble-figure-front {
+  &.show {
+    margin-left: -15.8rem;
+    width: 11rem;
+  }
+  &:after {
+    margin-top: -42px;
+    margin-right: -12px;
+  }
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: auto auto;
+}
+
+.bubble-icon, .bubble-number {
+  text-align: center;
+}
+.bubble-number, .bubble-desc {
+  padding-top: 8px;
+  padding-left: 9px;
+  padding-bottom: 10px;
+  padding-right: 9px;
+}
+.bubble-icon-back, .bubble-icon-front {
+  width: 24px;
+  height: 30px;
+  background-size: 20px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.bubble-icon-back {
+  background-image: url('../images/atras.svg');   
+}
+.bubble-icon-front {
+  background-image: url('../images/frente.svg');
+}

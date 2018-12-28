@@ -74,6 +74,10 @@ let figureUndoBtn = document.getElementById('btn-figure-undo');
 let figureFrontLabel = document.getElementById('count-front');
 let figureBackLabel = document.getElementById('count-back');
 
+let bubbleConfirmDraw = document.getElementById('bubble-confirm-draw');
+let bubbleFigureFront = document.getElementById('bubble-figure-front');
+let bubbleFigureBack = document.getElementById('bubble-figure-back');
+
 let touchedEmojiIndex = -1;
 let selectedEmojiIndex = -1;
 let chosenEmoji = null;
@@ -84,6 +88,9 @@ let isRedrawing = false;
 let isUndoing = false;
 let isResizing = false;
 let isTouching = [];
+let isFisrtDraw = true;
+let isFirstBubbleBack = true;
+let isFirstBubbleFront = true;
 
 let lastStrokeTime = performance.now();
 
@@ -99,8 +106,12 @@ let historyEmojis = [];
 function initVars() {
   drawingCoords = [];
   stampedEmojis = [];
+  historyEmojis = [];
   ctxDraw = canvasDraw.getContext('2d');
   ctxEmoji = canvasEmoji.getContext('2d');
+  isFisrtDraw = true;
+  isFirstBubbleBack = true;
+  isFirstBubbleFront = true;
 }
 
 function initCanvases() {
@@ -325,9 +336,23 @@ function onTouchMoveOrMouseMove(e) {
   }
 }
 
+function removeBubbles() {
+  bubbleConfirmDraw.classList.remove('show');
+  bubbleFigureFront.classList.remove('show');
+  bubbleFigureBack.classList.remove('show');
+}
+
 function onTouchEndOrMouseUp(e) {
   if (historyEmojis.length && JSON.stringify(historyEmojis[historyEmojis.length - 1]) != JSON.stringify(stampedEmojis)) {
     addEmojiHistory();
+  }
+
+  if (isDrawing && isFisrtDraw) {
+    isFisrtDraw = false;
+    bubbleConfirmDraw.classList.add('show');
+    setTimeout(() => {
+      bubbleConfirmDraw.classList.remove('show');
+    }, 4000);
   }
 
   isTouching.pop();
@@ -399,6 +424,7 @@ function highlightSelectedColor(selectedColor) {
 }
 
 function onNewEmojiClick(event) {
+
   selectedEmojiIndex = -1;
   emojiModal.classList.remove('show');
   window.location.hash = '#annotate';
@@ -427,6 +453,15 @@ function onNewEmojiClick(event) {
   updateFigureToolsButtons();
   shareBtn.classList.remove('disabled')
   redrawEmojisOnNextFrame();
+
+  if (isFirstBubbleBack && stampedEmojis.length >= 2) {
+    isFirstBubbleBack = false;
+    bubbleFigureBack.classList.add('show');
+    setTimeout(() => {
+      bubbleFigureBack.classList.remove('show');
+    }, 7000);
+  }
+
 }
 
 function deleteEmoji() {
@@ -722,7 +757,19 @@ function initControls() {
     translateEmojiZ(-1);
     addEmojiHistory();
     updateFigureToolsButtons();
+
+    if (isFirstBubbleFront) {
+      isFirstBubbleFront = false;
+      bubbleFigureFront.classList.add('show');
+      setTimeout(() => {
+        bubbleFigureFront.classList.remove('show');
+      }, 7000);
+    }
+
   });
+
+  document.addEventListener('touchstart', removeBubbles, false);
+  document.addEventListener('mousedown', removeBubbles, false);
 
   shareBtn.classList.add('disabled');
 }
