@@ -352,7 +352,7 @@ function onTouchEndOrMouseUp(e) {
     bubbleConfirmDraw.classList.add('show');
     setTimeout(() => {
       bubbleConfirmDraw.classList.remove('show');
-    }, 4000);
+    }, 5000);
   }
 
   isTouching.pop();
@@ -459,7 +459,7 @@ function onNewEmojiClick(event) {
     bubbleFigureBack.classList.add('show');
     setTimeout(() => {
       bubbleFigureBack.classList.remove('show');
-    }, 7000);
+    }, 9000);
   }
 
 }
@@ -763,7 +763,7 @@ function initControls() {
       bubbleFigureFront.classList.add('show');
       setTimeout(() => {
         bubbleFigureFront.classList.remove('show');
-      }, 7000);
+      }, 9000);
     }
 
   });

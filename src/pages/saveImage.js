@@ -75,7 +75,7 @@ function saveEmail() {
   show('page-success');
   setTimeout(() => {
     restartApp();
-  }, 10000);
+  }, 20000);
 }
 
 export default {
