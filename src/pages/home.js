@@ -37,7 +37,10 @@ function detectInactivity() {
 function initControls() {
 
   startBtn.addEventListener('click', function () {
+    setLiveCamera(true);
+    AnnotatePage.show();
     hide('page-home');
+    window.location.hash = 'annotate';
     detectInactivity();
   })
 
@@ -53,7 +56,7 @@ export default {
 
   show: function() {
     show('page-home');
-    show('page-select-image');
+    hide('page-select-image');
     hide('page-annotate');
     hide('page-snapshot');
     hide('page-share');

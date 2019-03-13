@@ -14,11 +14,9 @@ export default {
 
     show('page-annotate');
 
-    /*
     if (isLiveCamera()) {
       LiveCamera();
     }
-    */
 
     Draw.show();
 
