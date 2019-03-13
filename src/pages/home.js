@@ -2,13 +2,16 @@ import {PAGES, HEADER_HEIGHT} from '../shared/constants';
 import {setLiveCamera} from '../shared/config';
 import {show,hide} from '../shared/helpers';
 import AnnotatePage from './annotate';
+import TakePhotoPage from './takePhoto';
 import SelectImagePage from './selectImage';
 
 const PAGE_NAME = PAGES.HOME;
 //const PAGE_NAME = PAGES.SELECTIMAGE;
 
 let cameraCanvas = document.getElementById('canvas-camera');
-let startBtn = document.getElementById('btn-start-app');
+let startSelectImageBtn = document.getElementById('btn-start-select-image');
+let startLivaCamBtn = document.getElementById('btn-start-live-cam');
+let startTakePhotoBtn = document.getElementById('btn-start-take-photo');
 
 function initCanvas() {
   cameraCanvas.width = window.innerWidth;
@@ -36,13 +39,27 @@ function detectInactivity() {
 
 function initControls() {
 
-  startBtn.addEventListener('click', function () {
+  startSelectImageBtn.addEventListener('click', function () {
+     hide('page-home');
+     show('page-select-image');
+     detectInactivity();
+  });
+
+  startLivaCamBtn.addEventListener('click', function () {
     setLiveCamera(true);
     AnnotatePage.show();
     hide('page-home');
     window.location.hash = 'annotate';
     detectInactivity();
-  })
+  });
+
+  startTakePhotoBtn.addEventListener('click', function () {
+    setLiveCamera(true);
+    hide('page-home');
+    TakePhotoPage.show();
+    window.location.hash = 'take-photo';
+    detectInactivity();
+  });
 
 }
 

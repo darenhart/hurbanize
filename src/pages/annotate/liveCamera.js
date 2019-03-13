@@ -1,10 +1,16 @@
 import {HEADER_HEIGHT} from '../../shared/constants';
 import {showPrompt} from '../../shared/helpers';
 
-let video = document.querySelector('video');
-let canvas = document.getElementById('canvas-camera');
-let context = context = canvas.getContext('2d');
+let video;
+let canvas;
+let context;
 let isCanvasResized = false;
+
+function selectElements(videoEl, canvasEl) {
+  video = videoEl;
+  canvas = canvasEl;
+  context = canvas.getContext('2d');  
+}
 
 function copyVideoToCanvas() {
 
@@ -79,6 +85,7 @@ function initCamera() {
 
 }
 
-export default function init() {
+export default function init(videoEl, canvasEl) {
+  selectElements(videoEl, canvasEl);
   initCamera();
 }

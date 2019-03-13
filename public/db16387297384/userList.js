@@ -1,10 +1,11 @@
 // Initialize Firebase
 var config = {
-  apiKey: "AIzaSyBbyExXHZCfbWT6O_4nq9ahMlG8bsMpnwc",
-  authDomain: "hurbanize-expo.firebaseapp.com",
-  databaseURL: "https://hurbanize-expo.firebaseio.com",
-  projectId: "hurbanize-expo",
-  storageBucket: "hurbanize-expo.appspot.com",
+  apiKey: "AIzaSyB6TRc_M7LcZZX0NBZ9_l6D3rpePNWvAbY",
+  authDomain: "hurbanize-alfa.firebaseapp.com",
+  databaseURL: "https://hurbanize-alfa.firebaseio.com",
+  projectId: "hurbanize-alfa",
+  storageBucket: "hurbanize-alfa.appspot.com",
+  messagingSenderId: "934869541857"
 };
 firebase.initializeApp(config);
 
