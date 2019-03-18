@@ -606,7 +606,7 @@ function restartApp() {
 
 function initControls() {
 
-  window.onhashchange = function () {
+  window.addEventListener("hashchange", () => {
     let hash = window.location.hash;
     let routes = {
       '#home': restartApp,
@@ -619,7 +619,7 @@ function initControls() {
     if (routes[hash]) {
       routes[hash]();
     }
-  };
+  }, false);
 
   let drawAction = () => {
     selectPencil();

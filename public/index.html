@@ -26,6 +26,8 @@
 
     <div id="mobile-log" style="display: none;"></div>
 
+    <video autoplay> </video>
+
     <div id="page-home" class="page-modal show">
       <div class="modal-background"></div>
       <div class="modal">
@@ -39,7 +41,7 @@
           <div class="px-2">
             <button class="btn btn-primary w-100" id="btn-start-select-image">Escolher foto</button>
             <button class="btn btn-primary w-100 mt-1" id="btn-start-live-cam">Mostrar camera</button>
-            <button class="btn btn-primary w-100 mt-1" id="btn-start-take-photo">Tirar foto</button>
+            <a class="btn btn-primary w-100 mt-1" id="btn-start-take-photo" href="#take-photo">Tirar foto</a>
           </div>
         </div>
       </div>
@@ -55,11 +57,9 @@
     <div id="page-take-photo" class="page">
       <canvas id="canvas-take-photo"></canvas>
       <h2 class="text-purple my-3">tire uma foto</h2>
-      <video autoplay> </video>
     </div>
 
     <div id="page-annotate" class="page">
-      <video autoplay> </video>
       <a href="#home" class="btn btn-icon btn-close"></a>
       <div id="inner-annotate">
         <div class="centre" id="annotate-camera-container">

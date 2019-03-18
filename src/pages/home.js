@@ -37,7 +37,35 @@ function detectInactivity() {
   }
 }
 
+function showHome() {
+  show('page-home');
+  hide('page-select-image');
+  hide('page-annotate');
+  hide('page-snapshot');
+  hide('page-share');
+  hide('page-take-photo');
+}
+
 function initControls() {
+
+  window.addEventListener("hashchange", () => {
+    let hash = window.location.hash;
+    let routes = {
+      '#start': showHome,
+      '#take-photo': takePhoto,
+    };
+    if (routes[hash]) {
+      routes[hash]();
+    }
+  }, false);
+
+  let takePhoto = () => {
+    hide('page-home');
+    hide('page-annotate');
+    TakePhotoPage.show();
+    window.location.hash = 'take-photo';
+    detectInactivity();
+  }
 
   startSelectImageBtn.addEventListener('click', function () {
      hide('page-home');
@@ -53,30 +81,18 @@ function initControls() {
     detectInactivity();
   });
 
-  startTakePhotoBtn.addEventListener('click', function () {
-    //setLiveCamera(true);
-    hide('page-home');
-    TakePhotoPage.show();
-    window.location.hash = 'take-photo';
-    detectInactivity();
-  });
-
 }
 
 export default {
 
   init: function() {
-    window.location.hash = '';
+    window.location.hash = '#start';
     initCanvas();
     initControls();
   },
 
   show: function() {
-    show('page-home');
-    hide('page-select-image');
-    hide('page-annotate');
-    hide('page-snapshot');
-    hide('page-share');
+    showHome();
   }
 
 };

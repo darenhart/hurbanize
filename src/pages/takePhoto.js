@@ -30,13 +30,11 @@ export default {
       emojiCanvas.height = newHeight;
 
       const xPhoto = (canvasTakePhoto.height - drawCanvas.height) / 2
-      console.log(xPhoto);
       ctxCameraCanvas.drawImage(canvasTakePhoto, 0, xPhoto*-1, canvasTakePhoto.width, canvasTakePhoto.height);
 
-
-      //cameraCanvas.style.width = '1000px';
-      //cameraCanvas.style.height = '1000px';
-
+      // stop video
+      document.querySelector('video').srcObject.getTracks()[0].stop();
+      
       AnnotatePage.show();
       hide('page-take-photo');
       window.location.hash = 'annotate';
