@@ -54,7 +54,7 @@ function initControls() {
   });
 
   startTakePhotoBtn.addEventListener('click', function () {
-    setLiveCamera(true);
+    //setLiveCamera(true);
     hide('page-home');
     TakePhotoPage.show();
     window.location.hash = 'take-photo';
