@@ -85,7 +85,17 @@ function initCamera() {
 
 }
 
-export default function init(videoEl, canvasEl) {
-  selectElements(videoEl, canvasEl);
-  initCamera();
+export default {
+  init: function(videoEl, canvasEl) {
+    selectElements(videoEl, canvasEl);
+    initCamera();
+  },
+
+  stop: function() {
+    if (document.querySelector('video').srcObject) {
+      if (document.querySelector('video').srcObject.getTracks()[0]) {
+        document.querySelector('video').srcObject.getTracks()[0].stop();    
+      }  
+    }
+  }
 }

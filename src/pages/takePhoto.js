@@ -32,9 +32,7 @@ export default {
       const xPhoto = (canvasTakePhoto.height - drawCanvas.height) / 2
       ctxCameraCanvas.drawImage(canvasTakePhoto, 0, xPhoto*-1, canvasTakePhoto.width, canvasTakePhoto.height);
 
-      // stop video
-      document.querySelector('video').srcObject.getTracks()[0].stop();
-      
+      LiveCamera.stop();      
       AnnotatePage.show();
       hide('page-take-photo');
       window.location.hash = 'annotate';
@@ -49,7 +47,7 @@ export default {
     show('page-take-photo');
     this.init();
 
-    LiveCamera(video, canvasTakePhoto);
+    LiveCamera.init(video, canvasTakePhoto);
 
   }
 };

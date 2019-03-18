@@ -18,7 +18,7 @@ export default {
     show('page-annotate');
 
     if (isLiveCamera()) {
-      LiveCamera(video, canvas);
+      LiveCamera.init(video, canvas);
     }
 
     Draw.show();

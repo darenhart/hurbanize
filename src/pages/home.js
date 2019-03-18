@@ -1,4 +1,5 @@
 import {PAGES, HEADER_HEIGHT} from '../shared/constants';
+import LiveCamera from './annotate/liveCamera';
 import {setLiveCamera} from '../shared/config';
 import {show,hide} from '../shared/helpers';
 import AnnotatePage from './annotate';
@@ -38,6 +39,9 @@ function detectInactivity() {
 }
 
 function showHome() {
+  setLiveCamera(false);
+  LiveCamera.stop();
+  initCanvas();
   show('page-home');
   hide('page-select-image');
   hide('page-annotate');
@@ -51,7 +55,7 @@ function initControls() {
   window.addEventListener("hashchange", () => {
     let hash = window.location.hash;
     let routes = {
-      '#start': showHome,
+      '#start': restart,
       '#take-photo': takePhoto,
     };
     if (routes[hash]) {
@@ -59,13 +63,17 @@ function initControls() {
     }
   }, false);
 
+  let restart = () => {
+    window.location.reload();
+  };
+
   let takePhoto = () => {
     hide('page-home');
     hide('page-annotate');
     TakePhotoPage.show();
     window.location.hash = 'take-photo';
     detectInactivity();
-  }
+  };
 
   startSelectImageBtn.addEventListener('click', function () {
      hide('page-home');
