@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+    <meta name="theme-color" content="#987fff">
+    <title>Hurbanize</title>
+
+    <style type="text/css">
+      h2 {
+        position: absolute;
+        color: white;
+      }
+      #info, #devices {
+        border: solid 1px grey;
+      }
+    </style>
+
+  </head>
+  <body>
+
+    <div id="devices"></div>
+    <h2>Teste de video</h2>
+    <video id="player" autoplay></video>
+    <script>
+      const video = document.getElementById('player');
+
+      function loadVideo(deviceId) {
+        var constraints = { video: { facingMode: "environment" } };
+        navigator.mediaDevices.getUserMedia(constraints).then((stream) => {
+          video.srcObject = stream;
+        });
+      }
+      loadVideo();
+
+      navigator.mediaDevices.enumerateDevices().then(function(devices) {
+        var deviceId = '';
+        for (var i = 0; i < devices.length; i++) {
+          var device = devices[i];
+          document.getElementById('devices').innerHTML += device.kind + ": " + device.label + "<br>";
+          if (device.label.match('back')) {
+            deviceId = device.deviceId;
+          }
+        }
+      })
+      .catch(function(err) {
+        document.getElementById('devices').innerHTML += err.name + ": " + err.message;
+      });
+
+
+    </script>
+
+  </body>
+</html>
