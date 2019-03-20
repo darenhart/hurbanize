@@ -1,9 +1,16 @@
 #page-take-photo {
 
-    canvas {
-        width: 100%;
-        height: 100%;
-        top: 0;
-        left: 0;
-    }
+  h2 {
+    position: absolute;
+    top: 2rem;
+    left: 2rem;
+    text-shadow: 1px 1px 4px black;
+  }  
+
+  canvas {
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+  }
 }

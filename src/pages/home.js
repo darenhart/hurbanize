@@ -52,6 +52,7 @@ function showHome() {
 
 function initControls() {
 
+  /*
   window.addEventListener("hashchange", () => {
     let hash = window.location.hash;
     let routes = {
@@ -62,19 +63,23 @@ function initControls() {
       routes[hash]();
     }
   }, false);
+  */
 
   let restart = () => {
-    window.location.reload();
+    //window.location.reload();
   };
 
   let takePhoto = () => {
     hide('page-home');
     hide('page-annotate');
     TakePhotoPage.show();
-    window.location.hash = 'take-photo';
-    detectInactivity();
+    //window.location.hash = 'take-photo';
+    //detectInactivity();
   };
 
+  startTakePhotoBtn.addEventListener('click', takePhoto);
+
+  /*
   startSelectImageBtn.addEventListener('click', function () {
      hide('page-home');
      show('page-select-image');
@@ -88,6 +93,7 @@ function initControls() {
     window.location.hash = 'annotate';
     detectInactivity();
   });
+  */
 
 }
 

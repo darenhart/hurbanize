@@ -25,9 +25,6 @@ function copyVideoToCanvas() {
   requestAnimationFrame(copyVideoToCanvas);
 }
 
-function showUnsupported() {
-  showPrompt('webrtc-unsupported');
-}
 
 /**
  * The video should hopefully be the same as our canvas size, if our constraints were obeyed.
@@ -42,14 +39,16 @@ function resizeCanvasToVideo() {
 function initCamera() {
 
   if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-    showUnsupported();
+    showPrompt('webrtc-unsupported');
     return;
   }
 
   video.style.display = 'block';
 
-  const maxWidth = canvas.clientWidth;
-  const maxHeight = canvas.clientHeight;
+  //const maxWidth = canvas.clientWidth;
+  //const maxHeight = canvas.clientHeight;
+  const maxWidth = video.clientWidth;
+  const maxHeight = video.clientHeight;
 
   const constraints = {
    width: {ideal: maxWidth, max: maxWidth},
@@ -62,6 +61,7 @@ function initCamera() {
       let videoTracks = stream.getVideoTracks();
 
       console.log('Using video device: ' + videoTracks[0].label);
+      showPrompt('custom1', 'Using video device: ' + videoTracks[0].label);
 
       stream.oninactive = function() {
         console.log('Stream inactive');
@@ -75,12 +75,12 @@ function initCamera() {
         video.src = window.URL.createObjectURL(stream);
       }
 
-      requestAnimationFrame(copyVideoToCanvas);
+      //requestAnimationFrame(copyVideoToCanvas);
 
     })
     .catch((err) => {
       console.error('getUserMedia error', err);
-      showUnsupported();
+      showPrompt('custom2', err);
     });
 
 }

@@ -5,7 +5,7 @@
     <meta name="theme-color" content="#987fff">
     <title>Hurbanize</title>
     <link rel="manifest" href="manifest.json">
-    <link rel="stylesheet" href="css/styles.css"/>
+    <link rel="stylesheet" href="css/styles.css?v=3"/>
     <link rel="icon" href="images/favicon.png" type="image/png"/>
     <link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon-precomposed.png">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
@@ -26,7 +26,6 @@
 
     <div id="mobile-log" style="display: none;"></div>
 
-    <video autoplay> </video>
 
     <div id="page-home" class="page-modal show">
       <div class="modal-background"></div>
@@ -37,11 +36,16 @@
           </div>
 
           <div class="logo"></div>
-          <h3 class="text-purple">O Hurbanize é para você idealizar a cidade de forma divertida :D</h3>
+
+          
           <div class="px-2">
+            <!--
+            <input type="file" accept="image/*" id="capture" capture="camera" class="my-3"> 
             <button class="btn btn-primary w-100" id="btn-start-select-image">Escolher foto</button>
             <button class="btn btn-primary w-100 mt-1" id="btn-start-live-cam">Mostrar camera</button>
-            <a class="btn btn-primary w-100 mt-1" id="btn-start-take-photo" href="#take-photo">Tirar foto</a>
+            -->
+            <button class="btn btn-primary w-100 mt-1" id="btn-start-take-photo" >tirar foto</button>
+
           </div>
         </div>
       </div>
@@ -55,8 +59,11 @@
     </div>
 
     <div id="page-take-photo" class="page">
-      <canvas id="canvas-take-photo"></canvas>
-      <h2 class="text-purple my-3">tire uma foto</h2>
+      <video autoplay> </video>
+      <canvas id="canvas-take-photo" style="display: none;"></canvas>
+      <!--
+      <h2 class="text-purple my-3" id="take-photo-message">toque na tela</h2>
+    -->
     </div>
 
     <div id="page-annotate" class="page">
@@ -262,9 +269,15 @@
       <p>Unable to send tweet. Sorry =(</p>
     </div>
     <div class="prompt" id="prompt-webrtc-unsupported">
-      <p>Oh no! Your browser does not appear to have camera support (getUserMedia) =(</p>
+      <p>Sem permissão de acesso à câmera</p>
+    </div>
+    <div class="prompt" id="prompt-custom1">
+      <p></p>
+    </div>
+    <div class="prompt" id="prompt-custom2">
+      <p></p>
     </div>
 
-    <script src="build/bundle.js?v=6"></script>
+    <script src="build/bundle.js?v=9"></script>
   </body>
 </html>

@@ -1,4 +1,4 @@
-const DEFAULT_POPUP_SHOW_TIME = 5000;
+const DEFAULT_POPUP_SHOW_TIME = 8000;
 
 let toolbars = document.getElementsByClassName('toolbar');
 let pages = document.getElementsByClassName('page');
@@ -50,11 +50,14 @@ function hideAll(elements) {
   }
 }
 
-export function showPrompt(ref) {
+export function showPrompt(ref, message) {
 
   hideAll(prompts);
 
   let prompt = document.getElementById(`prompt-${ref}`);
+  if (message) {
+    prompt.innerHTML = message;
+  }
 
   if (prompt) {
     prompt.classList.remove('fade-out');

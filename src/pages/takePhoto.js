@@ -32,7 +32,7 @@ export default {
       const xPhoto = (canvasTakePhoto.height - drawCanvas.height) / 2
       ctxCameraCanvas.drawImage(canvasTakePhoto, 0, xPhoto*-1, canvasTakePhoto.width, canvasTakePhoto.height);
 
-      LiveCamera.stop();      
+      //LiveCamera.stop();      
       AnnotatePage.show();
       hide('page-take-photo');
       window.location.hash = 'annotate';
