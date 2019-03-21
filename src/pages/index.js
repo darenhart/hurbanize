@@ -1,8 +1,8 @@
-import HomePage from './home';
 import SelectImagePage from './selectImage';
 import AnnotatePage from './annotate';
 import SnapshotPage from './snapshot';
+import TakePhotoPage from './takePhoto';
 
-const Pages = [HomePage, SelectImagePage, AnnotatePage, SnapshotPage];
+const Pages = [TakePhotoPage, SelectImagePage, AnnotatePage, SnapshotPage];
 
 export default Pages;

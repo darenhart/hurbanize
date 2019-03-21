@@ -21,6 +21,5 @@ gulp watch
 update public/sw.js -- CACHE_NAME var
 change bundle.js version - index.html
 change firebase source
-remove mobile-log - style="display: none;"
 firebase login
 firebase deploy

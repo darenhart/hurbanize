@@ -1,6 +1,5 @@
 import {PAGES, HEADER_HEIGHT} from '../shared/constants';
 import {show,hide,showPrompt} from '../shared/helpers';
-import HomePage from './home';
 import SelectImagePage from './selectImage';
 
 let formEmail = document.getElementById('form-email');

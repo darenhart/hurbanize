@@ -1,7 +1,7 @@
 import SWRegister from './swRegister';
 
 import Pages from './pages';
-import HomePage from './pages/home';
+import TakePhotoPage from './pages/takePhoto';
 
 function initApp() {
   SWRegister();
@@ -15,4 +15,4 @@ function initPages(pages) {
 
 initApp();
 initPages(Pages);
-HomePage.show();
+TakePhotoPage.show();

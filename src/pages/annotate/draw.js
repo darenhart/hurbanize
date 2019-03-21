@@ -2,7 +2,6 @@ import emojiImages from '\0emoji-images';
 import {HEADER_HEIGHT} from '../../shared/constants';
 import {isLiveCamera} from '../../shared/config';
 import {show, hide, mobileLog} from '../../shared/helpers';
-import HomePage from '../home';
 import SnapshotPage from '../snapshot';
 import SaveImagePage from '../saveImage';
 
@@ -599,8 +598,6 @@ function initColors() {
 }
 
 function restartApp() {
-  //HomePage.init();
-  //HomePage.show();
   window.location.reload();
 }
 

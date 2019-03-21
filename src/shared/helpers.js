@@ -76,7 +76,3 @@ export function show(id) {
 export function hide(id) {
   document.getElementById(id).classList.remove('show');
 }
-
-export function mobileLog(str) {
-  document.getElementById('mobile-log').innerHTML += str+' ';
-}

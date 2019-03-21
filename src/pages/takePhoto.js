@@ -5,19 +5,23 @@ import AnnotatePage from './annotate';
 let video = document.querySelector('video');
 let drawCanvas = document.getElementById('canvas-draw');
 let emojiCanvas = document.getElementById('canvas-emoji'); 
-let canvasTakePhoto;
-let cameraCanvas;
-
+let cameraCanvas = document.getElementById('canvas-camera');
+let innerAnnotate = document.getElementById('inner-annotate');
 
 export default {
 
   init: function() {
 
-    canvasTakePhoto = document.getElementById('canvas-take-photo');
-    canvasTakePhoto.addEventListener('click', () => {
+    video.addEventListener('click', () => {
 
-      cameraCanvas = document.getElementById('canvas-camera');
-      canvasTakePhoto = document.getElementById('canvas-take-photo');
+      //LiveCamera.stop();      
+      AnnotatePage.show();
+      hide('page-take-photo');
+      window.location.hash = 'annotate';
+
+      cameraCanvas.height = innerAnnotate.offsetHeight;
+      cameraCanvas.width = innerAnnotate.offsetWidth;
+
       let ctxCameraCanvas = cameraCanvas.getContext('2d');
 
       const newWidth = cameraCanvas.style.width ? parseInt(cameraCanvas.style.width) : cameraCanvas.width;
@@ -29,25 +33,14 @@ export default {
       emojiCanvas.width = newWidth;
       emojiCanvas.height = newHeight;
 
-      const xPhoto = (canvasTakePhoto.height - drawCanvas.height) / 2
-      ctxCameraCanvas.drawImage(canvasTakePhoto, 0, xPhoto*-1, canvasTakePhoto.width, canvasTakePhoto.height);
-
-      //LiveCamera.stop();      
-      AnnotatePage.show();
-      hide('page-take-photo');
-      window.location.hash = 'annotate';
+      ctxCameraCanvas.drawImage(video, 0, 0, cameraCanvas.width, cameraCanvas.height);
 
     });
 
   },
 
   show: function() {
-
-
     show('page-take-photo');
-    this.init();
-
-    LiveCamera.init(video, canvasTakePhoto);
-
+    LiveCamera.init(video);
   }
 };
