@@ -606,7 +606,8 @@ function initControls() {
   window.addEventListener("hashchange", () => {
     let hash = window.location.hash;
     let routes = {
-      '#home': restartApp,
+      '#restart': restartApp,
+      '#take-photo': takePhotoAction,
       '#draw': drawAction,
       '#annotate': annotateAction,
       '#figures': figuresAction,
@@ -617,6 +618,11 @@ function initControls() {
       routes[hash]();
     }
   }, false);
+
+  let takePhotoAction = () => {
+    hide('page-annotate');
+    show('page-take-photo');
+  };
 
   let drawAction = () => {
     selectPencil();

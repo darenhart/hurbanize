@@ -5,7 +5,7 @@
     <meta name="theme-color" content="#987fff">
     <title>Hurbanize</title>
     <link rel="manifest" href="manifest.json">
-    <link rel="stylesheet" href="css/styles.css?v=3"/>
+    <link rel="stylesheet" href="css/styles.css?v=7"/>
     <link rel="icon" href="images/favicon.png" type="image/png"/>
     <link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon-precomposed.png">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
@@ -33,13 +33,13 @@
 
     <div id="page-take-photo" class="page">
       <video autoplay> </video>
-      <!--
-      <h2 class="text-purple my-3" id="take-photo-message">toque na tela</h2>
-    -->
+      <div class="take-photo">
+        <button id="btn-take-photo"></button>
+      </div>
     </div>
 
     <div id="page-annotate" class="page">
-      <a href="#home" class="btn btn-icon btn-close"></a>
+      <a href="#restart" class="btn btn-icon btn-close"></a>
       <div id="inner-annotate">
         <div class="centre" id="annotate-camera-container">
           <canvas id="canvas-camera"></canvas>
@@ -200,7 +200,7 @@
           </div>
           <h3 class="text-green mb-0">SUCESSO!</h3>
           <h3 class="text-purple success-text">
-            Sua idealização será encaminhada em até 24 horas.
+            Sua idealização será encaminhada em até 48 horas.
           </h3>
           <h3 class="text-grey success-text">
             Muito obrigado por utilizar o<br>Hurbanize :)
@@ -250,6 +250,6 @@
       <p></p>
     </div>
 
-    <script src="build/bundle.js?v=9"></script>
+    <script src="build/bundle.js?v=12"></script>
   </body>
 </html>

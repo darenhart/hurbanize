@@ -7,12 +7,14 @@ let drawCanvas = document.getElementById('canvas-draw');
 let emojiCanvas = document.getElementById('canvas-emoji'); 
 let cameraCanvas = document.getElementById('canvas-camera');
 let innerAnnotate = document.getElementById('inner-annotate');
+let takePhotoBtn = document.getElementById('btn-take-photo');
+
 
 export default {
 
   init: function() {
 
-    video.addEventListener('click', () => {
+    takePhotoBtn.addEventListener('click', () => {
 
       //LiveCamera.stop();      
       AnnotatePage.show();
@@ -41,6 +43,7 @@ export default {
 
   show: function() {
     show('page-take-photo');
+    window.location.hash = '#take-photo';
     LiveCamera.init(video);
   }
 };
