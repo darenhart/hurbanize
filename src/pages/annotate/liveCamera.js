@@ -10,7 +10,13 @@ function initCamera() {
     return;
   }
 
-  var constraints = { video: { facingMode: "environment" } };
+  var constraints = { 
+    video: {
+      facingMode: "environment",
+      width: window.innerWidth,
+      height: window.innerHeight
+    } 
+  };
   navigator.mediaDevices.getUserMedia(constraints).then((stream) => {
     // Older browsers may not have srcObject
     if ('srcObject' in video) {
