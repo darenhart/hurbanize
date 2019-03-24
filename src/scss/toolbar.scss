@@ -59,10 +59,10 @@
 
 #toolbar-annotate {
   z-index: 10;
-  height: 100% - $innerAnnotateHeight;
-  position: relative;
+  position: fixed;
   width: 100%;
-  //bottom: 0px;
+  height: 8rem;
+  bottom: 0px;
 
   .row {
     display: flex;
@@ -144,6 +144,7 @@
     width: 100%;
     >div {
       transition: width .3s;      
+      box-shadow: $box-shadow;
       border-radius: 3rem;
       width: 1.4rem;
       padding: 0rem;
