@@ -6,7 +6,7 @@ import {show, showPrompt} from '../shared/helpers';
 
 const hello = hellojs.default;
 const PAGE_NAME = PAGES.SNAPSHOT;
-const MAX_IMAGE_HEIGHT = 500;
+const MAX_IMAGE_HEIGHT = 1000;
 
 let backBtn = document.getElementById('btn-back-snapshot');
 let tweetButton = document.getElementById('btn-share-twitter');
@@ -20,6 +20,7 @@ let saveCtx = saveCanvas.getContext('2d');
 let saveBeforeCtx = saveCanvasBefore.getContext('2d');
 let cameraCanvas;
 let maxWidth;
+let maxHeight;
 
 function initSave() {
 
@@ -28,23 +29,25 @@ function initSave() {
 
   if (MAX_IMAGE_HEIGHT > cameraCanvas.height) {
     maxWidth  = cameraCanvas.width;
+    maxHeight = cameraCanvas.height;
   } else {
     maxWidth = (MAX_IMAGE_HEIGHT / cameraCanvas.height) * cameraCanvas.width;
+    maxHeight = MAX_IMAGE_HEIGHT;
   }
 
   saveImage.width  = maxWidth;
-  saveImage.height = MAX_IMAGE_HEIGHT;
+  saveImage.height = maxHeight;
   saveCanvas.width  = maxWidth;
-  saveCanvas.height = MAX_IMAGE_HEIGHT;
+  saveCanvas.height = maxHeight;
   saveCanvas.style.width = maxWidth;
-  saveCanvas.style.height = MAX_IMAGE_HEIGHT;
+  saveCanvas.style.height = maxHeight;
 
   imageBefore.width  = maxWidth;
-  imageBefore.height = MAX_IMAGE_HEIGHT;
+  imageBefore.height = maxHeight;
   saveCanvasBefore.width = maxWidth;
-  saveCanvasBefore.height = MAX_IMAGE_HEIGHT;
+  saveCanvasBefore.height = maxHeight;
   saveCanvasBefore.style.width = maxWidth;
-  saveCanvasBefore.style.height = MAX_IMAGE_HEIGHT;
+  saveCanvasBefore.style.height = maxHeight;
 
   saveCtx.font = '13px sans-serif';
   saveCtx.fillStyle = '#fff';
