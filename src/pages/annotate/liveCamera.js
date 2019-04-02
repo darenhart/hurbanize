@@ -33,6 +33,14 @@ function initCamera() {
 export default {
   init: function(videoEl) {
     video = videoEl;
+
+    // Hacks for Mobile Safari
+    video.setAttribute("playsinline", true);
+    video.setAttribute("controls", true);
+    setTimeout(() => {
+        video.removeAttribute("controls");
+    });
+
     initCamera();
   },
 

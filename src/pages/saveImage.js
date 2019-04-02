@@ -5,6 +5,7 @@ import SelectImagePage from './selectImage';
 let formEmail = document.getElementById('form-email');
 let sendEmailInput = document.getElementById('input-email');
 let imageSave = document.getElementById('image-save');
+let imageBefore = document.getElementById('image-before');
 let newUserRef;
 let database;
 let usersRef;
@@ -61,7 +62,8 @@ function saveImage() {
   return newUserRef.set({
     'email': '',
     'img': imageSave.src,
-    'scenario': SelectImagePage.getSelectedScenario(),
+    //'scenario': SelectImagePage.getSelectedScenario(),
+    'scenario': imageBefore.src,
     'timestamp': new Date().toString(),
     'checked': '',
   });

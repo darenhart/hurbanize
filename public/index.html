@@ -5,7 +5,7 @@
     <meta name="theme-color" content="#987fff">
     <title>Hurbanize</title>
     <link rel="manifest" href="manifest.json">
-    <link rel="stylesheet" href="css/styles.css?v=10"/>
+    <link rel="stylesheet" href="css/styles.css?v=12"/>
     <link rel="icon" href="images/favicon.png" type="image/png"/>
     <link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon-precomposed.png">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
@@ -214,8 +214,10 @@
 
     <div id="page-snapshot" class="page">
       <div class="centre">
+        <img id="image-before"/>
         <img id="image-save"/>
       </div>
+      <canvas id="canvas-save-before"></canvas>
       <canvas id="canvas-save"></canvas>
     </div>
 
@@ -250,6 +252,6 @@
       <p></p>
     </div>
 
-    <script src="build/bundle.js?v=17"></script>
+    <script src="build/bundle.js?v=19"></script>
   </body>
 </html>

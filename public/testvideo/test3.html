@@ -20,10 +20,15 @@
   <body>
 
     <div id="devices"></div>
-    <h2>Teste de video1</h2>
+    <h2>Teste de video3</h2>
     <video id="player" autoplay></video>
     <script>
       const video = document.getElementById('player');
+      video.setAttribute("playsinline", true);
+      video.setAttribute("controls", true);
+      setTimeout(() => {
+          video.removeAttribute("controls");
+      });
 
       function loadVideo(deviceId) {
         var constraints = { video: { facingMode: "environment" } };
