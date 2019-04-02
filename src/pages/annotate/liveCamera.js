@@ -13,8 +13,6 @@ function initCamera() {
   var constraints = { 
     video: {
       facingMode: "environment",
-      width: window.innerWidth,
-      height: window.innerHeight
     } 
   };
   navigator.mediaDevices.getUserMedia(constraints).then((stream) => {

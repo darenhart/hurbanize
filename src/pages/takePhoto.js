@@ -35,7 +35,7 @@ export default {
       emojiCanvas.width = newWidth;
       emojiCanvas.height = newHeight;
 
-      ctxCameraCanvas.drawImage(video, 0, 0, cameraCanvas.width, cameraCanvas.height);
+      ctxCameraCanvas.drawImage(video, 0, 0, cameraCanvas.width, cameraCanvas.height, 0, 0,cameraCanvas.width, cameraCanvas.height );
 
     });
 
