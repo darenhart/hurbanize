@@ -422,11 +422,20 @@ function highlightSelectedColor(selectedColor) {
   } 
 }
 
+// Hacks for Safari
+function getImgSize(imgSrc, callback) {
+  var newImg = new Image();
+
+  newImg.onload = function() {
+    callback(newImg.width, newImg.height);
+  }
+
+  newImg.src = imgSrc;
+}
+
 function onNewEmojiClick(event) {
 
   selectedEmojiIndex = -1;
-  emojiModal.classList.remove('show');
-  window.location.hash = '#annotate';
 
   chosenTool = TOOL_EMOJI;
   
@@ -434,32 +443,36 @@ function onNewEmojiClick(event) {
 
   if (chosenEmoji) {
 
-    const width = chosenEmoji.width * 0.7;
-    const height = chosenEmoji.height * 0.7;
+    getImgSize(chosenEmoji.src, function (width, height) {
+      stampedEmojis.push({
+        image: chosenEmoji.id,
+        x: canvasEmoji.width/2,
+        y: canvasEmoji.height/2,
+        width: width * 0.7,
+        height: height * 0.7
+      });
 
-    stampedEmojis.push({
-      image: chosenEmoji.id,
-      x: canvasEmoji.width/2,
-      y: canvasEmoji.height/2,
-      width: width,
-      height: height
+      selectedEmojiIndex = stampedEmojis.length -1;
+      addEmojiHistory();
+      updateFigureToolsButtons();
+      shareBtn.classList.remove('disabled')
+      redrawEmojisOnNextFrame();
+
+      if (isFirstBubbleBack && stampedEmojis.length >= 2) {
+        isFirstBubbleBack = false;
+        bubbleFigureBack.classList.add('show');
+        setTimeout(() => {
+          bubbleFigureBack.classList.remove('show');
+        }, 9000);
+      }
+
+      emojiModal.classList.remove('show');
+      window.location.hash = '#annotate';
+
     });
 
   }
 
-  selectedEmojiIndex = stampedEmojis.length -1;
-  addEmojiHistory();
-  updateFigureToolsButtons();
-  shareBtn.classList.remove('disabled')
-  redrawEmojisOnNextFrame();
-
-  if (isFirstBubbleBack && stampedEmojis.length >= 2) {
-    isFirstBubbleBack = false;
-    bubbleFigureBack.classList.add('show');
-    setTimeout(() => {
-      bubbleFigureBack.classList.remove('show');
-    }, 9000);
-  }
 
 }
 
