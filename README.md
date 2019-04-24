@@ -18,8 +18,8 @@ gulp watch
 
 
 ## deploy
-update public/sw.js -- CACHE_NAME var
-change bundle.js version - index.html
-change firebase source
-firebase login
-firebase deploy
+* update public/sw.js -- CACHE_NAME var
+* change bundle.js version - index.html
+* change firebase source
+* firebase login
+* firebase deploy
